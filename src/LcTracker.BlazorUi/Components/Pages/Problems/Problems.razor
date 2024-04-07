@@ -22,17 +22,19 @@ else
 {
     <table class="table">
         <thead>
-            <tr>
-                <th>Number</th>
-                <th>Name</th>
-                <th>Url</th>
-                <th>Added at</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Number</th>
+            <th>Name</th>
+            <th>Url</th>
+            <th>Added at</th>
+        </tr>
         </thead>
         <tbody>
             @foreach (var problem in _problems)
             {
                 <tr>
+                    <td>@problem.Id</td>
                     <td>@problem.Number</td>
                     <td>@problem.Name</td>
                     <td>@problem.Url</td>
