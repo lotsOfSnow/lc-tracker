@@ -1,4 +1,4 @@
-namespace LcTracker.Core.Features.Users;
+namespace LcTracker.Core.Features.AppUsers;
 
 public class AppUser
 {

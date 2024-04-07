@@ -1,29 +1,11 @@
-using LcTracker.BlazorUi.Components;
-using LcTracker.Core.Storage;
+using LcTracker.BlazorUi.Bootstrap;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddStorage();
-
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+builder.AddDependencies();
 
 var app = builder.Build();
 
-await app.UseStorageAsync();
-
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    app.UseHsts();
-}
-
-app.UseHttpsRedirection();
-
-app.UseStaticFiles();
-app.UseAntiforgery();
-
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+await app.UseDependenciesAsync();
 
 app.Run();

@@ -1,4 +1,5 @@
-using LcTracker.Core.Features.Users;
+using LcTracker.Core.Auth;
+using LcTracker.Core.Features.AppUsers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,7 +13,7 @@ public class AppUserEntityTypeConfiguration : IEntityTypeConfiguration<AppUser>
 
         builder.HasData(new AppUser
         {
-            Id = Guid.Parse("018eb88f-3667-7787-9ff4-6024332b04b9")
+            Id = GetCurrentUserId.Id,
         });
     }
 }
