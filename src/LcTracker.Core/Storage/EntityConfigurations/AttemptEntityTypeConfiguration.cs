@@ -18,7 +18,7 @@ public class AttemptEntityTypeConfiguration : IEntityTypeConfiguration<Attempt>
             .HasForeignKey(x => x.ProblemId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.Property(x => x.Description)
+        builder.Property(x => x.Note)
             .HasMaxLength(50000);
 
         builder.HasOne<AppUser>()

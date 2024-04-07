@@ -1,0 +1,109 @@
+@attribute [Route(Routes.CreateProblem)]
+@using LcTracker.Core.Storage
+@using LcTracker.Core.Auth
+@using LcTracker.Core.Features.Attempts
+@using LcTracker.Shared.Time
+@using System.ComponentModel.DataAnnotations
+
+@inject AppDbContext DbContext;
+@inject IGetCurrentUserId GetCurrentUser;
+@inject NavigationManager Navigation
+@inject IAppClock AppClock;
+
+<PageTitle>Create problem</PageTitle>
+
+<h1>Create problem</h1>
+
+<EditForm Model="Model" OnValidSubmit="Submit">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+
+
+    <div>
+        <label>
+            Name
+            <InputText @bind-Value="Model.Name"/>
+        </label>
+    </div>
+
+    <div>
+
+        <label>
+            Number
+            <InputNumber @bind-Value="Model.Number"/>
+        </label>
+    </div>
+
+    <div>
+
+        <label>
+            Url
+            <InputText @bind-Value="Model.Url"/>
+        </label>
+    </div>
+
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+
+    @if (_error is not null)
+    {
+        <div>
+            @_error
+        </div>
+    }
+</EditForm>
+
+@code {
+
+    [SupplyParameterFromForm]
+    private CreateProblemModel Model { get; set; } = new();
+
+    private string? _error;
+
+    private async Task Submit()
+    {
+        _error = null;
+
+        try
+        {
+
+            var now = AppClock.Now;
+            var userId = GetCurrentUser.Execute();
+
+            var problem = new Problem()
+            {
+                Name = Model.Name,
+                Number = Model.Number.Value,
+                Url = Model.Url,
+                AppUserId = userId,
+                AddedAt = now,
+            };
+
+            await DbContext.Problems.AddAsync(problem);
+
+            await DbContext.SaveChangesAsync();
+
+            Navigation.NavigateTo("/problems");
+        }
+        catch (Exception ex)
+        {
+            _error = ex.Message;
+        }
+    }
+
+    private class CreateProblemModel
+    {
+        [Required]
+        [StringLength(100)]
+        public string? Name { get; set; }
+
+        [Required]
+        public int? Number { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string? Url { get; set; }
+    }
+
+}

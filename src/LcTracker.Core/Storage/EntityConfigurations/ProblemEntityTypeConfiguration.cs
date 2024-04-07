@@ -16,5 +16,7 @@ public class ProblemEntityTypeConfiguration : IEntityTypeConfiguration<Problem>
         builder.HasOne<AppUser>()
             .WithMany()
             .HasForeignKey(x => x.AppUserId);
+
+        builder.HasIndex(x => x.Number).IsUnique();
     }
 }

@@ -12,7 +12,7 @@ public class Attempt
 
     public required DateTimeOffset Date { get; set; }
 
-    public string? Description { get; set; }
+    public string? Note { get; set; }
 
     public int MinutesSpent { get; set; }
 
