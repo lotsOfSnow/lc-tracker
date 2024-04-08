@@ -36,4 +36,14 @@ public class AttemptsController(IDispatcher dispatcher, IAppDbContext dbContext)
 
         return NoContent();
     }
+
+    [HttpPut("api/attempts/{id:guid}")]
+    public async Task<ActionResult> Create(Guid id, UpdateAttemptRequest request, CancellationToken ct)
+    {
+        var command = new UpdateAttemptCommand(id, request.ProblemId, request.MinutesSpent);
+
+        await Dispatcher.DispatchAsync(command, ct);
+
+        return NoContent();
+    }
 }
