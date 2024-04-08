@@ -1,3 +1,4 @@
+using LcTracker.Shared.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,10 +12,7 @@ public static class StorageInstaller
     {
         var services = builder.Services;
 
-        services
-            .AddOptionsWithValidateOnStart<DatabaseOptions>()
-            .BindConfiguration(DatabaseOptions.SectionName)
-            .ValidateDataAnnotations();
+        services.AddValidatedOptions<DatabaseOptions>(DatabaseOptions.SectionName);
 
         services.AddDbContext<AppDbContext>(
             (
