@@ -26,6 +26,8 @@ public static class StorageInstaller
                     databaseOptions.Value.ConnectionString);
             });
 
+        services.AddScoped<IAppDbContext, AppDbContext>();
+
         return builder;
     }
 

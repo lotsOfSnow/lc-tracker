@@ -1,5 +1,3 @@
-using LcTracker.Core.Features.Entries;
-
 namespace LcTracker.Core.Features.Attempts;
 
 public class Attempt
@@ -16,7 +14,7 @@ public class Attempt
 
     public int MinutesSpent { get; set; }
 
-    public required Difficulty Difficulty { get; set; }
+    public required Difficulty PerceivedDifficulty { get; set; }
 
     public required bool HasUsedHelp { get; set; }
 

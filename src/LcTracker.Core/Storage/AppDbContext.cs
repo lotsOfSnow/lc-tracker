@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LcTracker.Core.Storage;
 
-public sealed class AppDbContext(DbContextOptions<AppDbContext> dbContextOptions) : DbContext(dbContextOptions)
+public sealed class AppDbContext(DbContextOptions<AppDbContext> dbContextOptions) : DbContext(dbContextOptions), IAppDbContext
 {
     public DbSet<AppUser> AppUsers { get; init; } = null!;
 

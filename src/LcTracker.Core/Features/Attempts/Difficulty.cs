@@ -1,4 +1,4 @@
-namespace LcTracker.Core.Features.Entries;
+namespace LcTracker.Core.Features.Attempts;
 
 public enum Difficulty
 {
@@ -6,5 +6,5 @@ public enum Difficulty
     Easy,
     Medium,
     Hard,
-    VeryHard
+    VeryHard,
 }
