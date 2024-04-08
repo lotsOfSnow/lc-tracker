@@ -1,4 +1,4 @@
-namespace LcTracker.Core.Handlers;
+namespace LcTracker.Shared.Handlers;
 
 public interface IDispatcher
 {

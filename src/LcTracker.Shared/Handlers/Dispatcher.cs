@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LcTracker.Core.Handlers;
+namespace LcTracker.Shared.Handlers;
 
 public class Dispatcher(IServiceProvider serviceProvider) : IDispatcher
 {

@@ -1,6 +1,6 @@
 using LcTracker.Core.Features.Problems.Commands;
-using LcTracker.Core.Handlers;
-using LcTracker.Core.Web;
+using LcTracker.Shared.Handlers;
+using LcTracker.Shared.Web;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LcTracker.Core.Features.Problems;

@@ -1,7 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LcTracker.Core.Handlers;
+namespace LcTracker.Shared.Handlers;
 
 public static class HandlersExtensions
 {

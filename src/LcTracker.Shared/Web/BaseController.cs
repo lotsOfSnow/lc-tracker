@@ -1,7 +1,7 @@
-using LcTracker.Core.Handlers;
+using LcTracker.Shared.Handlers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LcTracker.Core.Web;
+namespace LcTracker.Shared.Web;
 
 [ApiController]
 public abstract class BaseController(IDispatcher dispatcher) : ControllerBase
