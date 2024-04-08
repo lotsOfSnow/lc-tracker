@@ -6,29 +6,29 @@ using LcTracker.Shared.Time;
 
 namespace LcTracker.Core.Features.Problems.Commands;
 
-public static class CreateProblem
+public record CreateProblemRequest(string Name, int Number, string Url);
+
+public record CreateProblemCommand(string Name, int Number, string Url) : ICommand;
+
+public class CreateProblemCommandHandler(IAppClock clock, IGetCurrentUserId getCurrentUserId, AppDbContext appDbContext)
+    : ICommandHandler<CreateProblemCommand>
 {
-    public record Command(string Name, int Number, string Url) : ICommand;
-
-    public class Handler(IAppClock clock, IGetCurrentUserId getCurrentUserId, AppDbContext appDbContext) : ICommandHandler<Command>
+    public async Task HandleAsync(CreateProblemCommand command, CancellationToken ct = default)
     {
-        public async Task HandleAsync(Command command, CancellationToken ct = default)
+        var now = clock.Now;
+        var userId = getCurrentUserId.Execute();
+
+        var problem = new Problem
         {
-            var now = clock.Now;
-            var userId = getCurrentUserId.Execute();
+            Name = command.Name,
+            Number = command.Number,
+            Url = command.Url,
+            AppUserId = userId,
+            AddedAt = now,
+        };
 
-            var problem = new Problem
-            {
-                Name = command.Name,
-                Number = command.Number,
-                Url = command.Url,
-                AppUserId = userId,
-                AddedAt = now,
-            };
+        await appDbContext.Problems.AddAsync(problem, ct);
 
-            await appDbContext.Problems.AddAsync(problem, ct);
-
-            await appDbContext.SaveChangesAsync(ct);
-        }
+        await appDbContext.SaveChangesAsync(ct);
     }
 }
