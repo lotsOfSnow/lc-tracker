@@ -9,6 +9,14 @@ namespace LcTracker.Core.Features.Attempts;
 
 public class AttemptsController(IDispatcher dispatcher, IAppDbContext dbContext) : BaseController(dispatcher)
 {
+    [HttpGet("api/attempts")]
+    public async Task<IActionResult> GetAll(CancellationToken ct)
+    {
+        var results = await dbContext.Attempts.ToListAsync(ct);
+
+        return Ok(results);
+    }
+
     [HttpPost("api/attempts")]
     public async Task<ActionResult> Create(CreateAttemptRequest request, CancellationToken ct)
     {
@@ -19,11 +27,13 @@ public class AttemptsController(IDispatcher dispatcher, IAppDbContext dbContext)
         return NoContent();
     }
 
-    [HttpGet("api/attempts")]
-    public async Task<IActionResult> GetAll(CancellationToken ct)
+    [HttpDelete("api/attempts/{id:guid}")]
+    public async Task<ActionResult> Create(Guid id, CancellationToken ct)
     {
-        var results = await dbContext.Attempts.ToListAsync(ct);
+        var command = new DeleteAttemptCommand(id);
 
-        return Ok(results);
+        await Dispatcher.DispatchAsync(command, ct);
+
+        return NoContent();
     }
 }
