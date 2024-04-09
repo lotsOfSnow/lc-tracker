@@ -19,7 +19,6 @@ public static class HandlersExtensions
                          (ti.Interface.GetGenericTypeDefinition() == typeof(ICommandHandler<>) ||
                           ti.Interface.GetGenericTypeDefinition() == typeof(ICommandHandler<,>)));
 
-
         foreach (var handlerType in handlerTypes)
         {
             services.AddTransient(handlerType.Interface, handlerType.Type);

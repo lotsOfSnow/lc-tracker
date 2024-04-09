@@ -11,7 +11,6 @@ public record UpdateAttemptCommand(Guid Id, Guid ProblemId, int MinutesSpent) : 
 
 public class UpdateAttemptCommandHandler(IAppDbContext dbContext, IGetCurrentUserId getCurrentUserId) : ICommandHandler<UpdateAttemptCommand>
 {
-    /// <inheritdoc />
     public async Task HandleAsync(UpdateAttemptCommand command, CancellationToken ct)
     {
         var attempt = await dbContext

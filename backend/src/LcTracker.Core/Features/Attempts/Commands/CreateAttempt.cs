@@ -11,7 +11,6 @@ public record CreateAttemptCommand(Guid ProblemId, int MinutesSpent) : ICommand;
 
 public class CreateAttemptCommandHandler(IAppClock appClock, IAppDbContext dbContext, IGetCurrentUserId getCurrentUserId) : ICommandHandler<CreateAttemptCommand>
 {
-    /// <inheritdoc />
     public async Task HandleAsync(CreateAttemptCommand command, CancellationToken ct)
     {
         var now = appClock.Now;

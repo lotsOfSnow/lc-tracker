@@ -7,8 +7,6 @@ namespace LcTracker.Core.Storage.EntityConfigurations;
 
 public class ProblemEntityTypeConfiguration : IEntityTypeConfiguration<Problem>
 {
-
-    /// <inheritdoc />
     public void Configure(EntityTypeBuilder<Problem> builder)
     {
         builder.HasKey(x => x.Id);

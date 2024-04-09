@@ -7,8 +7,6 @@ namespace LcTracker.Core.Storage.EntityConfigurations;
 
 public class AttemptEntityTypeConfiguration : IEntityTypeConfiguration<Attempt>
 {
-
-    /// <inheritdoc />
     public void Configure(EntityTypeBuilder<Attempt> builder)
     {
         builder.HasKey(x => x.Id);
