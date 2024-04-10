@@ -10,7 +10,7 @@ namespace LcTracker.Core.Features.Attempts;
 public class AttemptsController(IDispatcher dispatcher, IAppDbContext dbContext) : BaseController(dispatcher)
 {
     [HttpGet("api/attempts")]
-    public async Task<IActionResult> GetAll(CancellationToken ct)
+    public async Task<ActionResult<IEnumerable<Attempt>>> GetAll(CancellationToken ct)
     {
         var results = await dbContext.Attempts.ToListAsync(ct);
 
