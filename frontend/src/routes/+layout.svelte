@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { routes } from '$lib/routes';
+
+	import { AppRoute } from '$lib/routes';
 
 	interface Item {
 		text: string,
@@ -9,15 +10,15 @@
 	const items: Item[] = [
 		{
 			text: 'Home',
-			link: routes.home
+			link: AppRoute.HOME
 		},
 		{
 			text: 'Problems',
-			link: routes.problems
+			link: AppRoute.PROBLEMS
 		},
 		{
 			text: 'Attempts',
-			link: routes.attempts
+			link: AppRoute.ATTEMPTS
 		}
 	];
 </script>

@@ -1,5 +1,8 @@
-export const routes = {
-	home: '/',
-	problems: '/problems',
-	attempts: '/attempts'
-};
+export enum AppRoute {
+	HOME = '/',
+
+	PROBLEMS = '/problems',
+	PROBLEMS_NEW = '/problems/new',
+
+	ATTEMPTS = '/attempts'
+}

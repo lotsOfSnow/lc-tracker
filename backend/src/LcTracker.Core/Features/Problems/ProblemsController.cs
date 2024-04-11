@@ -29,7 +29,7 @@ public class ProblemsController(IDispatcher dispatcher, IAppDbContext dbContext)
     }
 
     [HttpPut("api/problems/{id:guid}")]
-    public async Task<ActionResult> Create(Guid id, UpdateProblemRequest request, CancellationToken ct)
+    public async Task<ActionResult> Update(Guid id, UpdateProblemRequest request, CancellationToken ct)
     {
         var command = new UpdateProblemCommand(id, request.Name, request.Number, request.Url);
 
