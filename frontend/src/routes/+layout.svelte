@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import { AppRoute } from '$lib/routes';
 
 	interface Item {

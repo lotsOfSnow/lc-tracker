@@ -1,4 +1,4 @@
-import type { components } from '$lib/types/openapi';
+import type { components } from '$lib/api';
 
 export const load = async ({
   fetch,

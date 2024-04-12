@@ -1,8 +1,8 @@
 import { type Actions, fail, redirect } from '@sveltejs/kit';
-import type { components } from '$lib/types/openapi';
 import { z } from 'zod';
 import { apiPostJson } from '$lib/api/apiClient';
 import { AppRoute } from '$lib/routes';
+import type { components } from '$lib/api';
 
 export const actions = {
   default: async (event) => {
