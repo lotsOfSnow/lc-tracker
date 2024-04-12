@@ -1,4 +1,5 @@
 <script lang="ts">
+  import '../app.css';
   import { AppRoute } from '$lib/routes';
 
   interface Item {
@@ -30,3 +31,9 @@
 </nav>
 
 <slot />
+
+<style lang="postcss">
+    :global(html) {
+        background-color: theme('colors.gray.100');
+    }
+</style>
