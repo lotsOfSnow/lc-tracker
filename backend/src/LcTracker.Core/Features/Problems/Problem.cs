@@ -1,4 +1,4 @@
-namespace LcTracker.Core.Features.Attempts;
+namespace LcTracker.Core.Features.Problems;
 
 public class Problem
 {

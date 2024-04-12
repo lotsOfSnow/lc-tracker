@@ -1,16 +1,23 @@
-export const apiPostJson = async (f: typeof fetch, url: string, data?: unknown) => {
+import type { ApiResult } from '$lib/api/apiResult';
+import type { ApiProblemDetails } from '$lib/api/apiProblemDetails';
+
+export const apiPostJson = async (
+	f: typeof fetch,
+	url: string,
+	data?: unknown
+): Promise<ApiResult> => {
 	const body = data ? JSON.stringify(data) : undefined;
 	const options = getOptions('POST', body);
 
 	const result = await f(url, options);
 
 	if (result.ok) {
-		return result;
+		return { value: result };
 	}
 
-	console.error(result.status);
-	
-	throw new Error('API call failed');
+	const problemDetails = (await result.json()) as ApiProblemDetails;
+
+	return { error: problemDetails };
 };
 
 const getOptions = (method: string, body?: string): RequestInit => {

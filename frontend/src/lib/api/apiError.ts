@@ -1,3 +1,0 @@
-interface ApiError {
-	message: string;
-}

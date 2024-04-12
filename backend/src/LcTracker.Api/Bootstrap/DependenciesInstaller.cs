@@ -1,3 +1,4 @@
+using LcTracker.Api.Exceptions;
 using LcTracker.Core.Auth;
 using LcTracker.Core.Features.Attempts.Commands;
 using LcTracker.Core.Storage;
@@ -22,6 +23,8 @@ public static class DependenciesInstaller
 
     public static async Task UseDependenciesAsync(this WebApplication app)
     {
+        app.UseExceptionHandler();
+
         await app.UseStorageAsync();
 
         app.UseAppCors();
@@ -56,5 +59,7 @@ public static class DependenciesInstaller
         builder.Services.AddControllers();
 
         builder.AddAppCors();
+
+        builder.Services.AddExceptionHandlers();
     }
 }

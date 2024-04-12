@@ -22,7 +22,15 @@ export const actions = {
 			url: parsed.url
 		};
 
-		await apiPostJson(event.fetch, '/api/problems', request);
+		const result = await apiPostJson(event.fetch, '/api/problems', request);
+
+		if (result.value) {
+			return;
+		}
+
+		const title = result.error?.title;
+
+		return fail(400, { formErrors: [title], fieldErrors: {} });
 	}
 } satisfies Actions;
 

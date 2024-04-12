@@ -8,7 +8,7 @@
 	{#if form?.fieldErrors || form?.formErrors}
 		<div>
 			<ul>
-				{#each ([...Object.entries(form.fieldErrors), ...Object.entries(form.formErrors)]) as error}
+				{#each ([...Object.entries(form.fieldErrors), ...Object.entries(form.formErrors)]).filter(x => x) as error}
 					<li>{error}</li>
 				{/each}
 			</ul>

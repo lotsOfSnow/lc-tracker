@@ -1,4 +1,3 @@
-using LcTracker.Core.Features.Attempts;
 using LcTracker.Core.Features.Problems.Commands;
 using LcTracker.Core.Storage;
 using LcTracker.Shared.Handlers;

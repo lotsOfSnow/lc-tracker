@@ -1,5 +1,7 @@
+using EntityFramework.Exceptions.Sqlite;
 using LcTracker.Core.Features.AppUsers;
 using LcTracker.Core.Features.Attempts;
+using LcTracker.Core.Features.Problems;
 using LcTracker.Core.Storage.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,5 +18,10 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> dbContextOptions
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(typeof(AppUserEntityTypeConfiguration).Assembly);
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseExceptionProcessor();
     }
 }
