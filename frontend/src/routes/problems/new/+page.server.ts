@@ -1,7 +1,8 @@
-import { type Actions, fail } from '@sveltejs/kit';
+import { type Actions, fail, redirect } from '@sveltejs/kit';
 import type { components } from '$lib/types/openapi';
 import { z } from 'zod';
 import { apiPostJson } from '$lib/api/apiClient';
+import { AppRoute } from '$lib/routes';
 
 export const actions = {
 	default: async (event) => {
@@ -25,7 +26,7 @@ export const actions = {
 		const result = await apiPostJson(event.fetch, '/api/problems', request);
 
 		if (result.value) {
-			return;
+			redirect(302, AppRoute.PROBLEMS);
 		}
 
 		const title = result.error?.title;
