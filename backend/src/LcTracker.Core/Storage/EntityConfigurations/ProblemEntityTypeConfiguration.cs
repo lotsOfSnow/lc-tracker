@@ -1,5 +1,5 @@
 using LcTracker.Core.Features.AppUsers;
-using LcTracker.Core.Features.Attempts;
+using LcTracker.Core.Features.Problems;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

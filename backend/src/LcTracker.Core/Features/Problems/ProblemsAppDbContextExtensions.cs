@@ -1,5 +1,4 @@
 using LcTracker.Core.Auth;
-using LcTracker.Core.Features.Attempts;
 using LcTracker.Core.Storage;
 
 namespace LcTracker.Core.Features.Problems;
