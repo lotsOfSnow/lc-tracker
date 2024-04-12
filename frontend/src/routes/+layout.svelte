@@ -26,9 +26,6 @@
 <div class="flex h-screen">
   <!-- Sidebar -->
   <div class="bg-gray-800 text-white w-64 flex-shrink-0">
-    <div class="flex items-center justify-center h-16 bg-gray-900">
-      <h1 class="text-xl font-semibold">LC Tracker</h1>
-    </div>
     <nav class="p-4">
       <ul>
         {#each items as item}
