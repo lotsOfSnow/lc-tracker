@@ -2,6 +2,7 @@
 
   import { AppRoute } from '$lib/routes';
   import type { components } from '$lib/api';
+  import LinkButton from '$lib/components/LinkButton.svelte';
 
   export let data;
 
@@ -26,10 +27,9 @@
   };
 </script>
 
-<a href={AppRoute.PROBLEMS_NEW}
-   class="inline-block bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300 ease-in-out">
+<LinkButton href={AppRoute.PROBLEMS_NEW}>
   Create new
-</a>
+</LinkButton>
 
 
 <table class="w-full">
