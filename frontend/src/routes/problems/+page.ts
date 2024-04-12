@@ -1,13 +1,11 @@
 import type { components } from '$lib/types/openapi';
 
-// export const trailingSlash = 'always';
-
 export const load = async ({
-	fetch
+  fetch,
 }): Promise<{ problems: components['schemas']['Problem'][] }> => {
-	const url = '/api/problems';
-	const res = await fetch(url);
-	const problems = await res.json();
+  const url = '/api/problems';
+  const res = await fetch(url);
+  const problems = await res.json();
 
-	return { problems };
+  return { problems };
 };

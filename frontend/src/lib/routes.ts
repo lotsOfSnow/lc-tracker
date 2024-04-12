@@ -1,8 +1,8 @@
 export enum AppRoute {
-	HOME = '/',
+  HOME = '/',
 
-	PROBLEMS = '/problems',
-	PROBLEMS_NEW = '/problems/new',
+  PROBLEMS = '/problems',
+  PROBLEMS_NEW = '/problems/new',
 
-	ATTEMPTS = '/attempts'
+  ATTEMPTS = '/attempts',
 }

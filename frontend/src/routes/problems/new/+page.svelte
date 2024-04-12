@@ -4,7 +4,7 @@
 	export let form;
 </script>
 
-<form method="POST" use:enhance on:submit|preventDefault>
+<form method="POST" on:submit|preventDefault use:enhance>
 	{#if form?.fieldErrors || form?.formErrors}
 		<div>
 			<ul>
@@ -16,17 +16,17 @@
 	{/if}
 	<div>
 		<label for="number">Number</label>
-		<input type="number" name="number" id="number" />
+		<input id="number" name="number" type="number" />
 	</div>
 
 	<div>
 		<label for="name">Name</label>
-		<input type="text" name="name" id="name" />
+		<input id="name" name="name" type="text" />
 	</div>
 
 	<div>
 		<label for="url">Url</label>
-		<input type="text" name="url" id="url" />
+		<input id="url" name="url" type="text" />
 	</div>
 
 	<button type="submit">Create</button>

@@ -4,191 +4,191 @@
  */
 
 export interface paths {
-	'/api/attempts': {
-		get: {
-			responses: {
-				/** @description Success */
-				200: {
-					content: {
-						'text/plain': components['schemas']['Attempt'][];
-						'application/json': components['schemas']['Attempt'][];
-						'text/json': components['schemas']['Attempt'][];
-					};
-				};
-			};
-		};
-		post: {
-			requestBody?: {
-				content: {
-					'application/json': components['schemas']['CreateAttemptRequest'];
-					'text/json': components['schemas']['CreateAttemptRequest'];
-					'application/*+json': components['schemas']['CreateAttemptRequest'];
-				};
-			};
-			responses: {
-				/** @description Success */
-				200: {
-					content: never;
-				};
-			};
-		};
-	};
-	'/api/attempts/{id}': {
-		put: {
-			parameters: {
-				path: {
-					id: string;
-				};
-			};
-			requestBody?: {
-				content: {
-					'application/json': components['schemas']['UpdateAttemptRequest'];
-					'text/json': components['schemas']['UpdateAttemptRequest'];
-					'application/*+json': components['schemas']['UpdateAttemptRequest'];
-				};
-			};
-			responses: {
-				/** @description Success */
-				200: {
-					content: never;
-				};
-			};
-		};
-		delete: {
-			parameters: {
-				path: {
-					id: string;
-				};
-			};
-			responses: {
-				/** @description Success */
-				200: {
-					content: never;
-				};
-			};
-		};
-	};
-	'/api/problems': {
-		get: {
-			responses: {
-				/** @description Success */
-				200: {
-					content: {
-						'text/plain': components['schemas']['Problem'][];
-						'application/json': components['schemas']['Problem'][];
-						'text/json': components['schemas']['Problem'][];
-					};
-				};
-			};
-		};
-		post: {
-			requestBody?: {
-				content: {
-					'application/json': components['schemas']['CreateProblemRequest'];
-					'text/json': components['schemas']['CreateProblemRequest'];
-					'application/*+json': components['schemas']['CreateProblemRequest'];
-				};
-			};
-			responses: {
-				/** @description Success */
-				200: {
-					content: never;
-				};
-			};
-		};
-	};
-	'/api/problems/{id}': {
-		put: {
-			parameters: {
-				path: {
-					id: string;
-				};
-			};
-			requestBody?: {
-				content: {
-					'application/json': components['schemas']['UpdateProblemRequest'];
-					'text/json': components['schemas']['UpdateProblemRequest'];
-					'application/*+json': components['schemas']['UpdateProblemRequest'];
-				};
-			};
-			responses: {
-				/** @description Success */
-				200: {
-					content: never;
-				};
-			};
-		};
-	};
+  '/api/attempts': {
+    get: {
+      responses: {
+        /** @description Success */
+        200: {
+          content: {
+            'text/plain': components['schemas']['Attempt'][];
+            'application/json': components['schemas']['Attempt'][];
+            'text/json': components['schemas']['Attempt'][];
+          };
+        };
+      };
+    };
+    post: {
+      requestBody?: {
+        content: {
+          'application/json': components['schemas']['CreateAttemptRequest'];
+          'text/json': components['schemas']['CreateAttemptRequest'];
+          'application/*+json': components['schemas']['CreateAttemptRequest'];
+        };
+      };
+      responses: {
+        /** @description Success */
+        200: {
+          content: never;
+        };
+      };
+    };
+  };
+  '/api/attempts/{id}': {
+    put: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      requestBody?: {
+        content: {
+          'application/json': components['schemas']['UpdateAttemptRequest'];
+          'text/json': components['schemas']['UpdateAttemptRequest'];
+          'application/*+json': components['schemas']['UpdateAttemptRequest'];
+        };
+      };
+      responses: {
+        /** @description Success */
+        200: {
+          content: never;
+        };
+      };
+    };
+    delete: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /** @description Success */
+        200: {
+          content: never;
+        };
+      };
+    };
+  };
+  '/api/problems': {
+    get: {
+      responses: {
+        /** @description Success */
+        200: {
+          content: {
+            'text/plain': components['schemas']['Problem'][];
+            'application/json': components['schemas']['Problem'][];
+            'text/json': components['schemas']['Problem'][];
+          };
+        };
+      };
+    };
+    post: {
+      requestBody?: {
+        content: {
+          'application/json': components['schemas']['CreateProblemRequest'];
+          'text/json': components['schemas']['CreateProblemRequest'];
+          'application/*+json': components['schemas']['CreateProblemRequest'];
+        };
+      };
+      responses: {
+        /** @description Success */
+        200: {
+          content: never;
+        };
+      };
+    };
+  };
+  '/api/problems/{id}': {
+    put: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      requestBody?: {
+        content: {
+          'application/json': components['schemas']['UpdateProblemRequest'];
+          'text/json': components['schemas']['UpdateProblemRequest'];
+          'application/*+json': components['schemas']['UpdateProblemRequest'];
+        };
+      };
+      responses: {
+        /** @description Success */
+        200: {
+          content: never;
+        };
+      };
+    };
+  };
 }
 
 export type webhooks = Record<string, never>;
 
 export interface components {
-	schemas: {
-		Attempt: {
-			/** Format: uuid */
-			id?: string;
-			/** Format: uuid */
-			appUserId?: string;
-			/** Format: uuid */
-			problemId?: string;
-			/** Format: date-time */
-			date?: string;
-			note?: string | null;
-			/** Format: int32 */
-			minutesSpent?: number;
-			perceivedDifficulty?: components['schemas']['Difficulty'];
-			hasUsedHelp?: boolean;
-			hasSolved?: boolean;
-			isRecap?: boolean;
-		};
-		CreateAttemptRequest: {
-			/** Format: uuid */
-			problemId?: string;
-			/** Format: int32 */
-			minutesSpent?: number;
-		};
-		CreateProblemRequest: {
-			name?: string | null;
-			/** Format: int32 */
-			number?: number;
-			url?: string | null;
-		};
-		/**
-		 * Format: int32
-		 * @enum {integer}
-		 */
-		Difficulty: 0 | 1 | 2 | 3 | 4;
-		Problem: {
-			/** Format: uuid */
-			id?: string;
-			/** Format: uuid */
-			appUserId?: string;
-			/** Format: int32 */
-			number?: number;
-			name?: string | null;
-			url?: string | null;
-			/** Format: date-time */
-			addedAt?: string;
-		};
-		UpdateAttemptRequest: {
-			/** Format: uuid */
-			problemId?: string;
-			/** Format: int32 */
-			minutesSpent?: number;
-		};
-		UpdateProblemRequest: {
-			name?: string | null;
-			/** Format: int32 */
-			number?: number;
-			url?: string | null;
-		};
-	};
-	responses: never;
-	parameters: never;
-	requestBodies: never;
-	headers: never;
-	pathItems: never;
+  schemas: {
+    Attempt: {
+      /** Format: uuid */
+      id?: string;
+      /** Format: uuid */
+      appUserId?: string;
+      /** Format: uuid */
+      problemId?: string;
+      /** Format: date-time */
+      date?: string;
+      note?: string | null;
+      /** Format: int32 */
+      minutesSpent?: number;
+      perceivedDifficulty?: components['schemas']['Difficulty'];
+      hasUsedHelp?: boolean;
+      hasSolved?: boolean;
+      isRecap?: boolean;
+    };
+    CreateAttemptRequest: {
+      /** Format: uuid */
+      problemId?: string;
+      /** Format: int32 */
+      minutesSpent?: number;
+    };
+    CreateProblemRequest: {
+      name?: string | null;
+      /** Format: int32 */
+      number?: number;
+      url?: string | null;
+    };
+    /**
+     * Format: int32
+     * @enum {integer}
+     */
+    Difficulty: 0 | 1 | 2 | 3 | 4;
+    Problem: {
+      /** Format: uuid */
+      id?: string;
+      /** Format: uuid */
+      appUserId?: string;
+      /** Format: int32 */
+      number?: number;
+      name?: string | null;
+      url?: string | null;
+      /** Format: date-time */
+      addedAt?: string;
+    };
+    UpdateAttemptRequest: {
+      /** Format: uuid */
+      problemId?: string;
+      /** Format: int32 */
+      minutesSpent?: number;
+    };
+    UpdateProblemRequest: {
+      name?: string | null;
+      /** Format: int32 */
+      number?: number;
+      url?: string | null;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 }
 
 export type $defs = Record<string, never>;
