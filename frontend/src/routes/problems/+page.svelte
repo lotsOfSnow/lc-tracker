@@ -32,7 +32,7 @@
 </script>
 
 
-<div class="bg-gray-100 p-6 w-full max-w-2xl mx-auto rounded-lg shadow-md">
+<div class="bg-gray-100 p-6 w-full max-w-6xl mx-auto rounded-lg shadow-md">
   <LinkButton href={AppRoute.PROBLEMS_NEW}>
     Create new
   </LinkButton>
@@ -54,13 +54,14 @@
         <tr class="">
           {#each Object.values(columns) as col}
             <td
-              class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
+              class="max-w-20 px-5 py-2 border-b border-gray-200 bg-white text-sm truncate">
               {#if col.key}
-                <p class="text-gray-900 whitespace-no-wrap" title={problem[col.key]?.toString()}>
+                <p class="text-gray-900 whitespace-no-wrap overflow-hidden overflow-ellipsis"
+                   title={problem[col.key]?.toString()}>
                   {problem[col.key]}
                 </p>
               {:else}
-                <div class="flex justify-start space-x-1">
+                <div class="flex justify-end space-x-1">
                   <button
                     class="bg-gray-700 hover:bg-gray-600 text-white font-medium py-1 px-2 rounded transition duration-300 ease-in-out">
                     Edit
