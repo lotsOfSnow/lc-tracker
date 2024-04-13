@@ -10,6 +10,8 @@
 </script>
 
 <div class="bg-gray-100 p-6 w-full max-w-md mx-auto rounded-lg shadow-md relative">
+  <h2 class="text-xl font-semibold text-gray-800">Create</h2>
+
   <FormCloseButton to={AppRoute.PROBLEMS} />
   <form method="POST" on:submit|preventDefault use:enhance>
     <div>
