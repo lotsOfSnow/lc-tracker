@@ -1,8 +1,14 @@
 <script lang="ts">
+
+  import { cn } from '$lib/components/componentUtils';
+
   export let to: string;
+
+  let className = undefined;
+  export { className as class };
 </script>
 
-<a href={to} class="close hover:scale-125 transition duration-100 ease-in-out" tabindex="0"
+<a href={to} class={cn("close hover:scale-125 transition duration-100 ease-in-out", className)} tabindex="0"
    role="button">close</a>
 
 <style>

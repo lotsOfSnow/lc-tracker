@@ -29,7 +29,7 @@
       <Input id="url" name="url" type="text" />
     </div>
 
-    <Button type="submit">Create</Button>
+    <Button type="submit" class="mt-2">Create</Button>
   </form>
 
   {#if form?.fieldErrors || form?.formErrors}
