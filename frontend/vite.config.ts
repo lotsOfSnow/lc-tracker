@@ -1,17 +1,19 @@
+/// <reference types="vite/client" />
+
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-	plugins: [sveltekit()],
-	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}']
-	},
-	server: {
-		proxy: {
-			'/api': {
-				target: 'https://localhost:7114/',
-				secure: false
-			}
-		}
-	}
+  plugins: [sveltekit()],
+  test: {
+    include: ['src/**/*.{test,spec}.{js,ts}'],
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://localhost:7114/',
+        secure: false,
+      },
+    },
+  },
 });
