@@ -61,6 +61,10 @@ export interface components {
      * @enum {integer}
      */
     Difficulty: 0 | 1 | 2 | 3 | 4;
+    NotFoundResult: {
+      /** Format: int32 */
+      statusCode?: number;
+    };
     Problem: {
       /** Format: uuid */
       id?: string;
@@ -72,6 +76,15 @@ export interface components {
       url?: string | null;
       /** Format: date-time */
       addedAt?: string;
+    };
+    ProblemDetails: {
+      type?: string | null;
+      title?: string | null;
+      /** Format: int32 */
+      status?: number | null;
+      detail?: string | null;
+      instance?: string | null;
+      [key: string]: unknown;
     };
     UpdateAttemptRequest: {
       /** Format: uuid */
@@ -145,9 +158,13 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
-      200: {
-        content: never;
+      /** @description Bad Request */
+      400: {
+        content: {
+          'text/plain': components['schemas']['ProblemDetails'];
+          'application/json': components['schemas']['ProblemDetails'];
+          'text/json': components['schemas']['ProblemDetails'];
+        };
       };
     };
   };
@@ -158,12 +175,12 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
-      200: {
+      /** @description Not Found */
+      404: {
         content: {
-          'text/plain': components['schemas']['Problem'];
-          'application/json': components['schemas']['Problem'];
-          'text/json': components['schemas']['Problem'];
+          'text/plain': components['schemas']['NotFoundResult'];
+          'application/json': components['schemas']['NotFoundResult'];
+          'text/json': components['schemas']['NotFoundResult'];
         };
       };
     };
@@ -182,9 +199,21 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
-      200: {
-        content: never;
+      /** @description Bad Request */
+      400: {
+        content: {
+          'text/plain': components['schemas']['ProblemDetails'];
+          'application/json': components['schemas']['ProblemDetails'];
+          'text/json': components['schemas']['ProblemDetails'];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        content: {
+          'text/plain': components['schemas']['NotFoundResult'];
+          'application/json': components['schemas']['NotFoundResult'];
+          'text/json': components['schemas']['NotFoundResult'];
+        };
       };
     };
   };

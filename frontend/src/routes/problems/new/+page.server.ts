@@ -1,7 +1,7 @@
 import { type Actions, fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
-import { apiPostJson } from '$lib/api/apiClient';
 import { AppRoute } from '$lib/routes';
+import { apiClient } from '$lib/api/apiClient';
 import type { components } from '$lib/api';
 
 export const actions = {
@@ -22,15 +22,18 @@ export const actions = {
       url: parsed.url,
     };
 
-    const result = await apiPostJson(event.fetch, '/api/problems', request);
+    const result = await apiClient.POST('/api/problems', {
+      body: request,
+      fetch: event.fetch,
+    });
 
-    if (result.value) {
+    if (result.data) {
       redirect(302, AppRoute.PROBLEMS);
     }
 
-    const title = result.error?.title;
+    const error = result.error;
 
-    return fail(400, { formErrors: [title], fieldErrors: {} });
+    return fail(400, { formErrors: [error.title], fieldErrors: {} });
   },
 } satisfies Actions;
 
