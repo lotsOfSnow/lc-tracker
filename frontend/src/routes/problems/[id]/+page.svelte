@@ -7,6 +7,8 @@
   import { AppRoute } from '$lib/routes';
 
   export let form;
+  export let data;
+
 </script>
 
 <div class="bg-gray-100 p-6 w-full max-w-md mx-auto rounded-lg shadow-md relative">
@@ -14,22 +16,23 @@
 
   <FormCloseButton to={AppRoute.PROBLEMS} />
   <form method="POST" on:submit|preventDefault use:enhance>
+    <input name="id" value={data.id} hidden>
     <div>
       <Label for="number">Number</Label>
-      <Input id="number" name="number" type="number" />
+      <Input id="number" name="number" type="number" value={data.number} />
     </div>
 
     <div>
       <Label for="name">Name</Label>
-      <Input id="name" name="name" type="text" />
+      <Input id="name" name="name" type="text" value={data.name} />
     </div>
 
     <div>
       <Label for="url">Url</Label>
-      <Input id="url" name="url" type="text" />
+      <Input id="url" name="url" type="text" value={data.url} />
     </div>
 
-    <Button type="submit" class="mt-2">Create</Button>
+    <Button type="submit" class="mt-2">Update</Button>
   </form>
 
   {#if form?.fieldErrors || form?.formErrors}

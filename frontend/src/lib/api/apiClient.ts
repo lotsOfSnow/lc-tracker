@@ -1,32 +1,43 @@
-import type { ApiResult } from '$lib/api/apiResult';
-import type { ApiProblemDetails } from '$lib/api/apiProblemDetails';
+import createClient from 'openapi-fetch';
+import type { paths } from '$lib/api/openapi';
 
-export const apiPostJson = async (
-  f: typeof fetch,
-  url: string,
-  data?: unknown,
-): Promise<ApiResult> => {
-  const body = data ? JSON.stringify(data) : undefined;
-  const options = getOptions('POST', body);
+const apiUrl = import.meta.env.VITE_PUBLIC_API_URL;
 
-  const result = await f(url, options);
+export const apiClient = createClient<paths>({ baseUrl: apiUrl });
 
-  if (result.ok) {
-    return { value: result };
-  }
+type EndpointWithResponses<
+  Path extends keyof paths,
+  Method extends keyof paths[Path],
+> = paths[Path][Method] extends { responses: infer R } ? R : never;
 
-  const problemDetails = (await result.json()) as ApiProblemDetails;
+type OperationSelector<
+  Path extends keyof paths,
+  Method extends keyof paths[Path],
+  StatusCode extends keyof EndpointWithResponses<Path, Method>,
+> = EndpointWithResponses<Path, Method>[StatusCode] extends {
+  content: Record<'application/json', infer ContentType>;
+}
+  ? ContentType
+  : never;
 
-  return { error: problemDetails };
-};
-
-const getOptions = (method: string, body?: string): RequestInit => {
+export const getApiOperation = <
+  Path extends keyof paths,
+  Method extends keyof paths[Path],
+  StatusCode extends keyof EndpointWithResponses<Path, Method>,
+>(
+  path: Path,
+  method: Method,
+  statusCode: StatusCode,
+): {
+  path: Path;
+  method: Method;
+  statusCode: StatusCode;
+  responseType: OperationSelector<Path, Method, StatusCode>;
+} => {
   return {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    cache: 'no-cache',
+    path,
     method,
-    body,
+    statusCode,
+    responseType: {} as OperationSelector<Path, Method, StatusCode>,
   };
 };

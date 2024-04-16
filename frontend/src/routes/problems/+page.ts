@@ -1,11 +1,14 @@
-import type { components } from '$lib/api';
+import { apiClient, getApiOperation } from '$lib/api/apiClient';
+import { error } from '@sveltejs/kit';
 
-export const load = async ({
-  fetch,
-}): Promise<{ problems: components['schemas']['Problem'][] }> => {
-  const url = '/api/problems';
-  const res = await fetch(url);
-  const problems = await res.json();
+const operation = getApiOperation('/api/problems', 'get', 200);
 
-  return { problems };
+export const load = async ({ fetch }) => {
+  const problems = await apiClient.GET(operation.path, { fetch });
+
+  if (problems.data) {
+    return problems.data;
+  }
+
+  return error(400);
 };
