@@ -17,6 +17,7 @@ public class UpdateProblemCommandHandler(IAppDbContext dbContext, IGetCurrentUse
             .UserProblems(getCurrentUserId)
             .FirstOrDefaultAsync(x => x.Id == command.Id, ct);
 
+        // TODO don't throw
         if (problem is null)
         {
             throw new Exception("No problem found");

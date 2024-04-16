@@ -61,6 +61,9 @@ export interface components {
      * @enum {integer}
      */
     Difficulty: 0 | 1 | 2 | 3 | 4;
+    GetAllProblemsResponse: {
+      value?: components['schemas']['Problem'][] | null;
+    };
     NotFoundResult: {
       /** Format: int32 */
       statusCode?: number;
@@ -142,9 +145,9 @@ export interface operations {
       /** @description Success */
       200: {
         content: {
-          'text/plain': components['schemas']['Problem'][];
-          'application/json': components['schemas']['Problem'][];
-          'text/json': components['schemas']['Problem'][];
+          'text/plain': components['schemas']['GetAllProblemsResponse'];
+          'application/json': components['schemas']['GetAllProblemsResponse'];
+          'text/json': components['schemas']['GetAllProblemsResponse'];
         };
       };
     };

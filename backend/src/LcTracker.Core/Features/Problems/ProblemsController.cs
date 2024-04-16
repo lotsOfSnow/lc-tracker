@@ -22,11 +22,11 @@ public class ProblemsController(IDispatcher dispatcher, IAppDbContext dbContext)
     }
 
     [HttpGet("api/problems")]
-    public async Task<ActionResult<IEnumerable<Problem>>> GetAll(CancellationToken ct)
+    public async Task<ActionResult<GetAllProblemsResponse>> GetAll(CancellationToken ct)
     {
         var results = await dbContext.Problems.ToListAsync(ct);
 
-        return Ok(results);
+        return Ok(new GetAllProblemsResponse(results));
     }
 
     [ProducesResponseType<NotFoundResult>(StatusCodes.Status404NotFound)]
@@ -54,4 +54,6 @@ public class ProblemsController(IDispatcher dispatcher, IAppDbContext dbContext)
 
         return NoContent();
     }
+
+    public record GetAllProblemsResponse(IEnumerable<Problem> Value);
 }

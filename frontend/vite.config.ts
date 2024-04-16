@@ -8,12 +8,4 @@ export default defineConfig({
   test: {
     include: ['src/**/*.{test,spec}.{js,ts}'],
   },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://localhost:7114/',
-        secure: false,
-      },
-    },
-  },
 });

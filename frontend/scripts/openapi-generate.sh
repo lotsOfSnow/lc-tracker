@@ -1,4 +1,4 @@
-ENV_NAME=VITE_PUBLIC_API_URL;
+ENV_NAME=OPEN_API_URL;
 API_URL=$(dotenv -p $ENV_NAME)
 
 if [ -z "$API_URL" ]; then

@@ -48,7 +48,7 @@
       </tr>
       </thead>
       <tbody>
-      {#each data as problem}
+      {#each data.value ?? [] as problem}
         <tr class="">
           {#each Object.values(columns) as col}
             <td
