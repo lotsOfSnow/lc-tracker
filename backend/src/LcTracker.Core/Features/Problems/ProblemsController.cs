@@ -11,6 +11,7 @@ namespace LcTracker.Core.Features.Problems;
 public class ProblemsController(IDispatcher dispatcher, IAppDbContext dbContext) : BaseController(dispatcher)
 {
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [HttpPost("api/problems")]
     public async Task<ActionResult> Create(CreateProblemRequest request, CancellationToken ct)
     {
@@ -29,6 +30,7 @@ public class ProblemsController(IDispatcher dispatcher, IAppDbContext dbContext)
         return Ok(new GetAllProblemsResponse(results));
     }
 
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType<NotFoundResult>(StatusCodes.Status404NotFound)]
     [HttpGet("api/problems/{id}")]
     public async Task<ActionResult<Problem>> Get(Guid id, CancellationToken ct)
@@ -45,6 +47,7 @@ public class ProblemsController(IDispatcher dispatcher, IAppDbContext dbContext)
 
     [ProducesResponseType<NotFoundResult>(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [HttpPut("api/problems/{id:guid}")]
     public async Task<ActionResult> Update(Guid id, UpdateProblemRequest request, CancellationToken ct)
     {

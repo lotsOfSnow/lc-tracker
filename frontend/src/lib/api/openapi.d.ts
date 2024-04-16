@@ -161,6 +161,10 @@ export interface operations {
       };
     };
     responses: {
+      /** @description No Content */
+      204: {
+        content: never;
+      };
       /** @description Bad Request */
       400: {
         content: {
@@ -178,6 +182,14 @@ export interface operations {
       };
     };
     responses: {
+      /** @description Success */
+      200: {
+        content: {
+          'text/plain': components['schemas']['Problem'];
+          'application/json': components['schemas']['Problem'];
+          'text/json': components['schemas']['Problem'];
+        };
+      };
       /** @description Not Found */
       404: {
         content: {
@@ -202,6 +214,10 @@ export interface operations {
       };
     };
     responses: {
+      /** @description No Content */
+      204: {
+        content: never;
+      };
       /** @description Bad Request */
       400: {
         content: {
