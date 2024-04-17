@@ -1,5 +1,5 @@
-import { apiClient, getApiOperation } from '$lib/api/apiClient';
 import { error } from '@sveltejs/kit';
+import { apiClient, getApiOperation } from '$lib/api';
 
 const operation = getApiOperation('/api/problems', 'get', 200);
 

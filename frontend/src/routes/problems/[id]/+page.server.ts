@@ -1,7 +1,7 @@
 import { type Actions, fail, redirect } from '@sveltejs/kit';
-import { apiClient, getApiOperation } from '$lib/api/apiClient';
 import { AppRoute } from '$lib/routes';
 import { z } from 'zod';
+import { apiClient, getApiOperation } from '$lib/api';
 
 export const actions = {
   default: async (event) => {
