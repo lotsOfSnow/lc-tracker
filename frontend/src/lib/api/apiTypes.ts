@@ -1,4 +1,4 @@
-import type { paths } from '$lib/api/openapi';
+import type { components, paths } from '$lib/api/openapi';
 
 type EndpointWithResponses<
   Path extends keyof paths,
@@ -36,3 +36,5 @@ export const getApiOperation = <
     responseType: {} as OperationSelector<Path, Method, StatusCode>,
   };
 };
+
+export type apiSchemas = components['schemas'];

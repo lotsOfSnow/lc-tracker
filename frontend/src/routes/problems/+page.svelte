@@ -1,12 +1,12 @@
 <script lang="ts">
   import { AppRoute } from '$lib/routes';
-  import type { components } from '$lib/api';
+  import type { apiSchemas } from '$lib/api';
   import LinkButton from '$lib/components/LinkButton.svelte';
 
   export let data;
 
   interface Column {
-    key?: keyof components['schemas']['Problem'];
+    key?: keyof apiSchemas['Problem'];
     title: string;
     content?: string;
   }

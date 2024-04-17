@@ -1,8 +1,7 @@
 import { type Actions, fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { AppRoute } from '$lib/routes';
-import { apiClient } from '$lib/api/apiClient';
-import type { components } from '$lib/api';
+import { apiClient, type apiSchemas } from '$lib/api';
 
 export const actions = {
   default: async (event) => {
@@ -16,7 +15,7 @@ export const actions = {
 
     const parsed = parsingResult.data;
 
-    const request: components['schemas']['CreateProblemRequest'] = {
+    const request: apiSchemas['CreateProblemRequest'] = {
       name: parsed.name,
       number: parsed.number,
       url: parsed.url,
