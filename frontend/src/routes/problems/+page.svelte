@@ -5,6 +5,7 @@
   import type { Column } from '$lib/components/table/column';
   import Table from '$lib/components/table/Table.svelte';
   import TableRowTemplate from '$lib/components/table/TableRowTemplate.svelte';
+  import TableCellByColumnKey from '$lib/components/table/TableCellByColumnKey.svelte';
 
   export let data;
 
@@ -36,12 +37,7 @@
     <Table {columns} let:columns>
       <TableRowTemplate columns={columns} values={data.value} let:value={problem} let:col>
         {#if col?.key}
-          <p
-            class="text-gray-900 whitespace-no-wrap overflow-hidden overflow-ellipsis"
-            title={problem[col.key]?.toString()}
-          >
-            {problem[col.key]}
-          </p>
+          <TableCellByColumnKey {col} value={problem} />
         {:else}
           <div class="flex justify-end space-x-1">
             <a href="{AppRoute.PROBLEMS}/{problem.id}"
