@@ -5,22 +5,22 @@
 
 
 export interface paths {
-  '/api/attempts': {
-    get: operations['Attempts.GetAll'];
-    post: operations['Attempts.Create'];
+  "/api/attempts": {
+    get: operations["Attempts.GetAll"];
+    post: operations["Attempts.Create"];
   };
-  '/api/attempts/{id}': {
-    get: operations['Attempts.Get'];
-    put: operations['Attempts.Update'];
-    delete: operations['Attempts.Delete'];
+  "/api/attempts/{id}": {
+    get: operations["Attempts.Get"];
+    put: operations["Attempts.Update"];
+    delete: operations["Attempts.Delete"];
   };
-  '/api/problems': {
-    get: operations['Problems.GetAll'];
-    post: operations['Problems.Create'];
+  "/api/problems": {
+    get: operations["Problems.GetAll"];
+    post: operations["Problems.Create"];
   };
-  '/api/problems/{id}': {
-    get: operations['Problems.Get'];
-    put: operations['Problems.Update'];
+  "/api/problems/{id}": {
+    get: operations["Problems.Get"];
+    put: operations["Problems.Update"];
   };
 }
 
@@ -40,7 +40,7 @@ export interface components {
       note?: string | null;
       /** Format: int32 */
       minutesSpent?: number;
-      perceivedDifficulty?: components['schemas']['Difficulty'];
+      perceivedDifficulty?: components["schemas"]["Difficulty"];
       hasUsedHelp?: boolean;
       hasSolved?: boolean;
       isRecap?: boolean;
@@ -63,10 +63,10 @@ export interface components {
      */
     Difficulty: 0 | 1 | 2 | 3 | 4;
     GetAllAttemptsResponse: {
-      value?: components['schemas']['Attempt'][] | null;
+      value?: components["schemas"]["Attempt"][] | null;
     };
     GetAllProblemsResponse: {
-      value?: components['schemas']['Problem'][] | null;
+      value?: components["schemas"]["Problem"][] | null;
     };
     NotFoundResult: {
       /** Format: int32 */
@@ -119,24 +119,24 @@ export type external = Record<string, never>;
 
 export interface operations {
 
-  'Attempts.GetAll': {
+  "Attempts.GetAll": {
     responses: {
       /** @description Success */
       200: {
         content: {
-          'text/plain': components['schemas']['GetAllAttemptsResponse'];
-          'application/json': components['schemas']['GetAllAttemptsResponse'];
-          'text/json': components['schemas']['GetAllAttemptsResponse'];
+          "text/plain": components["schemas"]["GetAllAttemptsResponse"];
+          "application/json": components["schemas"]["GetAllAttemptsResponse"];
+          "text/json": components["schemas"]["GetAllAttemptsResponse"];
         };
       };
     };
   };
-  'Attempts.Create': {
+  "Attempts.Create": {
     requestBody?: {
       content: {
-        'application/json': components['schemas']['CreateAttemptRequest'];
-        'text/json': components['schemas']['CreateAttemptRequest'];
-        'application/*+json': components['schemas']['CreateAttemptRequest'];
+        "application/json": components["schemas"]["CreateAttemptRequest"];
+        "text/json": components["schemas"]["CreateAttemptRequest"];
+        "application/*+json": components["schemas"]["CreateAttemptRequest"];
       };
     };
     responses: {
@@ -147,14 +147,14 @@ export interface operations {
       /** @description Bad Request */
       400: {
         content: {
-          'text/plain': components['schemas']['ProblemDetails'];
-          'application/json': components['schemas']['ProblemDetails'];
-          'text/json': components['schemas']['ProblemDetails'];
+          "text/plain": components["schemas"]["ProblemDetails"];
+          "application/json": components["schemas"]["ProblemDetails"];
+          "text/json": components["schemas"]["ProblemDetails"];
         };
       };
     };
   };
-  'Attempts.Get': {
+  "Attempts.Get": {
     parameters: {
       path: {
         id: string;
@@ -164,22 +164,22 @@ export interface operations {
       /** @description Success */
       200: {
         content: {
-          'text/plain': components['schemas']['Attempt'];
-          'application/json': components['schemas']['Attempt'];
-          'text/json': components['schemas']['Attempt'];
+          "text/plain": components["schemas"]["Attempt"];
+          "application/json": components["schemas"]["Attempt"];
+          "text/json": components["schemas"]["Attempt"];
         };
       };
       /** @description Not Found */
       404: {
         content: {
-          'text/plain': components['schemas']['NotFoundResult'];
-          'application/json': components['schemas']['NotFoundResult'];
-          'text/json': components['schemas']['NotFoundResult'];
+          "text/plain": components["schemas"]["NotFoundResult"];
+          "application/json": components["schemas"]["NotFoundResult"];
+          "text/json": components["schemas"]["NotFoundResult"];
         };
       };
     };
   };
-  'Attempts.Update': {
+  "Attempts.Update": {
     parameters: {
       path: {
         id: string;
@@ -187,9 +187,9 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        'application/json': components['schemas']['UpdateAttemptRequest'];
-        'text/json': components['schemas']['UpdateAttemptRequest'];
-        'application/*+json': components['schemas']['UpdateAttemptRequest'];
+        "application/json": components["schemas"]["UpdateAttemptRequest"];
+        "text/json": components["schemas"]["UpdateAttemptRequest"];
+        "application/*+json": components["schemas"]["UpdateAttemptRequest"];
       };
     };
     responses: {
@@ -200,22 +200,22 @@ export interface operations {
       /** @description Bad Request */
       400: {
         content: {
-          'text/plain': components['schemas']['ProblemDetails'];
-          'application/json': components['schemas']['ProblemDetails'];
-          'text/json': components['schemas']['ProblemDetails'];
+          "text/plain": components["schemas"]["ProblemDetails"];
+          "application/json": components["schemas"]["ProblemDetails"];
+          "text/json": components["schemas"]["ProblemDetails"];
         };
       };
       /** @description Not Found */
       404: {
         content: {
-          'text/plain': components['schemas']['NotFoundResult'];
-          'application/json': components['schemas']['NotFoundResult'];
-          'text/json': components['schemas']['NotFoundResult'];
+          "text/plain": components["schemas"]["NotFoundResult"];
+          "application/json": components["schemas"]["NotFoundResult"];
+          "text/json": components["schemas"]["NotFoundResult"];
         };
       };
     };
   };
-  'Attempts.Delete': {
+  "Attempts.Delete": {
     parameters: {
       path: {
         id: string;
@@ -228,24 +228,24 @@ export interface operations {
       };
     };
   };
-  'Problems.GetAll': {
+  "Problems.GetAll": {
     responses: {
       /** @description Success */
       200: {
         content: {
-          'text/plain': components['schemas']['GetAllProblemsResponse'];
-          'application/json': components['schemas']['GetAllProblemsResponse'];
-          'text/json': components['schemas']['GetAllProblemsResponse'];
+          "text/plain": components["schemas"]["GetAllProblemsResponse"];
+          "application/json": components["schemas"]["GetAllProblemsResponse"];
+          "text/json": components["schemas"]["GetAllProblemsResponse"];
         };
       };
     };
   };
-  'Problems.Create': {
+  "Problems.Create": {
     requestBody?: {
       content: {
-        'application/json': components['schemas']['CreateProblemRequest'];
-        'text/json': components['schemas']['CreateProblemRequest'];
-        'application/*+json': components['schemas']['CreateProblemRequest'];
+        "application/json": components["schemas"]["CreateProblemRequest"];
+        "text/json": components["schemas"]["CreateProblemRequest"];
+        "application/*+json": components["schemas"]["CreateProblemRequest"];
       };
     };
     responses: {
@@ -256,14 +256,14 @@ export interface operations {
       /** @description Bad Request */
       400: {
         content: {
-          'text/plain': components['schemas']['ProblemDetails'];
-          'application/json': components['schemas']['ProblemDetails'];
-          'text/json': components['schemas']['ProblemDetails'];
+          "text/plain": components["schemas"]["ProblemDetails"];
+          "application/json": components["schemas"]["ProblemDetails"];
+          "text/json": components["schemas"]["ProblemDetails"];
         };
       };
     };
   };
-  'Problems.Get': {
+  "Problems.Get": {
     parameters: {
       path: {
         id: string;
@@ -273,22 +273,22 @@ export interface operations {
       /** @description Success */
       200: {
         content: {
-          'text/plain': components['schemas']['Problem'];
-          'application/json': components['schemas']['Problem'];
-          'text/json': components['schemas']['Problem'];
+          "text/plain": components["schemas"]["Problem"];
+          "application/json": components["schemas"]["Problem"];
+          "text/json": components["schemas"]["Problem"];
         };
       };
       /** @description Not Found */
       404: {
         content: {
-          'text/plain': components['schemas']['NotFoundResult'];
-          'application/json': components['schemas']['NotFoundResult'];
-          'text/json': components['schemas']['NotFoundResult'];
+          "text/plain": components["schemas"]["NotFoundResult"];
+          "application/json": components["schemas"]["NotFoundResult"];
+          "text/json": components["schemas"]["NotFoundResult"];
         };
       };
     };
   };
-  'Problems.Update': {
+  "Problems.Update": {
     parameters: {
       path: {
         id: string;
@@ -296,9 +296,9 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        'application/json': components['schemas']['UpdateProblemRequest'];
-        'text/json': components['schemas']['UpdateProblemRequest'];
-        'application/*+json': components['schemas']['UpdateProblemRequest'];
+        "application/json": components["schemas"]["UpdateProblemRequest"];
+        "text/json": components["schemas"]["UpdateProblemRequest"];
+        "application/*+json": components["schemas"]["UpdateProblemRequest"];
       };
     };
     responses: {
@@ -309,17 +309,17 @@ export interface operations {
       /** @description Bad Request */
       400: {
         content: {
-          'text/plain': components['schemas']['ProblemDetails'];
-          'application/json': components['schemas']['ProblemDetails'];
-          'text/json': components['schemas']['ProblemDetails'];
+          "text/plain": components["schemas"]["ProblemDetails"];
+          "application/json": components["schemas"]["ProblemDetails"];
+          "text/json": components["schemas"]["ProblemDetails"];
         };
       };
       /** @description Not Found */
       404: {
         content: {
-          'text/plain': components['schemas']['NotFoundResult'];
-          'application/json': components['schemas']['NotFoundResult'];
-          'text/json': components['schemas']['NotFoundResult'];
+          "text/plain": components["schemas"]["NotFoundResult"];
+          "application/json": components["schemas"]["NotFoundResult"];
+          "text/json": components["schemas"]["NotFoundResult"];
         };
       };
     };
