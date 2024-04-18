@@ -5,4 +5,5 @@ export enum AppRoute {
   PROBLEMS_NEW = '/problems/new',
 
   ATTEMPTS = '/attempts',
+  ATTEMPTS_NEW = '/attempts/new',
 }

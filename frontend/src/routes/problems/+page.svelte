@@ -42,11 +42,6 @@
         {:else}
           <div class="flex justify-end space-x-1">
             <TableEditActionButton href="{AppRoute.PROBLEMS}/{problem.id}" />
-            <button
-              class="bg-red-600 hover:bg-red-500 text-white font-medium py-1 px-2 rounded transition duration-300 ease-in-out"
-            >
-              Delete
-            </button>
           </div>
         {/if}
       </TableRowTemplate>
