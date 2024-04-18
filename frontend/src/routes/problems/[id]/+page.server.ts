@@ -2,13 +2,11 @@ import { type Actions, fail, redirect } from '@sveltejs/kit';
 import { AppRoute } from '$lib/routes';
 import { z } from 'zod';
 import { apiClient, getApiOperation } from '$lib/api';
+import { safeParseRequestFormData } from '$lib/utils/zodUtils';
 
 export const actions = {
   default: async (event) => {
-    const data = await event.request.formData();
-    const entries = Object.fromEntries(data);
-    console.log(data);
-    const parsingResult = schema.safeParse(entries);
+    const parsingResult = await safeParseRequestFormData(event.request, schema);
     if (!parsingResult.success) {
       return fail(400, parsingResult.error.flatten());
     }
