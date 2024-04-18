@@ -5,7 +5,6 @@ using LcTracker.Core.Storage;
 using LcTracker.Shared.Handlers;
 using LcTracker.Shared.Time;
 using LcTracker.Shared.Web.Cors;
-using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace LcTracker.Api.Bootstrap;
 
@@ -14,24 +13,16 @@ public static class DependenciesInstaller
     public static void AddDependencies(this WebApplicationBuilder builder)
     {
         builder.AddShared();
-
         builder.AddCore();
-
         builder.AddStorage();
-
         builder.AddApi();
     }
 
     public static async Task UseDependenciesAsync(this WebApplication app)
     {
         app.UseExceptionHandler();
-
         await app.UseStorageAsync();
-
         app.UseAppCors();
-
-        app.UseSwagger();
-        app.UseSwaggerUI();
 
         // TODO
         if (!app.Environment.IsDevelopment())
@@ -39,8 +30,8 @@ public static class DependenciesInstaller
             app.UseHttpsRedirection();
         }
 
+        app.UseOpenApi();
         app.UseStaticFiles();
-
         app.MapControllers();
     }
 
@@ -58,18 +49,9 @@ public static class DependenciesInstaller
 
     private static void AddApi(this WebApplicationBuilder builder)
     {
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen(c =>
-        {
-            c.CustomOperationIds(apiDesc => apiDesc
-                .TryGetMethodInfo(out var methodInfo) ?
-                $"{methodInfo.DeclaringType!.Name.Replace("Controller", "")}.{methodInfo.Name}" : null);
-        });
-
+        builder.AddOpenApi();
         builder.Services.AddControllers();
-
         builder.AddAppCors();
-
         builder.Services.AddExceptionHandlers();
     }
 }

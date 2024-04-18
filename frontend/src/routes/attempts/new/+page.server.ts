@@ -1,7 +1,7 @@
 import { type Actions, fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { AppRoute } from '$lib/routes';
-import { apiClient, type apiSchemas } from '$lib/api';
+import { apiClient } from '$lib/api';
 import { safeParseRequestFormData } from '$lib/utils/zodUtils';
 
 export const actions = {
@@ -11,17 +11,15 @@ export const actions = {
       return fail(400, parsingResult.error.flatten());
     }
 
-    const request: apiSchemas['CreateProblemRequest'] = {
-      ...parsingResult.data,
-    };
-
-    const result = await apiClient.POST('/api/problems', {
-      body: request,
+    const result = await apiClient.POST('/api/attempts', {
+      body: {
+        ...parsingResult.data,
+      },
       fetch: event.fetch,
     });
 
     if (result.data) {
-      redirect(302, AppRoute.PROBLEMS);
+      redirect(302, AppRoute.ATTEMPTS);
     }
 
     const error = result.error;
@@ -31,7 +29,6 @@ export const actions = {
 } satisfies Actions;
 
 const schema = z.object({
-  name: z.string().min(3),
-  number: z.coerce.number().min(1),
-  url: z.string().url(),
+  problemId: z.string().uuid(),
+  minutesSpent: z.coerce.number().min(1),
 });

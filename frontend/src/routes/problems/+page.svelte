@@ -1,17 +1,16 @@
 <script lang="ts">
   import { AppRoute } from '$lib/routes';
-  import type { components } from '$lib/api';
   import LinkButton from '$lib/components/LinkButton.svelte';
+  import type { apiSchemas } from '$lib/api';
+  import type { Column } from '$lib/components/table/column';
+  import Table from '$lib/components/table/Table.svelte';
+  import TableRowTemplate from '$lib/components/table/TableRowTemplate.svelte';
+  import TableCellByColumnKey from '$lib/components/table/TableCellByColumnKey.svelte';
+  import TableEditActionButton from '$lib/components/table/TableEditActionButton.svelte';
 
   export let data;
 
-  interface Column {
-    key?: keyof components['schemas']['Problem'];
-    title: string;
-    content?: string;
-  }
-
-  const columns: { [key: string]: Column } = {
+  const columns: { [key: string]: Column<apiSchemas['Problem']> } = {
     number: {
       key: 'number',
       title: 'Number',
@@ -36,52 +35,17 @@
   <h2 class="text-xl font-semibold text-gray-800">Problems</h2>
 
   <div class="mt-4 overflow-x-auto">
-    <table class="min-w-full leading-normal">
-      <thead>
-      <tr>
-        {#each Object.values(columns) as col}
-          <th
-            class="first:rounded-tl-lg last:rounded-tr-lg px-5 py-3 border-b-2 border-gray-300 bg-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-          >{col.title}</th
-          >
-        {/each}
-      </tr>
-      </thead>
-      <tbody>
-      {#each data.value ?? [] as problem}
-        <tr class="">
-          {#each Object.values(columns) as col}
-            <td
-              class="max-w-20 px-5 py-2 border-b border-gray-200 bg-white text-sm truncate"
-            >
-              {#if col.key}
-                <p
-                  class="text-gray-900 whitespace-no-wrap overflow-hidden overflow-ellipsis"
-                  title={problem[col.key]?.toString()}
-                >
-                  {problem[col.key]}
-                </p>
-              {:else}
-                <div class="flex justify-end space-x-1">
-                  <a href="{AppRoute.PROBLEMS}/{problem.id}"
-                     class="inline-block bg-gray-700 hover:bg-gray-600 text-white font-medium py-1 px-2 rounded transition duration-300 ease-in-out"
-                  >
-                    Edit
-                  </a>
-                  <button
-                    class="bg-red-600 hover:bg-red-500 text-white font-medium py-1 px-2 rounded transition duration-300 ease-in-out"
-                  >
-                    Delete
-                  </button>
-                </div>
-              {/if}
-            </td>
-          {/each}
-        </tr>
-      {/each}
-      </tbody>
-    </table>
+    <Table {columns} let:columns>
+      <TableRowTemplate columns={columns} values={data.value} let:value={problem} let:col>
+        {#if col?.key}
+          <TableCellByColumnKey {col} value={problem} />
+        {:else}
+          <div class="flex justify-end space-x-1">
+            <TableEditActionButton href="{AppRoute.PROBLEMS}/{problem.id}" />
+          </div>
+        {/if}
+      </TableRowTemplate>
+    </Table>
   </div>
 </div>
-
 <!-- TODO: Pagination, filtering, sorting -->
