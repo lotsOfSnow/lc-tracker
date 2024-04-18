@@ -6,6 +6,7 @@
   import Table from '$lib/components/table/Table.svelte';
   import TableRowTemplate from '$lib/components/table/TableRowTemplate.svelte';
   import TableCellByColumnKey from '$lib/components/table/TableCellByColumnKey.svelte';
+  import TableEditActionButton from '$lib/components/table/TableEditActionButton.svelte';
 
   export let data;
 
@@ -40,11 +41,7 @@
           <TableCellByColumnKey {col} value={problem} />
         {:else}
           <div class="flex justify-end space-x-1">
-            <a href="{AppRoute.PROBLEMS}/{problem.id}"
-               class="inline-block bg-gray-700 hover:bg-gray-600 text-white font-medium py-1 px-2 rounded transition duration-300 ease-in-out"
-            >
-              Edit
-            </a>
+            <TableEditActionButton href="{AppRoute.PROBLEMS}/{problem.id}" />
             <button
               class="bg-red-600 hover:bg-red-500 text-white font-medium py-1 px-2 rounded transition duration-300 ease-in-out"
             >

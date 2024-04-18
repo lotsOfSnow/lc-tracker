@@ -1,7 +1,7 @@
-<script>
-  import { cn } from '$lib/components/componentUtils';
+<script lang="ts">
+  import { type ClassName, cn } from '$lib/components/componentUtils';
 
-  let className = undefined;
+  let className: ClassName = undefined;
   export { className as class };
 </script>
 
