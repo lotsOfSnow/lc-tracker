@@ -1,7 +1,7 @@
 import { type Actions, fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { AppRoute } from '$lib/routes';
-import { apiClient, type apiSchemas, getApiOperation } from '$lib/api';
+import { apiClient } from '$lib/api';
 import { safeParseRequestFormData } from '$lib/utils/zodUtils';
 
 export const actions = {
@@ -11,13 +11,10 @@ export const actions = {
       return fail(400, parsingResult.error.flatten());
     }
 
-    const operation = getApiOperation('/api/attempts', 'post', 204);
-    const request: apiSchemas['CreateAttemptRequest'] = {
-      ...parsingResult.data,
-    };
-
-    const result = await apiClient.POST(operation.path, {
-      body: request,
+    const result = await apiClient.POST('/api/attempts', {
+      body: {
+        ...parsingResult.data,
+      },
       fetch: event.fetch,
     });
 

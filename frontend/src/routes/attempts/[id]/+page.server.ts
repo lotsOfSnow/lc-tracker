@@ -1,4 +1,4 @@
-import { type Actions, fail, redirect } from '@sveltejs/kit';
+import { type Actions, error, fail, redirect } from '@sveltejs/kit';
 import { AppRoute } from '$lib/routes';
 import { z } from 'zod';
 import { apiClient, getApiOperation } from '$lib/api';
@@ -11,14 +11,10 @@ export const actions = {
       return fail(400, parsingResult.error.flatten());
     }
 
-    const operation = getApiOperation('/api/problems/{id}', 'put', 204);
-
-    const request = {
-      ...parsingResult.data,
-    };
-
-    const result = await apiClient.PUT(operation.path, {
-      body: request,
+    const result = await apiClient.PUT('/api/attempts/{id}', {
+      body: {
+        ...parsingResult.data,
+      },
       fetch: event.fetch,
       params: {
         path: {
@@ -28,8 +24,7 @@ export const actions = {
     });
 
     if (result.data) {
-      // TODO: show toast instead
-      redirect(302, AppRoute.PROBLEMS);
+      redirect(302, AppRoute.ATTEMPTS);
     }
 
     const error = result.error;
@@ -40,9 +35,21 @@ export const actions = {
   },
 } satisfies Actions;
 
+export const load = async ({ params, fetch }) => {
+  const operation = getApiOperation('/api/attempts/{id}', 'get', 200);
+
+  const result = await apiClient.GET(operation.path, {
+    fetch,
+    params: {
+      path: { id: params.id },
+    },
+  });
+
+  return result.data ?? error(400);
+};
+
 const schema = z.object({
   id: z.string().uuid(),
-  name: z.string().min(3),
-  number: z.coerce.number().min(1),
-  url: z.string().url(),
+  problemId: z.string().uuid(),
+  minutesSpent: z.coerce.number().min(1),
 });
