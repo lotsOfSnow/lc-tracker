@@ -7,32 +7,24 @@
   import { AppRoute } from '$lib/routes';
 
   export let form;
-  export let data;
-
 </script>
 
 <div class="bg-gray-100 p-6 w-full max-w-md mx-auto rounded-lg shadow-md relative">
-  <h2 class="text-xl font-semibold text-gray-800">{data.id}</h2>
+  <h2 class="text-xl font-semibold text-gray-800">Create</h2>
 
-  <FormCloseButton to={AppRoute.PROBLEMS} />
+  <FormCloseButton to={AppRoute.ATTEMPTS} />
   <form method="POST" on:submit|preventDefault use:enhance>
-    <input name="id" value={data.id} hidden>
     <div>
-      <Label for="number">Number</Label>
-      <Input id="number" name="number" type="number" value={data.number} />
+      <Label for="number">Problem ID</Label>
+      <Input id="problemId" name="problemId" type="string" />
     </div>
 
     <div>
-      <Label for="name">Name</Label>
-      <Input id="name" name="name" type="text" value={data.name} />
+      <Label for="name">Minutes spent</Label>
+      <Input id="minutesSpent" name="minutesSpent" type="number" />
     </div>
 
-    <div>
-      <Label for="url">Url</Label>
-      <Input id="url" name="url" type="text" value={data.url} />
-    </div>
-
-    <Button type="submit" class="mt-2">Update</Button>
+    <Button type="submit" class="mt-2">Create</Button>
   </form>
 
   {#if form?.fieldErrors || form?.formErrors}

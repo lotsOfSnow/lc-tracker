@@ -15,7 +15,7 @@ public class AttemptsController(IDispatcher dispatcher, IAppDbContext dbContext)
     {
         var results = await dbContext.Attempts.ToListAsync(ct);
 
-        return Ok(results);
+        return Ok(new GetAllAttemptsResponse(results));
     }
 
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

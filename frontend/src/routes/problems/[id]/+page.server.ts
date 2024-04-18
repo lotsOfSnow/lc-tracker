@@ -11,15 +11,10 @@ export const actions = {
       return fail(400, parsingResult.error.flatten());
     }
 
-    const parsed = parsingResult.data;
-
     const operation = getApiOperation('/api/problems/{id}', 'put', 204);
 
     const request = {
-      name: parsed.name,
-      number: parsed.number,
-      url: parsed.url,
-      id: parsed.id,
+      ...parsingResult.data,
     };
 
     const result = await apiClient.PUT(operation.path, {
@@ -27,7 +22,7 @@ export const actions = {
       fetch: event.fetch,
       params: {
         path: {
-          id: parsed.id,
+          id: parsingResult.data.id,
         },
       },
     });
