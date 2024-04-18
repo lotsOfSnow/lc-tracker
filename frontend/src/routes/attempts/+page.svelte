@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { enhance } from '$app/forms';
   import { AppRoute } from '$lib/routes';
   import LinkButton from '$lib/components/LinkButton.svelte';
   import type { apiSchemas } from '$lib/api';
@@ -42,11 +43,15 @@
         {:else}
           <div class="flex justify-end space-x-1">
             <TableEditActionButton href="{AppRoute.ATTEMPTS}/{attempt.id}" />
-            <button
-              class="bg-red-600 hover:bg-red-500 text-white font-medium py-1 px-2 rounded transition duration-300 ease-in-out"
-            >
-              Delete
-            </button>
+            <form method="POST" on:submit|preventDefault use:enhance action="?/deleteAttempt">
+              <input name="id" value={attempt.id} hidden />
+              <button
+                class="bg-red-600 hover:bg-red-500 text-white font-medium py-1 px-2 rounded transition duration-300 ease-in-out"
+              >
+                Delete
+              </button>
+            </form>
+
           </div>
         {/if}
       </TableRowTemplate>
