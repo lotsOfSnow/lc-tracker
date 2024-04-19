@@ -20,7 +20,7 @@
   <form method="POST" on:submit|preventDefault use:enhance>
     <div>
       <Label for="number">Problem ID</Label>
-      <select name="problemId">
+      <select required name="problemId">
         {#each problems as problem}
           <option value={problem.id}>{problem.name}</option>
         {/each}
@@ -34,12 +34,12 @@
 
     <div>
       <Label for="name">Date</Label>
-      <Input name="date" type="date" />
+      <Input required name="date" type="date" />
     </div>
 
     <div>
       <Label for="name">Difficulty</Label>
-      <select name="difficulty">
+      <select required name="difficulty">
         {#each difficulties as difficulty}
           <option value={difficulty}>{difficulty}</option>
         {/each}
@@ -60,6 +60,11 @@
     <div>
       <Label for="name">Is recap</Label>
       <Input name="isRecap" type="checkbox" />
+    </div>
+
+    <div>
+      <Label for="name">Note</Label>
+      <Input name="note" type="text" />
     </div>
 
     <Button type="submit" class="mt-2">Create</Button>

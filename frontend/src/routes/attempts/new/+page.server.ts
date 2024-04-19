@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { AppRoute } from '$lib/routes';
 import { apiClient, getApiOperation } from '$lib/api';
 import { safeParseRequestFormData } from '$lib/utils/zodUtils';
+import { difficulties, type Difficulty } from '../difficulty';
 
 export const load = async () => {
   const operation = getApiOperation('/api/problems', 'get', 200);
@@ -26,6 +27,8 @@ export const actions = {
       return fail(400, parsingResult.error.flatten());
     }
 
+    console.log(parsingResult.data);
+
     const result = await apiClient.POST('/api/attempts', {
       body: {
         ...parsingResult.data,
@@ -33,6 +36,7 @@ export const actions = {
       fetch: event.fetch,
     });
 
+    console.log(result);
     if (result.data) {
       redirect(302, AppRoute.ATTEMPTS);
     }
@@ -43,7 +47,17 @@ export const actions = {
   },
 } satisfies Actions;
 
+export type Method = (typeof difficulties)[number];
+
 const schema = z.object({
   problemId: z.string().uuid(),
   minutesSpent: z.coerce.number().min(1),
+  date: z.string(),
+  difficulty: z
+    .custom<Difficulty>()
+    .refine((value: number) => value in difficulties),
+  hasUsedHelp: z.boolean().default(false),
+  hasSolved: z.boolean().default(false),
+  isRecap: z.boolean().default(false),
+  note: z.string(),
 });
