@@ -21,8 +21,8 @@
   <FormCloseButton to={AppRoute.ATTEMPTS} />
   <form method="POST" on:submit|preventDefault use:enhance>
     <div>
-      <Label for="number">Problem</Label>
-      <select required name="problemId"
+      <Label for="problemId">Problem</Label>
+      <select id="problemId" required
               class={commonInputControlClassName}>
         {#each problems as problem}
           <option
@@ -33,18 +33,18 @@
     </div>
 
     <div>
-      <Label for="name">Minutes spent</Label>
-      <Input required name="minutesSpent" type="number" />
+      <Label for="minutesSpent">Minutes spent</Label>
+      <Input required id="minutesSpent" type="number" />
     </div>
 
     <div>
-      <Label for="name">Date</Label>
-      <Input required name="date" type="date" />
+      <Label for="date">Date</Label>
+      <Input required id="date" type="date" />
     </div>
 
     <div>
-      <Label for="name">Difficulty</Label>
-      <select class={commonInputControlClassName} required name="difficulty">
+      <Label for="difficulty">Difficulty</Label>
+      <select class={commonInputControlClassName} required id="difficulty">
         {#each difficulties as difficulty}
           <option class={commonInputControlClassName} value={difficulty}>{difficulty}</option>
         {/each}
@@ -52,24 +52,24 @@
     </div>
 
     <div>
-      <Label for="name">Has used help</Label>
-      <Checkbox name="hasUsedHelp" />
+      <Label for="hasUsedHelp">Has used help</Label>
+      <Checkbox id="hasUsedHelp" title="has used help?" name="hasUsedHelp" />
     </div>
 
     <div>
-      <Label for="name">Has solved</Label>
-      <Checkbox name="hasSolved" type="checkbox" />
+      <Label for="hasSolved">Has solved</Label>
+      <Checkbox id="hasSolved" type="checkbox" />
     </div>
 
     <!-- After 1st success, every attempt should automatically be marked as recap on API side TODO -->
     <div>
-      <Label for="name">Is recap</Label>
-      <Checkbox name="isRecap" type="checkbox" />
+      <Label for="isRecap">Is recap</Label>
+      <Checkbox id="isRecap" type="checkbox" />
     </div>
 
     <div>
-      <Label for="name">Note</Label>
-      <textarea name="note" class={commonInputControlClassName} />
+      <Label for="note">Note</Label>
+      <textarea id="note" class={commonInputControlClassName} />
     </div>
 
     <Button type="submit" class="mt-2">Create</Button>

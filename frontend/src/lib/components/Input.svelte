@@ -6,10 +6,10 @@
   let className: ClassName = undefined;
   export { className as class };
 
-  export let name: string;
+  export let id: string;
   export let type: HTMLInputTypeAttribute;
   export let required: boolean | undefined = undefined;
 </script>
 
-<input {...$$restProps} {name} {type} {required}
+<input {...$$restProps} {id} {type} {required}
        class={cn(commonInputControlClassName, className)} />
