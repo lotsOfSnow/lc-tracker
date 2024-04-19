@@ -1,3 +1,4 @@
+using LcTracker.Api.Converters;
 using LcTracker.Api.Exceptions;
 using LcTracker.Core.Auth;
 using LcTracker.Core.Features.Attempts.Commands;
@@ -37,7 +38,7 @@ public static class DependenciesInstaller
 
     private static void AddShared(this WebApplicationBuilder builder)
     {
-        builder.Services.AddAppClock();
+        builder.Services.AddTimeProvider();
         builder.Services.AddTransient<IDispatcher, Dispatcher>();
     }
 
@@ -50,7 +51,8 @@ public static class DependenciesInstaller
     private static void AddApi(this WebApplicationBuilder builder)
     {
         builder.AddOpenApi();
-        builder.Services.AddControllers();
+        builder.Services.AddControllers()
+            .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter()));
         builder.AddAppCors();
         builder.Services.AddExceptionHandlers();
     }

@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="EntityFrameworkCore.Exceptions.Sqlite" />
+    <PackageReference Include="JetBrains.Annotations" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
   </ItemGroup>
 

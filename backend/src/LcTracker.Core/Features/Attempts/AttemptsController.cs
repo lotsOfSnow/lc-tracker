@@ -23,7 +23,8 @@ public class AttemptsController(IDispatcher dispatcher, IAppDbContext dbContext)
     [HttpPost("api/attempts")]
     public async Task<ActionResult> Create(CreateAttemptRequest request, CancellationToken ct)
     {
-        var command = new CreateAttemptCommand(request.ProblemId, request.MinutesSpent);
+        var command = new CreateAttemptCommand(request.ProblemId, request.MinutesSpent, request.Date, request.Note,
+            request.HasUsedHelp, request.HasSolved, request.IsRecap, request.Difficulty);
 
         await Dispatcher.DispatchAsync(command, ct);
 
@@ -47,7 +48,8 @@ public class AttemptsController(IDispatcher dispatcher, IAppDbContext dbContext)
     [HttpPut("api/attempts/{id:guid}")]
     public async Task<ActionResult> Update(Guid id, UpdateAttemptRequest request, CancellationToken ct)
     {
-        var command = new UpdateAttemptCommand(id, request.ProblemId, request.MinutesSpent);
+        var command = new UpdateAttemptCommand(id, request.ProblemId, request.MinutesSpent, request.Date, request.Note,
+            request.HasUsedHelp, request.HasSolved, request.IsRecap, request.Difficulty);
 
         await Dispatcher.DispatchAsync(command, ct);
 

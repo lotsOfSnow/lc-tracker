@@ -1,3 +1,4 @@
+using Microsoft.OpenApi.Any;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace LcTracker.Api.Bootstrap;
@@ -14,6 +15,14 @@ public static class OpenApiInstaller
                 .TryGetMethodInfo(out var methodInfo) ?
                 $"{methodInfo.DeclaringType!.Name.Replace("Controller", "")}.{methodInfo.Name}"
                 : null);
+
+            c.MapType<DateOnly>(() => new()
+            {
+                Type = "string",
+                Format = "date",
+                Example = new OpenApiString("2024-04-20"),
+            });
+
         });
     }
 
