@@ -7,6 +7,7 @@
   import { AppRoute } from '$lib/routes';
   import { difficulties } from '../difficulty';
   import { commonInputControlClassName } from '$lib/components/styleUtils';
+  import Checkbox from '$lib/components/Checkbox.svelte';
 
   export let form;
   export let data;
@@ -33,7 +34,7 @@
 
     <div>
       <Label for="name">Minutes spent</Label>
-      <Input id="minutesSpent" name="minutesSpent" type="number" />
+      <Input required name="minutesSpent" type="number" />
     </div>
 
     <div>
@@ -52,18 +53,18 @@
 
     <div>
       <Label for="name">Has used help</Label>
-      <Input name="hasUsedHelp" type="checkbox" />
+      <Checkbox name="hasUsedHelp" />
     </div>
 
     <div>
       <Label for="name">Has solved</Label>
-      <Input name="hasSolved" type="checkbox" />
+      <Checkbox name="hasSolved" type="checkbox" />
     </div>
 
     <!-- After 1st success, every attempt should automatically be marked as recap on API side TODO -->
     <div>
       <Label for="name">Is recap</Label>
-      <Input name="isRecap" type="checkbox" />
+      <Checkbox name="isRecap" type="checkbox" />
     </div>
 
     <div>
