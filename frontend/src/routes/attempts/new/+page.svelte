@@ -6,6 +6,7 @@
   import FormCloseButton from '$lib/components/FormCloseButton.svelte';
   import { AppRoute } from '$lib/routes';
   import { difficulties } from '../difficulty';
+  import { commonInputControlClassName } from '$lib/components/styleUtils';
 
   export let form;
   export let data;
@@ -20,9 +21,12 @@
   <form method="POST" on:submit|preventDefault use:enhance>
     <div>
       <Label for="number">Problem ID</Label>
-      <select required name="problemId">
+      <select required name="problemId"
+              class={commonInputControlClassName}>
         {#each problems as problem}
-          <option value={problem.id}>{problem.name}</option>
+          <option
+            class={commonInputControlClassName}
+            value={problem.id}>{problem.name}</option>
         {/each}
       </select>
     </div>
@@ -39,9 +43,9 @@
 
     <div>
       <Label for="name">Difficulty</Label>
-      <select required name="difficulty">
+      <select class={commonInputControlClassName} required name="difficulty">
         {#each difficulties as difficulty}
-          <option value={difficulty}>{difficulty}</option>
+          <option class={commonInputControlClassName} value={difficulty}>{difficulty}</option>
         {/each}
       </select>
     </div>
