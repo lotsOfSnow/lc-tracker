@@ -55,7 +55,7 @@ const schema = z.object({
   date: z.string(),
   difficulty: z
     .custom<Difficulty>()
-    .refine((value: number) => value in difficulties),
+    .transform((value) => Number(value) as Difficulty),
   hasUsedHelp: z.boolean().default(false),
   hasSolved: z.boolean().default(false),
   isRecap: z.boolean().default(false),
