@@ -21,7 +21,7 @@
   <FormCloseButton to={AppRoute.ATTEMPTS} />
   <form method="POST" on:submit|preventDefault use:enhance>
     <div>
-      <Label for="number">Problem ID</Label>
+      <Label for="number">Problem</Label>
       <select required name="problemId"
               class={commonInputControlClassName}>
         {#each problems as problem}
@@ -69,7 +69,7 @@
 
     <div>
       <Label for="name">Note</Label>
-      <Input name="note" type="text" />
+      <textarea name="note" class={commonInputControlClassName} />
     </div>
 
     <Button type="submit" class="mt-2">Create</Button>
