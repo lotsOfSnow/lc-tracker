@@ -1,8 +1,23 @@
-import { type Actions, fail, redirect } from '@sveltejs/kit';
+import { type Actions, error, fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { AppRoute } from '$lib/routes';
-import { apiClient } from '$lib/api';
+import { apiClient, getApiOperation } from '$lib/api';
 import { safeParseRequestFormData } from '$lib/utils/zodUtils';
+
+export const load = async () => {
+  const operation = getApiOperation('/api/problems', 'get', 200);
+
+  const response = await apiClient.GET(operation.path);
+
+  return response.data?.value
+    ? {
+        problems: response.data.value.map((x) => ({
+          id: x.id,
+          name: x.name,
+        })),
+      }
+    : error(400);
+};
 
 export const actions = {
   default: async (event) => {

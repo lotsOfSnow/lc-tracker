@@ -37,7 +37,7 @@
 
   <div class="mt-4 overflow-x-auto">
     <Table {columns} let:columns>
-      <TableRowTemplate columns={columns} values={data.value} let:value={attempt} let:col>
+      <TableRowTemplate {columns} values={data.value} let:value={attempt} let:col>
         {#if col?.key}
           <TableCellByColumnKey {col} value={attempt} />
         {:else}

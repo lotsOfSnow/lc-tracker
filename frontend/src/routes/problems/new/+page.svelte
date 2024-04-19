@@ -16,17 +16,17 @@
   <form method="POST" on:submit|preventDefault use:enhance>
     <div>
       <Label for="number">Number</Label>
-      <Input id="number" name="number" type="number" />
+      <Input name="number" type="number" />
     </div>
 
     <div>
       <Label for="name">Name</Label>
-      <Input id="name" name="name" type="text" />
+      <Input name="name" type="text" />
     </div>
 
     <div>
       <Label for="url">Url</Label>
-      <Input id="url" name="url" type="text" />
+      <Input name="url" type="url" />
     </div>
 
     <Button type="submit" class="mt-2">Create</Button>

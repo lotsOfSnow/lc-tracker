@@ -19,17 +19,17 @@
     <input name="id" value={data.id} hidden>
     <div>
       <Label for="number">Number</Label>
-      <Input id="number" name="number" type="number" value={data.number} />
+      <Input name="number" type="number" value={data.number} />
     </div>
 
     <div>
       <Label for="name">Name</Label>
-      <Input id="name" name="name" type="text" value={data.name} />
+      <Input name="name" type="text" value={data.name} />
     </div>
 
     <div>
       <Label for="url">Url</Label>
-      <Input id="url" name="url" type="text" value={data.url} />
+      <Input name="url" type="url" value={data.url} />
     </div>
 
     <Button type="submit" class="mt-2">Update</Button>
