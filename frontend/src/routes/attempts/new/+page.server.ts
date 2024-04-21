@@ -3,7 +3,8 @@ import { z } from 'zod';
 import { AppRoute } from '$lib/routes';
 import { apiClient, getApiOperation } from '$lib/api';
 import { safeParseRequestFormData } from '$lib/utils/zodUtils';
-import { difficulties, type Difficulty } from '../difficulty';
+import { difficulties } from '../difficulty';
+import { baseSchema } from '../attemptZodSchema';
 
 export const load = async () => {
   const operation = getApiOperation('/api/problems', 'get', 200);
@@ -46,20 +47,4 @@ export const actions = {
 
 export type Method = (typeof difficulties)[number];
 
-const schema = z.object({
-  problemId: z.string().uuid(),
-  minutesSpent: z.coerce.number().min(1),
-  date: z.string(),
-  difficulty: z
-    .custom<Difficulty>((val) => {
-      return typeof val === 'string' || typeof val === 'number'
-        ? val in difficulties
-        : false;
-    })
-    .pipe(z.coerce.number())
-    .transform((val) => val as Difficulty),
-  hasUsedHelp: z.coerce.boolean().default(false),
-  hasSolved: z.coerce.boolean().default(false),
-  isRecap: z.coerce.boolean().default(false),
-  note: z.string(),
-});
+const schema = z.intersection(baseSchema, z.object({}));
