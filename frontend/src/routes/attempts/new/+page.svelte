@@ -47,7 +47,6 @@
       <select class={commonInputControlClassName} required id="difficulty" name="difficulty">
         {#each difficulties as difficulty}
           <option class={commonInputControlClassName} value={difficulty}>{difficulty}</option>
-          <option class={commonInputControlClassName} value={55}>{55}</option>
         {/each}
       </select>
     </div>
