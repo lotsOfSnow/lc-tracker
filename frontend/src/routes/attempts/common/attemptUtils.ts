@@ -4,7 +4,9 @@ import { apiClient, getApiOperation } from '$lib/api';
 
 export const baseAttemptSchema = z.object({
   problemId: z.string().uuid(),
-  minutesSpent: z.coerce.number().min(1),
+  minutesSpent: z.coerce
+    .number()
+    .transform((val) => (val === 0 ? undefined : val)),
   date: z.string(),
   difficulty: z
     .custom<Difficulty>((val) => {
