@@ -31,7 +31,7 @@ public class Attempt
         get => _minutesSpent;
         set
         {
-            if (_minutesSpent <= 0)
+            if (value <= 0)
             {
                 // TODO
                 throw new();

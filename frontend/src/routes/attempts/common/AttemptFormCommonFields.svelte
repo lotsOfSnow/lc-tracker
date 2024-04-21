@@ -26,7 +26,7 @@
 
 <div>
   <Label for="minutesSpent">Minutes spent</Label>
-  <Input required id="minutesSpent" name="minutesSpent" type="number" value={src?.minutesSpent} />
+  <Input id="minutesSpent" name="minutesSpent" type="number" value={src?.minutesSpent} />
 </div>
 
 <div>
