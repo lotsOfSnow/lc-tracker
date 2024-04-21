@@ -5,6 +5,7 @@
   import Button from '$lib/components/Button.svelte';
   import FormCloseButton from '$lib/components/FormCloseButton.svelte';
   import { AppRoute } from '$lib/routes';
+  import FormErrors from '$lib/components/form/FormErrors.svelte';
 
   export let form;
   export let data;
@@ -35,13 +36,5 @@
     <Button type="submit" class="mt-2">Update</Button>
   </form>
 
-  {#if form?.fieldErrors || form?.formErrors}
-    <div>
-      <ul>
-        {#each ([...Object.entries(form.fieldErrors), ...Object.entries(form.formErrors)]).filter(x => x) as error}
-          <li class="mt-2 text-sm text-red-500">{error}</li>
-        {/each}
-      </ul>
-    </div>
-  {/if}
+  <FormErrors data={form} />
 </div>
