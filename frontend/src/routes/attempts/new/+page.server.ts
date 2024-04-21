@@ -27,8 +27,6 @@ export const actions = {
       return fail(400, parsingResult.error.flatten());
     }
 
-    console.log(parsingResult.data);
-
     const result = await apiClient.POST('/api/attempts', {
       body: {
         ...parsingResult.data,
@@ -36,7 +34,6 @@ export const actions = {
       fetch: event.fetch,
     });
 
-    console.log(result);
     if (result.data) {
       redirect(302, AppRoute.ATTEMPTS);
     }
@@ -54,10 +51,15 @@ const schema = z.object({
   minutesSpent: z.coerce.number().min(1),
   date: z.string(),
   difficulty: z
-    .custom<Difficulty>()
-    .transform((value) => Number(value) as Difficulty),
-  hasUsedHelp: z.boolean().default(false),
-  hasSolved: z.boolean().default(false),
-  isRecap: z.boolean().default(false),
+    .custom<Difficulty>((val) => {
+      return typeof val === 'string' || typeof val === 'number'
+        ? val in difficulties
+        : false;
+    })
+    .pipe(z.coerce.number())
+    .transform((val) => val as Difficulty),
+  hasUsedHelp: z.coerce.boolean().default(false),
+  hasSolved: z.coerce.boolean().default(false),
+  isRecap: z.coerce.boolean().default(false),
   note: z.string(),
 });
