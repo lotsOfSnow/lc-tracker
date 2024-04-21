@@ -1,24 +1,19 @@
 import { type Actions, error, fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { AppRoute } from '$lib/routes';
-import { apiClient, getApiOperation } from '$lib/api';
+import { apiClient } from '$lib/api';
 import { safeParseRequestFormData } from '$lib/utils/zodUtils';
 import { difficulties } from '../difficulty';
-import { baseSchema } from '../attemptZodSchema';
+import {
+  baseAttemptSchema,
+  loadProblems,
+  type ProblemFields,
+} from '../common/attemptUtils';
 
-export const load = async () => {
-  const operation = getApiOperation('/api/problems', 'get', 200);
-
-  const response = await apiClient.GET(operation.path);
-
-  return response.data?.value
-    ? {
-        problems: response.data.value.map((x) => ({
-          id: x.id,
-          name: x.name,
-        })),
-      }
-    : error(400);
+export const load = async ({
+  fetch,
+}): Promise<{ problems: ProblemFields[] }> => {
+  return (await loadProblems(fetch)) ?? error(400);
 };
 
 export const actions = {
@@ -47,4 +42,4 @@ export const actions = {
 
 export type Method = (typeof difficulties)[number];
 
-const schema = z.intersection(baseSchema, z.object({}));
+const schema = z.intersection(baseAttemptSchema, z.object({}));
