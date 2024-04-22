@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { apiClient, getApiOperation } from '$lib/api';
 import { safeParseRequestFormData } from '$lib/utils/zodUtils';
 import { baseAttemptSchema, loadProblems } from '../common/attemptUtils';
+import { addToast } from '$lib/components/notifications/toastStore';
 
 export const actions = {
   default: async (event) => {
@@ -38,6 +39,8 @@ export const actions = {
 
 export const load = async ({ params, fetch }) => {
   const operation = getApiOperation('/api/attempts/{id}', 'get', 200);
+
+  addToast('success', false, 'Haha');
 
   const result = await apiClient.GET(operation.path, {
     fetch,
