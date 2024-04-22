@@ -1,8 +1,20 @@
-import { type Actions, fail, redirect } from '@sveltejs/kit';
+import { type Actions, error, fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { AppRoute } from '$lib/routes';
 import { apiClient } from '$lib/api';
 import { safeParseRequestFormData } from '$lib/utils/zodUtils';
+import { difficulties } from '../difficulty';
+import {
+  baseAttemptSchema,
+  loadProblems,
+  type ProblemFields,
+} from '../common/attemptUtils';
+
+export const load = async ({
+  fetch,
+}): Promise<{ problems: ProblemFields[] }> => {
+  return (await loadProblems(fetch)) ?? error(400);
+};
 
 export const actions = {
   default: async (event) => {
@@ -28,7 +40,6 @@ export const actions = {
   },
 } satisfies Actions;
 
-const schema = z.object({
-  problemId: z.string().uuid(),
-  minutesSpent: z.coerce.number().min(1),
-});
+export type Method = (typeof difficulties)[number];
+
+const schema = z.intersection(baseAttemptSchema, z.object({}));

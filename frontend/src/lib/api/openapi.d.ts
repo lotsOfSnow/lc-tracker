@@ -35,12 +35,15 @@ export interface components {
       appUserId?: string;
       /** Format: uuid */
       problemId?: string;
-      /** Format: date-time */
+      /**
+       * Format: date
+       * @example 2024-04-20
+       */
       date?: string;
       note?: string | null;
       /** Format: int32 */
-      minutesSpent?: number;
-      perceivedDifficulty?: components["schemas"]["Difficulty"];
+      minutesSpent?: number | null;
+      difficulty?: components["schemas"]["Difficulty"];
       hasUsedHelp?: boolean;
       hasSolved?: boolean;
       isRecap?: boolean;
@@ -49,7 +52,17 @@ export interface components {
       /** Format: uuid */
       problemId?: string;
       /** Format: int32 */
-      minutesSpent?: number;
+      minutesSpent?: number | null;
+      /**
+       * Format: date
+       * @example 2024-04-20
+       */
+      date?: string;
+      note?: string | null;
+      hasUsedHelp?: boolean;
+      hasSolved?: boolean;
+      isRecap?: boolean;
+      difficulty?: components["schemas"]["Difficulty"];
     };
     CreateProblemRequest: {
       name?: string | null;
@@ -97,7 +110,17 @@ export interface components {
       /** Format: uuid */
       problemId?: string;
       /** Format: int32 */
-      minutesSpent?: number;
+      minutesSpent?: number | null;
+      /**
+       * Format: date
+       * @example 2024-04-20
+       */
+      date?: string;
+      note?: string | null;
+      hasUsedHelp?: boolean;
+      hasSolved?: boolean;
+      isRecap?: boolean;
+      difficulty?: components["schemas"]["Difficulty"];
     };
     UpdateProblemRequest: {
       name?: string | null;

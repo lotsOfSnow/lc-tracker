@@ -1,31 +1,46 @@
 using LcTracker.Core.Auth;
 using LcTracker.Core.Storage;
 using LcTracker.Shared.Handlers;
-using LcTracker.Shared.Time;
 
 namespace LcTracker.Core.Features.Attempts.Commands;
 
-public record CreateAttemptRequest(Guid ProblemId, int MinutesSpent);
+public record CreateAttemptRequest(
+    Guid ProblemId,
+    int? MinutesSpent,
+    DateOnly Date,
+    string Note,
+    bool HasUsedHelp,
+    bool HasSolved,
+    bool IsRecap,
+    Difficulty Difficulty);
 
-public record CreateAttemptCommand(Guid ProblemId, int MinutesSpent) : ICommand;
+public record CreateAttemptCommand(
+    Guid ProblemId,
+    int? MinutesSpent,
+    DateOnly Date,
+    string Note,
+    bool HasUsedHelp,
+    bool HasSolved,
+    bool IsRecap,
+    Difficulty Difficulty) : ICommand;
 
-public class CreateAttemptCommandHandler(IAppClock appClock, IAppDbContext dbContext, IGetCurrentUserId getCurrentUserId) : ICommandHandler<CreateAttemptCommand>
+public class CreateAttemptCommandHandler(TimeProvider timeProvider,
+    IAppDbContext dbContext,
+    IGetCurrentUserId getCurrentUserId) : ICommandHandler<CreateAttemptCommand>
 {
     public async Task HandleAsync(CreateAttemptCommand command, CancellationToken ct)
     {
-        var now = appClock.Now;
         var userId = getCurrentUserId.Execute();
 
-        var attempt = new Attempt()
+        var attempt = new Attempt(timeProvider.GetUtcNow(), command.Date)
         {
             ProblemId = command.ProblemId,
-            Date = now,
-            PerceivedDifficulty = Difficulty.Easy,
-            HasSolved = true,
-            IsRecap = false,
+            Difficulty = command.Difficulty,
+            HasSolved = command.HasSolved,
+            IsRecap = command.IsRecap,
             MinutesSpent = command.MinutesSpent,
-            HasUsedHelp = false,
-            Note = "",
+            HasUsedHelp = command.HasUsedHelp,
+            Note = command.Note,
             AppUserId = userId,
         };
 

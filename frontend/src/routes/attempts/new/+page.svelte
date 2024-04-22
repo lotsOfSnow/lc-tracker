@@ -1,12 +1,15 @@
-<script>
+<script lang="ts">
   import { enhance } from '$app/forms';
-  import Input from '$lib/components/Input.svelte';
-  import Label from '$lib/components/Label.svelte';
   import Button from '$lib/components/Button.svelte';
   import FormCloseButton from '$lib/components/FormCloseButton.svelte';
   import { AppRoute } from '$lib/routes';
+  import AttemptFormCommonFields from '../common/AttemptFormCommonFields.svelte';
+  import FormErrors from '$lib/components/form/FormErrors.svelte';
 
   export let form;
+  export let data;
+
+  let problems = data.problems;
 </script>
 
 <div class="bg-gray-100 p-6 w-full max-w-md mx-auto rounded-lg shadow-md relative">
@@ -14,26 +17,10 @@
 
   <FormCloseButton to={AppRoute.ATTEMPTS} />
   <form method="POST" on:submit|preventDefault use:enhance>
-    <div>
-      <Label for="number">Problem ID</Label>
-      <Input id="problemId" name="problemId" type="string" />
-    </div>
-
-    <div>
-      <Label for="name">Minutes spent</Label>
-      <Input id="minutesSpent" name="minutesSpent" type="number" />
-    </div>
+    <AttemptFormCommonFields {problems} src={undefined} />
 
     <Button type="submit" class="mt-2">Create</Button>
   </form>
 
-  {#if form?.fieldErrors || form?.formErrors}
-    <div>
-      <ul>
-        {#each ([...Object.entries(form.fieldErrors), ...Object.entries(form.formErrors)]).filter(x => x) as error}
-          <li class="mt-2 text-sm text-red-500">{error}</li>
-        {/each}
-      </ul>
-    </div>
-  {/if}
+  <FormErrors data={form} />
 </div>
