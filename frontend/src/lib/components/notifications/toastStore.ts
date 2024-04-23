@@ -31,7 +31,7 @@ export const dismissToast = (id: number) => {
 };
 
 export type ToastData = {
-  id?: number;
+  id: number;
   type: ToastType;
   dismissible: boolean;
   timeout?: number;
