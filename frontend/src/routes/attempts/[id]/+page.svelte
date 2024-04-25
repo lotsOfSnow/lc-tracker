@@ -19,10 +19,9 @@
     return async ({result,  update}) => {
       if (result.type === 'success') {
         addToast('success', false, 'Test', 1000);
-
       }
 
-        await update();
+      await update({reset: false})
     }
   }}>
     <input name="id" value={data.attempt.id} hidden>
