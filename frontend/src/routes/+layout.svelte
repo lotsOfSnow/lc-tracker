@@ -2,7 +2,6 @@
   import '../app.css';
   import { AppRoute } from '$lib/routes';
   import ToastArea from '$lib/components/notifications/ToastArea.svelte';
-  import { addToast } from '$lib/components/notifications/toastStore';
 
   interface Item {
     text: string,
@@ -28,8 +27,6 @@
 <ToastArea />
 
 <div class="flex h-screen">
-  <button on:click={() => addToast('success', false, 'Test', 1000)}>Click</button>
-
   <!-- Sidebar -->
   <div class="bg-gray-800 text-white w-64 flex-shrink-0">
     <nav class="p-4">
