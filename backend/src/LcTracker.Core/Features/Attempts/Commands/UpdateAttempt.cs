@@ -28,7 +28,7 @@ public record UpdateAttemptCommand(
 
 public class UpdateAttemptCommandHandler(TimeProvider timeProvider, IAppDbContext dbContext, IGetCurrentUserId getCurrentUserId) : ICommandHandler<UpdateAttemptCommand>
 {
-    public async Task HandleAsync(UpdateAttemptCommand command, CancellationToken ct)
+    public async Task Handle(UpdateAttemptCommand command, CancellationToken ct)
     {
         var attempt = await dbContext
             .UserAttempts(getCurrentUserId)

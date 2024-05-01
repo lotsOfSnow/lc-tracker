@@ -28,7 +28,7 @@ public class CreateAttemptCommandHandler(TimeProvider timeProvider,
     IAppDbContext dbContext,
     IGetCurrentUserId getCurrentUserId) : ICommandHandler<CreateAttemptCommand>
 {
-    public async Task HandleAsync(CreateAttemptCommand command, CancellationToken ct)
+    public async Task Handle(CreateAttemptCommand command, CancellationToken ct)
     {
         var userId = getCurrentUserId.Execute();
 

@@ -13,7 +13,7 @@ public record ExportProblemsQueryResult(string Json);
 public class ExportProblemsQueryHandler(IAppDbContext dbContext, IGetCurrentUserId getCurrentUserId)
     : IQueryHandler<ExportProblemsQuery, ExportProblemsQueryResult>
 {
-    public async Task<ExportProblemsQueryResult> HandleAsync(ExportProblemsQuery command, CancellationToken ct)
+    public async Task<ExportProblemsQueryResult> Handle(ExportProblemsQuery command, CancellationToken ct)
     {
         var userId = getCurrentUserId.Execute();
 

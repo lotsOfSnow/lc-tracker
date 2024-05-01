@@ -1,13 +1,13 @@
+using MediatR;
+
 namespace LcTracker.Shared.Handlers;
 
-public interface ICommandHandler<in TCommand>
+public interface ICommandHandler<in TCommand> : IRequestHandler<TCommand>
     where TCommand : ICommand
 {
-    Task HandleAsync(TCommand command, CancellationToken ct);
 }
 
-public interface ICommandHandler<in TCommand, TResult>
+public interface ICommandHandler<in TCommand, TResult> : IRequestHandler<TCommand, TResult>
     where TCommand : ICommand<TResult>
 {
-    Task<TResult> HandleAsync(TCommand command, CancellationToken ct);
 }
