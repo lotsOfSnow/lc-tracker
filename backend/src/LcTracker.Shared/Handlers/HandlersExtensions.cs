@@ -5,6 +5,8 @@ namespace LcTracker.Shared.Handlers;
 
 public static class HandlersExtensions
 {
+    private static readonly List<Type> _handlerInterfaces =
+        [typeof(ICommandHandler<>), typeof(ICommandHandler<,>), typeof(IQueryHandler<,>)];
     public static IServiceCollection AddHandlers(this IServiceCollection services, params Assembly[] assemblies)
     {
         var handlerTypes = assemblies
@@ -13,11 +15,10 @@ public static class HandlersExtensions
             .SelectMany(type => type.GetInterfaces(),
                 (type, @interface) => new
                 {
-                    Type = type, Interface = @interface
+                    Type = type, Interface = @interface,
                 })
             .Where(ti => ti.Interface.IsGenericType &&
-                         (ti.Interface.GetGenericTypeDefinition() == typeof(ICommandHandler<>) ||
-                          ti.Interface.GetGenericTypeDefinition() == typeof(ICommandHandler<,>)));
+                         _handlerInterfaces.Any(i => i == ti.Interface.GetGenericTypeDefinition()));
 
         foreach (var handlerType in handlerTypes)
         {

@@ -64,9 +64,9 @@ public class ProblemsController(IDispatcher dispatcher, IAppDbContext dbContext)
     {
         var query = new ExportProblemsQuery();
 
-        await Dispatcher.DispatchAsync(query, ct);
+        var result = await Dispatcher.QueryAsync<ExportProblemsQuery, ExportProblemsQueryResult>(query, ct);
 
-        return Ok();
+        return Ok(result);
     }
 
     public record GetAllProblemsResponse(IEnumerable<Problem> Value);

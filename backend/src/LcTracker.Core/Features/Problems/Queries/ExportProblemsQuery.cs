@@ -1,16 +1,34 @@
+using System.Text.Json;
 using LcTracker.Core.Auth;
-using LcTracker.Core.Features.Export;
 using LcTracker.Core.Storage;
 using LcTracker.Shared.Handlers;
+using Microsoft.EntityFrameworkCore;
 
 namespace LcTracker.Core.Features.Problems.Queries;
 
-public record ExportProblemsQuery : ICommand;
+public record ExportProblemsQuery : IQuery<ExportProblemsQueryResult>;
 
-public class ExportProblemsQueryHandler(IAppDbContext dbContext, IGetCurrentUserId getCurrentUserId) : ICommandHandler<ExportProblemsQuery>
+public record ExportProblemsQueryResult(string Json);
+
+public class ExportProblemsQueryHandler(IAppDbContext dbContext, IGetCurrentUserId getCurrentUserId)
+    : IQueryHandler<ExportProblemsQuery, ExportProblemsQueryResult>
 {
-    public async Task HandleAsync(ExportProblemsQuery command, CancellationToken ct)
+    public async Task<ExportProblemsQueryResult> HandleAsync(ExportProblemsQuery command, CancellationToken ct)
     {
-        await new ExportService(dbContext).Export(getCurrentUserId.Execute());
+        var userId = getCurrentUserId.Execute();
+
+        var json =  await GetJson(userId);
+
+        return new(json);
+    }
+
+    private async Task<string> GetJson(Guid userId)
+    {
+        var problems = await dbContext.Problems
+            .Where(x => x.AppUserId == userId)
+            .Include(x => x.Attempts!.Where(a => a.AppUserId == userId))
+            .ToListAsync();
+
+        return JsonSerializer.Serialize(problems);
     }
 }
