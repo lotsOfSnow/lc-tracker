@@ -4,7 +4,7 @@ using LcTracker.Core.Storage;
 using LcTracker.Shared.Handlers;
 using Microsoft.EntityFrameworkCore;
 
-namespace LcTracker.Core.Features.Problems.Queries;
+namespace LcTracker.Core.Features.Problems.Queries.Export;
 
 public record ExportProblemsQuery : IQuery<ExportProblemsQueryResult>;
 
@@ -29,6 +29,8 @@ public class ExportProblemsQueryHandler(IAppDbContext dbContext, IGetCurrentUser
             .Include(x => x.Attempts!.Where(a => a.AppUserId == userId))
             .ToListAsync();
 
-        return JsonSerializer.Serialize(problems);
+        var mapped = problems.Select(x => x.ToExported());
+
+        return JsonSerializer.Serialize(mapped);
     }
 }
