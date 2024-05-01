@@ -1,6 +1,7 @@
 <script lang="ts">
   import '../app.css';
   import { AppRoute } from '$lib/routes';
+  import ToastArea from '$lib/components/notifications/ToastArea.svelte';
 
   interface Item {
     text: string,
@@ -22,6 +23,8 @@
     },
   ];
 </script>
+
+<ToastArea />
 
 <div class="flex h-screen">
   <!-- Sidebar -->

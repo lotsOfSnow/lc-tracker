@@ -36,7 +36,7 @@ export const actions = {
 
     const error = result.error;
 
-    return fail(400, { formErrors: [error.title], fieldErrors: {} });
+    return fail(400, { serverErrors: [error.title] });
   },
 } satisfies Actions;
 

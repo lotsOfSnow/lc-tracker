@@ -35,7 +35,7 @@ export const actions = {
     const error = result.error;
 
     return 'title' in error
-      ? fail(400, { formErrors: [error.title], fieldErrors: {} })
+      ? fail(400, { serverError: [error.title] })
       : fail(500);
   },
 } satisfies Actions;

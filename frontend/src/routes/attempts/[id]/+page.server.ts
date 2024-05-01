@@ -1,5 +1,4 @@
-import { type Actions, error, fail, redirect } from '@sveltejs/kit';
-import { AppRoute } from '$lib/routes';
+import { type Actions, error, fail } from '@sveltejs/kit';
 import { z } from 'zod';
 import { apiClient, getApiOperation } from '$lib/api';
 import { safeParseRequestFormData } from '$lib/utils/zodUtils';
@@ -9,7 +8,7 @@ export const actions = {
   default: async (event) => {
     const parsingResult = await safeParseRequestFormData(event.request, schema);
     if (!parsingResult.success) {
-      return fail(400, parsingResult.error.flatten());
+      return fail(400, { ...parsingResult.error.flatten() });
     }
 
     const result = await apiClient.PUT('/api/attempts/{id}', {
@@ -25,13 +24,14 @@ export const actions = {
     });
 
     if (result.data) {
-      redirect(302, AppRoute.ATTEMPTS);
+      return { success: true };
     }
 
     const error = result.error;
 
+    console.log(error);
     return 'title' in error
-      ? fail(400, { formErrors: [error.title], fieldErrors: {} })
+      ? fail(400, { serverErrors: [error.title] })
       : fail(500);
   },
 } satisfies Actions;

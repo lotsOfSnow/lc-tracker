@@ -6,10 +6,16 @@
   import { difficulties } from '../difficulty';
   import type { ProblemFields } from './attemptUtils';
   import { commonInputControlClassName } from '$lib/components/styleUtils';
+  import Button from '$lib/components/Button.svelte';
 
   export let src: apiSchemas['Attempt'] | undefined = undefined;
   export let problems: ProblemFields[];
 
+  let date = src?.date;
+
+  const setTodayDate = () => {
+    date = new Date().toISOString().slice(0, 10);
+  };
 </script>
 
 <div>
@@ -31,7 +37,10 @@
 
 <div>
   <Label for="date">Date</Label>
-  <Input required id="date" name="date" type="date" value={src?.date} />
+  <div class="flex">
+    <Input required id="date" name="date" type="date" bind:value={date} />
+    <Button type="button" on:click={setTodayDate}>Today</Button>
+  </div>
 </div>
 
 <div>
