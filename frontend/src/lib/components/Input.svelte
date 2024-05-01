@@ -10,7 +10,10 @@
   export let name: string;
   export let type: HTMLInputTypeAttribute;
   export let required: boolean | undefined = undefined;
+
+  export let value: string | number | null | undefined = '';
+
 </script>
 
-<input {...$$restProps} {id} {name} {type} {required}
+<input {...$$restProps} {id} {name} {required} bind:value {...{ type }}
        class={cn(commonInputControlClassName, className)} />
