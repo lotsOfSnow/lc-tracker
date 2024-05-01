@@ -1,4 +1,5 @@
 using LcTracker.Core.Features.Problems.Commands;
+using LcTracker.Core.Features.Problems.Queries;
 using LcTracker.Core.Storage;
 using LcTracker.Shared.Handlers;
 using LcTracker.Shared.Web;
@@ -56,6 +57,16 @@ public class ProblemsController(IDispatcher dispatcher, IAppDbContext dbContext)
         await Dispatcher.DispatchAsync(command, ct);
 
         return NoContent();
+    }
+
+    [HttpGet("api/problems/export")]
+    public async Task<IActionResult> Export(CancellationToken ct)
+    {
+        var query = new ExportProblemsQuery();
+
+        await Dispatcher.DispatchAsync(query, ct);
+
+        return Ok();
     }
 
     public record GetAllProblemsResponse(IEnumerable<Problem> Value);
