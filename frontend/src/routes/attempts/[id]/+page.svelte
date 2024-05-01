@@ -18,7 +18,7 @@
   <form method="POST" on:submit|preventDefault use:enhance={() => {
     return async ({result,  update}) => {
       if (result.type === 'success') {
-        addToast('success', true, 'Test', 3000);
+        addToast('success', true, 'Updated', 3000);
       }
 
       await update({reset: false})
