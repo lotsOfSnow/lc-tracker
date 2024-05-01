@@ -28,6 +28,4 @@
   {#if dismissible}
     <button class="ml-4 text-lg font-semibold leading-none" on:click={() => dispatch('dismiss')}>&times;</button>
   {/if}
-
-
 </article>
