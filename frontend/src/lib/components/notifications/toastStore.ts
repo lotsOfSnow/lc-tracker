@@ -7,8 +7,8 @@ const defaultToastTimeout = 5000;
 
 export const addToast = (
   type: ToastType,
-  dismissible: boolean,
   message: string,
+  dismissible: boolean = true,
   timeout: number | undefined = defaultToastTimeout,
 ) => {
   const id = Math.floor(Math.random() * 1000);

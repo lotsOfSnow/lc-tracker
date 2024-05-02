@@ -30,7 +30,7 @@
     const result = await apiClient.GET('/api/me/export', { parseAs: 'blob' });
 
     if (!result.data) {
-      addToast('error', true, 'Failed to export data');
+      addToast('error', 'Failed to export data');
       return;
     }
 
