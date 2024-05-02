@@ -1,3 +1,5 @@
+using System.Net.Mime;
+using System.Text.Json;
 using LcTracker.Core.Features.Problems.Commands;
 using LcTracker.Core.Features.Problems.Queries.Export;
 using LcTracker.Core.Storage;
@@ -60,13 +62,20 @@ public class ProblemsController(IDispatcher dispatcher, IAppDbContext dbContext)
     }
 
     [HttpGet("api/problems/export")]
-    public async Task<IActionResult> Export(CancellationToken ct)
+    public async Task<FileResult> Export(CancellationToken ct)
     {
         var query = new ExportProblemsQuery();
 
         var result = await Dispatcher.QueryAsync(query, ct);
 
-        return Ok(result);
+        Response.Headers.ContentDisposition = new ContentDisposition
+        {
+            FileName = "exported.json",
+        }.ToString();
+
+        using var ms = new MemoryStream(JsonSerializer.SerializeToUtf8Bytes(result));
+
+        return File(ms, MediaTypeNames.Application.Json);
     }
 
     public record GetAllProblemsResponse(IEnumerable<Problem> Value);

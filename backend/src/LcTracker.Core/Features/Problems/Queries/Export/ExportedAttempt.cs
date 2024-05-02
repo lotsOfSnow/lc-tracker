@@ -19,4 +19,6 @@ public class ExportedAttempt
     public bool HasSolved { get; set; }
 
     public bool IsRecap { get; set; }
+
+    public Guid ProblemId { get; set; }
 }

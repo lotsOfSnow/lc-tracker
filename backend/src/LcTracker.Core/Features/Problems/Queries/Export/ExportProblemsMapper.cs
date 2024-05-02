@@ -8,5 +8,5 @@ public static partial class ExportProblemsMapper
 {
     public static partial ExportedProblem ToExported(this Problem src);
 
-    private static partial ExportedAttempt ToExported(this Attempt src);
+    public static partial ExportedAttempt ToExported(this Attempt src);
 }

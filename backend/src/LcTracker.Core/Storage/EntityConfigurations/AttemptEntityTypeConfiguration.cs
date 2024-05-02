@@ -13,7 +13,7 @@ public class AttemptEntityTypeConfiguration : IEntityTypeConfiguration<Attempt>
         builder.HasKey(x => x.Id);
 
         builder.HasOne<Problem>()
-            .WithMany(x => x.Attempts)
+            .WithMany()
             .HasForeignKey(x => x.ProblemId)
             .OnDelete(DeleteBehavior.Restrict);
 

@@ -1,8 +1,8 @@
-using LcTracker.Core.Features.Attempts;
+using LcTracker.Shared.Entities;
 
 namespace LcTracker.Core.Features.Problems;
 
-public class Problem
+public class Problem : IOwned
 {
     public Guid Id { get; set; }
 
@@ -15,8 +15,6 @@ public class Problem
     public required string Url { get; set; }
 
     public required DateTimeOffset AddedAt { get; set; }
-
-    public ICollection<Attempt>? Attempts { get; set; }
 
     // TODO: Hints, solutions, description.
 }

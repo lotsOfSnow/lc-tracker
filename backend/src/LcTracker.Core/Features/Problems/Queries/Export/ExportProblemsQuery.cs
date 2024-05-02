@@ -1,6 +1,6 @@
-using System.Text.Json;
 using LcTracker.Core.Auth;
 using LcTracker.Core.Storage;
+using LcTracker.Shared.Entities;
 using LcTracker.Shared.Handlers;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +8,7 @@ namespace LcTracker.Core.Features.Problems.Queries.Export;
 
 public record ExportProblemsQuery : IQuery<ExportProblemsQueryResult>;
 
-public record ExportProblemsQueryResult(string Json);
+public record ExportProblemsQueryResult(ICollection<ExportedProblem> Problems, ICollection<ExportedAttempt> Attempts);
 
 public class ExportProblemsQueryHandler(IAppDbContext dbContext, IGetCurrentUserId getCurrentUserId)
     : IQueryHandler<ExportProblemsQuery, ExportProblemsQueryResult>
@@ -17,20 +17,20 @@ public class ExportProblemsQueryHandler(IAppDbContext dbContext, IGetCurrentUser
     {
         var userId = getCurrentUserId.Execute();
 
-        var json =  await GetJson(userId);
-
-        return new(json);
-    }
-
-    private async Task<string> GetJson(Guid userId)
-    {
         var problems = await dbContext.Problems
-            .Where(x => x.AppUserId == userId)
-            .Include(x => x.Attempts!.Where(a => a.AppUserId == userId))
+            .OwnedBy(userId)
+            .AsNoTrackingWithIdentityResolution()
+            .Select(
+                x => x.ToExported())
             .ToListAsync();
 
-        var mapped = problems.Select(x => x.ToExported());
+        var attempts = await dbContext.Attempts
+            .OwnedBy(userId)
+            .AsNoTrackingWithIdentityResolution()
+            .Select(
+                x => x.ToExported())
+            .ToListAsync();
 
-        return JsonSerializer.Serialize(mapped);
+        return new(problems, attempts);
     }
 }

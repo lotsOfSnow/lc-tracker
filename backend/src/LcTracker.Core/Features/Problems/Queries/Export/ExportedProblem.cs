@@ -11,6 +11,4 @@ public class ExportedProblem
     public required string Url { get; set; }
 
     public required DateTimeOffset AddedAt { get; set; }
-
-    public List<ExportedAttempt>? Attempts { get; set; }
 }
