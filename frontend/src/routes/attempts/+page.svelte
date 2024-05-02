@@ -20,14 +20,19 @@
       key: 'hasSolved',
       title: 'Solved?',
     },
-    url: {
-      key: 'note',
-      title: 'Note',
+    isRecap: {
+      key: 'isRecap',
+      title: 'Recap?',
+    },
+    difficulty: {
+      key: 'difficulty',
+      title: 'Difficulty',
     },
     actions: {
       title: 'Actions',
     },
   };
+
 </script>
 
 <div class="bg-gray-100 p-6 w-full max-w-6xl mx-auto rounded-lg shadow-md">
@@ -39,7 +44,16 @@
     <Table {columns} let:columns>
       <TableRowTemplate {columns} values={data.value} let:value={attempt} let:col>
         {#if col?.key}
-          <TableCellByColumnKey {col} value={attempt} />
+          {#if col.key === 'hasSolved'}
+            <span
+              class={`px-6 py-1 rounded-lg
+              ${attempt.hasSolved ? 'bg-green-500' : 'bg-red-500'}
+               font-semibold text-white cursor-default`}>
+              {attempt.hasSolved ? 'YES' : 'NO'}
+            </span>
+          {:else}
+            <TableCellByColumnKey {col} value={attempt} />
+          {/if}
         {:else}
           <div class="flex justify-end space-x-1">
             <TableEditActionButton href="{AppRoute.ATTEMPTS}/{attempt.id}" />
