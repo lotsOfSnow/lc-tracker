@@ -6,8 +6,10 @@
   <ItemGroup>
     <PackageVersion Include="EntityFrameworkCore.Exceptions.Sqlite" Version="8.1.2" />
     <PackageVersion Include="JetBrains.Annotations" Version="2023.3.0" />
+    <PackageVersion Include="MediatR" Version="12.2.0" />
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.3" />
+    <PackageVersion Include="Riok.Mapperly" Version="3.5.1" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 </Project>

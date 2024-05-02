@@ -10,7 +10,7 @@ public record DeleteAttemptCommand(Guid Id) : ICommand;
 public class DeleteAttemptCommandHandler(IGetCurrentUserId getCurrentUserId, IAppDbContext dbContext)
     : ICommandHandler<DeleteAttemptCommand>
 {
-    public async Task HandleAsync(DeleteAttemptCommand command, CancellationToken ct)
+    public async Task Handle(DeleteAttemptCommand command, CancellationToken ct)
     {
         var userId = getCurrentUserId.Execute();
 

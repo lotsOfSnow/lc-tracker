@@ -1,12 +1,8 @@
-using LcTracker.Shared.Entities;
+namespace LcTracker.Core.Features.CurrentUser.Queries.Export;
 
-namespace LcTracker.Core.Features.Problems;
-
-public class Problem : IOwned
+public class ExportedProblem
 {
     public Guid Id { get; set; }
-
-    public required Guid AppUserId { get; set; }
 
     public required int Number { get; set; }
 
@@ -15,6 +11,4 @@ public class Problem : IOwned
     public required string Url { get; set; }
 
     public required DateTimeOffset AddedAt { get; set; }
-
-    // TODO: Hints, solutions, description.
 }

@@ -1,8 +1,9 @@
 using JetBrains.Annotations;
+using LcTracker.Shared.Entities;
 
 namespace LcTracker.Core.Features.Attempts;
 
-public class Attempt
+public class Attempt : IOwned
 {
     private int? _minutesSpent;
     private string? _note;

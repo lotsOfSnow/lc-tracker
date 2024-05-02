@@ -11,7 +11,7 @@ public record UpdateProblemCommand(Guid Id, string Name, int Number, string Url)
 
 public class UpdateProblemCommandHandler(IAppDbContext dbContext, IGetCurrentUserId getCurrentUserId) : ICommandHandler<UpdateProblemCommand>
 {
-    public async Task HandleAsync(UpdateProblemCommand command, CancellationToken ct)
+    public async Task Handle(UpdateProblemCommand command, CancellationToken ct)
     {
         var problem = await dbContext
             .UserProblems(getCurrentUserId)
@@ -20,7 +20,7 @@ public class UpdateProblemCommandHandler(IAppDbContext dbContext, IGetCurrentUse
         // TODO don't throw
         if (problem is null)
         {
-            throw new Exception("No problem found");
+            throw new("No problem found");
         }
 
         problem.Name = command.Name;

@@ -2,6 +2,9 @@
   import '../app.css';
   import { AppRoute } from '$lib/routes';
   import ToastArea from '$lib/components/notifications/ToastArea.svelte';
+  import { apiClient } from '$lib/api';
+  import Button from '$lib/components/Button.svelte';
+  import { addToast } from '$lib/components/notifications/toastStore';
 
   interface Item {
     text: string,
@@ -22,14 +25,28 @@
       link: AppRoute.ATTEMPTS,
     },
   ];
+
+  const onExportClick = async () => {
+    const result = await apiClient.GET('/api/me/export', { parseAs: 'blob' });
+
+    if (!result.data) {
+      addToast('error', 'Failed to export data');
+      return;
+    }
+
+    const a = document.createElement('a');
+    a.href = window.URL.createObjectURL(result.data);
+    a.download = 'exported.json';
+    a.click();
+  };
 </script>
 
 <ToastArea />
 
 <div class="flex h-screen">
   <!-- Sidebar -->
-  <div class="bg-gray-800 text-white w-64 flex-shrink-0">
-    <nav class="p-4">
+  <div class="bg-gray-800 text-white w-64 flex-shrink-0 flex flex-col">
+    <nav class="p-4 flex-grow">
       <ul>
         {#each items as item}
           <li class="mb-2">
@@ -39,6 +56,15 @@
         {/each}
       </ul>
     </nav>
+    <div class="flex justify-center">
+      <form>
+        <Button type="submit" class="p-6 mb-5"
+                on:click={onExportClick}>
+          Export
+          data
+        </Button>
+      </form>
+    </div>
   </div>
 
   <!-- Content -->

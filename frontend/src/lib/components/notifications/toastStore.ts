@@ -3,11 +3,13 @@ import type { ToastType } from '$lib/components/notifications/toastType';
 
 export const toasts = writable<ToastData[]>([]);
 
+const defaultToastTimeout = 5000;
+
 export const addToast = (
   type: ToastType,
-  dismissible: boolean,
   message: string,
-  timeout?: number,
+  dismissible: boolean = true,
+  timeout: number | undefined = defaultToastTimeout,
 ) => {
   const id = Math.floor(Math.random() * 1000);
 

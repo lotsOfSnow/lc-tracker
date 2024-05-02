@@ -11,7 +11,7 @@ public record CreateProblemCommand(string Name, int Number, string Url) : IComma
 public class CreateProblemCommandHandler(TimeProvider timeProvider, IGetCurrentUserId getCurrentUserId, AppDbContext appDbContext)
     : ICommandHandler<CreateProblemCommand>
 {
-    public async Task HandleAsync(CreateProblemCommand command, CancellationToken ct = default)
+    public async Task Handle(CreateProblemCommand command, CancellationToken ct = default)
     {
         var now = timeProvider.GetUtcNow();
         var userId = getCurrentUserId.Execute();

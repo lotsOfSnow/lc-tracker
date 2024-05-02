@@ -14,6 +14,9 @@ export interface paths {
     put: operations["Attempts.Update"];
     delete: operations["Attempts.Delete"];
   };
+  "/api/me/export": {
+    get: operations["CurrentUser.Export"];
+  };
   "/api/problems": {
     get: operations["Problems.GetAll"];
     post: operations["Problems.Create"];
@@ -247,6 +250,14 @@ export interface operations {
     responses: {
       /** @description No Content */
       204: {
+        content: never;
+      };
+    };
+  };
+  "CurrentUser.Export": {
+    responses: {
+      /** @description Success */
+      200: {
         content: never;
       };
     };
