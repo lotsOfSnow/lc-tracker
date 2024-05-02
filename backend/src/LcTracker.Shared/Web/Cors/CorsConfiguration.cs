@@ -30,7 +30,8 @@ public static class CorsConfiguration
                                     .WithOrigins(myOptions.AllowedOrigin)
                                     .AllowAnyHeader()
                                     .AllowAnyMethod()
-                                    .AllowCredentials();
+                                    .AllowCredentials()
+                                    .WithExposedHeaders("Content-Disposition");
                             });
                     });
             });
