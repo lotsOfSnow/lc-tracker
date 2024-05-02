@@ -1,10 +1,11 @@
 using LcTracker.Core.Features.Attempts;
+using LcTracker.Core.Features.Problems;
 using Riok.Mapperly.Abstractions;
 
-namespace LcTracker.Core.Features.Problems.Queries.Export;
+namespace LcTracker.Core.Features.CurrentUser.Queries.Export;
 
 [Mapper]
-public static partial class ExportProblemsMapper
+public static partial class ExportCurrentUserDataMapper
 {
     public static partial ExportedProblem ToExported(this Problem src);
 

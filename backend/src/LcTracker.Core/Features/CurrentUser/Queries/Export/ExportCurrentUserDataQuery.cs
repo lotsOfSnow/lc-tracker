@@ -4,16 +4,16 @@ using LcTracker.Shared.Entities;
 using LcTracker.Shared.Handlers;
 using Microsoft.EntityFrameworkCore;
 
-namespace LcTracker.Core.Features.Problems.Queries.Export;
+namespace LcTracker.Core.Features.CurrentUser.Queries.Export;
 
-public record ExportProblemsQuery : IQuery<ExportProblemsQueryResult>;
+public record ExportCurrentUserDataQuery : IQuery<ExportCurrentUserDataQueryResult>;
 
-public record ExportProblemsQueryResult(ICollection<ExportedProblem> Problems, ICollection<ExportedAttempt> Attempts);
+public record ExportCurrentUserDataQueryResult(ICollection<ExportedProblem> Problems, ICollection<ExportedAttempt> Attempts);
 
-public class ExportProblemsQueryHandler(IAppDbContext dbContext, IGetCurrentUserId getCurrentUserId)
-    : IQueryHandler<ExportProblemsQuery, ExportProblemsQueryResult>
+public class ExportCurrentUserDataQueryHandler(IAppDbContext dbContext, IGetCurrentUserId getCurrentUserId)
+    : IQueryHandler<ExportCurrentUserDataQuery, ExportCurrentUserDataQueryResult>
 {
-    public async Task<ExportProblemsQueryResult> Handle(ExportProblemsQuery command, CancellationToken ct)
+    public async Task<ExportCurrentUserDataQueryResult> Handle(ExportCurrentUserDataQuery command, CancellationToken ct)
     {
         var userId = getCurrentUserId.Execute();
 

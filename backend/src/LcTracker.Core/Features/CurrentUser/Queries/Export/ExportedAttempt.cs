@@ -1,6 +1,6 @@
 using LcTracker.Core.Features.Attempts;
 
-namespace LcTracker.Core.Features.Problems.Queries.Export;
+namespace LcTracker.Core.Features.CurrentUser.Queries.Export;
 
 public class ExportedAttempt
 {
