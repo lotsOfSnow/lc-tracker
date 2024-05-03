@@ -8,18 +8,35 @@
   import FormErrors from '$lib/components/form/FormErrors.svelte';
   import type { apiSchemas } from '$lib/api';
   import { commonInputControlClassName } from '$lib/components/styleUtils';
+  import { afterUpdate } from 'svelte';
 
   export let form;
 
   let methods: (apiSchemas['ProblemMethod'] & { id: number })[] = [];
 
-  const addMethod = () => {
+  let shouldScroll = false;
+
+  const addMethod = async () => {
     methods = [...methods, { id: methods.length + 1, name: 'aa' }];
+    shouldScroll = true;
   };
 
   const removeMethod = (id: number) => {
     methods = methods.filter(method => method.id !== id);
   };
+
+  const scrollToBottom = async (node: HTMLElement) => {
+    node.scroll({ top: node.scrollHeight, behavior: 'smooth' });
+  };
+
+  afterUpdate(() => {
+    if (shouldScroll) {
+      scrollToBottom(container);
+      shouldScroll = false;
+    }
+  });
+
+  let container: HTMLDivElement;
 
 </script>
 
@@ -43,8 +60,9 @@
       <Input required name="url" id="url" type="url" />
     </div>
 
-    <div class="mt-4">
-      <Label class="text-2xl">Methods</Label>
+    <Label class="text-2xl">Methods</Label>
+
+    <div class="h-[500px] overflow-auto" bind:this={container}>
 
       {#each methods as method}
         <div class="mb-2 border border-gray-300 rounded-md p-2 relative">
@@ -68,7 +86,7 @@
       <Button type="button" on:click={addMethod}>Add</Button>
     </div>
 
-    <Button type="submit" class="mt-2">Create</Button>
+    <Button type="submit" class="mt-6">Create</Button>
   </form>
 
   <FormErrors data={form} />
