@@ -43,7 +43,7 @@
 
 <ToastArea />
 
-<div class="flex">
+<div class="flex min-h-screen">
   <!-- Sidebar -->
   <div class="bg-gray-800 text-white w-64 flex-shrink-0 flex flex-col">
     <nav class="p-4 flex-grow">
