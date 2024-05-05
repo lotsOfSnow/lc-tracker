@@ -5,9 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LcTracker.Core.Features.Problems.Commands;
 
-public record UpdateProblemRequest(string Name, int Number, string Url);
+public record UpdateProblemMethod(string Name, string Contents);
 
-public record UpdateProblemCommand(Guid Id, string Name, int Number, string Url) : ICommand;
+public record UpdateProblemRequest(string Name, int Number, string Url, IEnumerable<UpdateProblemMethod> Methods);
+
+public record UpdateProblemCommand(Guid Id, string Name, int Number, string Url, IEnumerable<UpdateProblemMethod> Methods) : ICommand;
 
 public class UpdateProblemCommandHandler(IAppDbContext dbContext, IGetCurrentUserId getCurrentUserId) : ICommandHandler<UpdateProblemCommand>
 {
@@ -26,6 +28,7 @@ public class UpdateProblemCommandHandler(IAppDbContext dbContext, IGetCurrentUse
         problem.Name = command.Name;
         problem.Number = command.Number;
         problem.Url = command.Url;
+        problem.Methods = command.Methods.Select(x => new ProblemMethod(x.Name, x.Contents)).ToHashSet();
 
         await dbContext.SaveChangesAsync(ct);
     }

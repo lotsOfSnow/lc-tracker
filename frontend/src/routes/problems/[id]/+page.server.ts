@@ -3,6 +3,7 @@ import { AppRoute } from '$lib/routes';
 import { z } from 'zod';
 import { apiClient, getApiOperation } from '$lib/api';
 import { safeParseRequestFormData } from '$lib/utils/zodUtils';
+import { problemSchema } from '../common/problemSchema';
 
 export const actions = {
   default: async (event) => {
@@ -40,9 +41,9 @@ export const actions = {
   },
 } satisfies Actions;
 
-const schema = z.object({
-  id: z.string().uuid(),
-  name: z.string().min(3),
-  number: z.coerce.number().min(1),
-  url: z.string().url(),
-});
+const schema = z.intersection(
+  problemSchema,
+  z.object({
+    id: z.string().uuid(),
+  }),
+);
