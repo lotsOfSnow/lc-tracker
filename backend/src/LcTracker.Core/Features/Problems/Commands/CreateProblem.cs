@@ -25,7 +25,7 @@ public class CreateProblemCommandHandler(TimeProvider timeProvider, IGetCurrentU
             Url = command.Url,
             AppUserId = userId,
             AddedAt = now,
-            Methods = command.Methods.Select(x => new ProblemMethod(x.Name.Trim(), x.Contents)).ToHashSet(),
+            Methods = command.Methods.Select(x => new ProblemMethod(x.Name, x.Contents)).ToHashSet(),
         };
 
         await appDbContext.Problems.AddAsync(problem, ct);
