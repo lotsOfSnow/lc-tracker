@@ -15,7 +15,7 @@ public class ProblemsController(IDispatcher dispatcher, IAppDbContext dbContext)
     [HttpPost("api/problems")]
     public async Task<ActionResult> Create(CreateProblemRequest request, CancellationToken ct)
     {
-        var command = new CreateProblemCommand(request.Name, request.Number, request.Url);
+        var command = new CreateProblemCommand(request.Name, request.Number, request.Url, request.Methods);
 
         await Dispatcher.DispatchAsync(command, ct);
 

@@ -4,9 +4,11 @@ using LcTracker.Shared.Handlers;
 
 namespace LcTracker.Core.Features.Problems.Commands;
 
-public record CreateProblemRequest(string Name, int Number, string Url);
+public record CreateProblemMethod(string Name, string Contents);
 
-public record CreateProblemCommand(string Name, int Number, string Url) : ICommand;
+public record CreateProblemRequest(string Name, int Number, string Url, IEnumerable<CreateProblemMethod> Methods);
+
+public record CreateProblemCommand(string Name, int Number, string Url, IEnumerable<CreateProblemMethod> Methods) : ICommand;
 
 public class CreateProblemCommandHandler(TimeProvider timeProvider, IGetCurrentUserId getCurrentUserId, AppDbContext appDbContext)
     : ICommandHandler<CreateProblemCommand>
@@ -23,6 +25,7 @@ public class CreateProblemCommandHandler(TimeProvider timeProvider, IGetCurrentU
             Url = command.Url,
             AppUserId = userId,
             AddedAt = now,
+            Methods = command.Methods.Select(x => new ProblemMethod(x.Name.Trim(), x.Contents)).ToHashSet(),
         };
 
         await appDbContext.Problems.AddAsync(problem, ct);

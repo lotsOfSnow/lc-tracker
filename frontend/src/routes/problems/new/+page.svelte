@@ -12,17 +12,18 @@
 
   export let form;
 
-  let methods: (apiSchemas['ProblemMethod'] & { id: number })[] = [];
+  type Method = apiSchemas['ProblemMethod'];
+  let methods: Method[] = [];
 
   let shouldScroll = false;
 
-  const addMethod = async () => {
-    methods = [...methods, { id: methods.length + 1, name: 'aa' }];
+  const addMethod = () => {
+    methods = [...methods, {}];
     shouldScroll = true;
   };
 
-  const removeMethod = (id: number) => {
-    methods = methods.filter(method => method.id !== id);
+  const removeMethod = (index: number) => {
+    methods = methods.filter(((_, i) => i !== index));
   };
 
   const scrollToBottom = async (node: HTMLElement) => {
@@ -36,6 +37,10 @@
     }
   });
 
+  const getMethodId = (index: number, type: keyof Method) => {
+    return `methods[${index}][${type}]`;
+  };
+
   let container: HTMLDivElement;
 
 </script>
@@ -44,7 +49,9 @@
   <h2 class="text-xl font-semibold text-gray-800">Create</h2>
 
   <FormCloseButton to={AppRoute.PROBLEMS} />
-  <form method="POST" on:submit|preventDefault use:enhance>
+  <form method="POST" on:submit|preventDefault
+        use:enhance={async ({formData}) => formData.append(`methods`, JSON.stringify(methods))}
+  >
     <div>
       <Label for="number">Number</Label>
       <Input required name="number" id="number" type="number" />
@@ -64,21 +71,21 @@
 
     <div class="h-[500px] overflow-auto" bind:this={container}>
 
-      {#each methods as method}
+      {#each methods as method, i (i)}
         <div class="mb-2 border border-gray-300 rounded-md p-2 relative">
           <button type="button"
                   class="absolute top-[-8px] right-1 text-4xl"
-                  on:click={() => removeMethod(method.id)}>
+                  on:click={() => removeMethod(i)}>
             &times;
           </button>
           <div>
-            <Label for={`name-${method.id}`}>Name</Label>
-            <Input required name={`name-${method.id}`} id={`name-${method.id}`} value={method.name} type="text" />
+            <Label for={getMethodId(i, 'name')}>Name</Label>
+            <Input required id={getMethodId(i, 'name')} bind:value={method.name} type="text" />
           </div>
           <div>
-            <Label for={`contents-${method.id}`}>Content</Label>
-            <textarea id={`contents-${method.id}`} name={`contents-${method.id}`}
-                      class={commonInputControlClassName}>{method.contents || ''}</textarea>
+            <Label for={getMethodId(i, 'contents')}>Content</Label>
+            <textarea required id={getMethodId(i, 'contents')} bind:value={method.contents}
+                      class={commonInputControlClassName} />
           </div>
         </div>
       {/each}
