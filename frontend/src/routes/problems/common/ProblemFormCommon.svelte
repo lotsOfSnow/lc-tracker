@@ -8,6 +8,7 @@
   import { afterUpdate } from 'svelte';
   import FormCloseButton from '$lib/components/FormCloseButton.svelte';
   import { AppRoute } from '$lib/routes';
+  import { addToast } from '$lib/components/notifications/toastStore';
 
   export let data: apiSchemas['Problem'] | undefined = undefined;
 
@@ -47,8 +48,17 @@
 <FormCloseButton to={AppRoute.PROBLEMS} />
 
 <form method="POST" on:submit|preventDefault
-      use:enhance={async ({formData}) => formData.append(`methods`, JSON.stringify(methods))}
->
+      use:enhance={async ({formData}) => {
+        formData.append(`methods`, JSON.stringify(methods));
+
+        return async ({result,  update}) => {
+          if (result.type === 'success' || result.type === 'redirect') {
+            addToast('success', 'Saved');
+          }
+
+          await update({reset: false})
+        }
+      }}>
   <div>
     <Label for="number">Number</Label>
     <Input required name="number" id="number" type="number" value={data?.number} />

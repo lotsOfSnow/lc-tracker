@@ -12,6 +12,7 @@
   <h2 class="text-xl font-semibold text-gray-800">{data.id}</h2>
 
   <ProblemFormCommon {data}>
+    <input name="id" value={data.id} hidden>
     <Button type="submit" class="mt-2">Update</Button>
   </ProblemFormCommon>
 
