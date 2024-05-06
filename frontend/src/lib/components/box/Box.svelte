@@ -6,7 +6,7 @@
       case 'big':
         return 'max-w-6xl';
       default:
-        return 'max-w-md';
+        return 'max-w-2xl';
     }
   };
 </script>
