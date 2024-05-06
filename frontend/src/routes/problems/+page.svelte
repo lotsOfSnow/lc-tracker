@@ -7,6 +7,7 @@
   import TableRowTemplate from '$lib/components/table/TableRowTemplate.svelte';
   import TableCellByColumnKey from '$lib/components/table/TableCellByColumnKey.svelte';
   import TableEditActionButton from '$lib/components/table/TableEditActionButton.svelte';
+  import Box from '$lib/components/box/Box.svelte';
 
   export let data;
 
@@ -28,6 +29,8 @@
     },
   };
 </script>
+
+<Box>Fix me</Box>
 
 <div class="bg-gray-100 p-6 w-full max-w-6xl mx-auto rounded-lg shadow-md">
   <LinkButton href={AppRoute.PROBLEMS_NEW}>Create new</LinkButton>

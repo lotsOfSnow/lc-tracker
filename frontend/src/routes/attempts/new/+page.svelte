@@ -5,6 +5,8 @@
   import { AppRoute } from '$lib/routes';
   import AttemptFormCommonFields from '../common/AttemptFormCommonFields.svelte';
   import FormErrors from '$lib/components/form/FormErrors.svelte';
+  import Box from '$lib/components/box/Box.svelte';
+  import BoxHeader from '$lib/components/box/BoxHeader.svelte';
 
   export let form;
   export let data;
@@ -12,8 +14,8 @@
   let problems = data.problems;
 </script>
 
-<div class="bg-gray-100 p-6 w-full max-w-md mx-auto rounded-lg shadow-md relative">
-  <h2 class="text-xl font-semibold text-gray-800">Create</h2>
+<Box>
+  <BoxHeader>Create</BoxHeader>
 
   <FormCloseButton to={AppRoute.ATTEMPTS} />
   <form method="POST" on:submit|preventDefault use:enhance>
@@ -23,4 +25,4 @@
   </form>
 
   <FormErrors data={form} />
-</div>
+</Box>
