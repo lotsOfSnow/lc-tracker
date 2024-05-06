@@ -1,14 +1,13 @@
 using LcTracker.Core.Auth;
+using LcTracker.Core.Features.Problems.Contracts;
 using LcTracker.Core.Storage;
 using LcTracker.Shared.Handlers;
 
 namespace LcTracker.Core.Features.Problems.Commands;
 
-public record CreateProblemMethod(string Name, string Contents);
+public record CreateProblemRequest(string Name, int Number, string Url, IEnumerable<ProblemMethodDto> Methods);
 
-public record CreateProblemRequest(string Name, int Number, string Url, IEnumerable<CreateProblemMethod> Methods);
-
-public record CreateProblemCommand(string Name, int Number, string Url, IEnumerable<CreateProblemMethod> Methods) : ICommand;
+public record CreateProblemCommand(string Name, int Number, string Url, IEnumerable<ProblemMethodDto> Methods) : ICommand;
 
 public class CreateProblemCommandHandler(TimeProvider timeProvider, IGetCurrentUserId getCurrentUserId, AppDbContext appDbContext)
     : ICommandHandler<CreateProblemCommand>
@@ -25,7 +24,7 @@ public class CreateProblemCommandHandler(TimeProvider timeProvider, IGetCurrentU
             Url = command.Url,
             AppUserId = userId,
             AddedAt = now,
-            Methods = command.Methods.Select(x => new ProblemMethod(x.Name, x.Contents)).ToHashSet(),
+            Methods = ProblemMethodDto.Map(command.Methods),
         };
 
         await appDbContext.Problems.AddAsync(problem, ct);
