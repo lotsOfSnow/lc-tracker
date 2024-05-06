@@ -43,6 +43,19 @@
 
   let container: HTMLDivElement;
 
+  const getTextareaRows = (index: number) => {
+    const max = 20;
+
+    const str = methods[index]?.contents;
+
+    if (!str) {
+      return max;
+    }
+
+    const lines = str.length - str.replace(/\n/g, '').length + 1;
+
+    return Math.min(lines, max);
+  };
 </script>
 
 <FormCloseButton to={AppRoute.PROBLEMS} />
@@ -91,7 +104,7 @@
         </div>
         <div>
           <Label for={getMethodId(i, 'contents')}>Content</Label>
-          <textarea required id={getMethodId(i, 'contents')} bind:value={method.contents}
+          <textarea required id={getMethodId(i, 'contents')} bind:value={method.contents} rows={getTextareaRows(i)}
                     class={commonInputControlClassName} />
         </div>
       </div>
