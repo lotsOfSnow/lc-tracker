@@ -59,7 +59,17 @@
         {:else}
           <div class="flex justify-end space-x-1">
             <TableEditActionButton href="{AppRoute.ATTEMPTS}/{attempt.id}" />
-            <form method="POST" on:submit|preventDefault use:enhance action="?/deleteAttempt">
+            <form method="POST" on:submit|preventDefault use:enhance={({ cancel }) => {
+                const text = `Delete attempt '${attempt.id}' from ${attempt.date}?`
+                if (confirm(text)) {
+                  return async ({ update }) => {
+                    await update();
+                  }
+              }
+
+               cancel();
+              }}
+                  action="?/deleteAttempt">
               <input name="id" value={attempt.id} hidden />
               <button
                 class="bg-red-600 hover:bg-red-500 text-white font-medium py-1 px-2 rounded transition duration-300 ease-in-out"
@@ -67,7 +77,6 @@
                 Delete
               </button>
             </form>
-
           </div>
         {/if}
       </TableRowTemplate>
