@@ -43,7 +43,7 @@
 
 <ToastArea />
 
-<div class="flex h-screen">
+<div class="flex min-h-screen">
   <!-- Sidebar -->
   <div class="bg-gray-800 text-white w-64 flex-shrink-0 flex flex-col">
     <nav class="p-4 flex-grow">
@@ -56,7 +56,7 @@
         {/each}
       </ul>
     </nav>
-    <div class="flex justify-center">
+    <div class="fixed left-10 bottom-0">
       <form>
         <Button type="submit" class="p-6 mb-5"
                 on:click={onExportClick}>
@@ -68,7 +68,7 @@
   </div>
 
   <!-- Content -->
-  <div class="flex-1 overflow-hidden">
+  <div class="flex-1">
     <div class="px-6 py-4">
       <slot />
     </div>

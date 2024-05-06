@@ -1,8 +1,9 @@
 import { type Actions, fail, redirect } from '@sveltejs/kit';
-import { z } from 'zod';
 import { AppRoute } from '$lib/routes';
 import { apiClient, type apiSchemas } from '$lib/api';
 import { safeParseRequestFormData } from '$lib/utils/zodUtils';
+import { problemSchema } from '../common/problemSchema';
+import { z } from 'zod';
 
 export const actions = {
   default: async (event) => {
@@ -26,12 +27,8 @@ export const actions = {
 
     const error = result.error;
 
-    return fail(400, { serverError: [error.title] });
+    return fail(400, { serverErrors: [error.title] });
   },
 } satisfies Actions;
 
-const schema = z.object({
-  name: z.string().min(3),
-  number: z.coerce.number().min(1),
-  url: z.string().url(),
-});
+const schema = z.intersection(problemSchema, z.object({}));

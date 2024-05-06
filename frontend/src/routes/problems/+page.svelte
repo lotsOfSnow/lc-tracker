@@ -7,6 +7,8 @@
   import TableRowTemplate from '$lib/components/table/TableRowTemplate.svelte';
   import TableCellByColumnKey from '$lib/components/table/TableCellByColumnKey.svelte';
   import TableEditActionButton from '$lib/components/table/TableEditActionButton.svelte';
+  import Box from '$lib/components/box/Box.svelte';
+  import BoxHeader from '$lib/components/box/BoxHeader.svelte';
 
   export let data;
 
@@ -29,10 +31,10 @@
   };
 </script>
 
-<div class="bg-gray-100 p-6 w-full max-w-6xl mx-auto rounded-lg shadow-md">
+<Box width="big">
   <LinkButton href={AppRoute.PROBLEMS_NEW}>Create new</LinkButton>
 
-  <h2 class="text-xl font-semibold text-gray-800">Problems</h2>
+  <BoxHeader>Problems</BoxHeader>
 
   <div class="mt-4 overflow-x-auto">
     <Table {columns} let:columns>
@@ -47,5 +49,5 @@
       </TableRowTemplate>
     </Table>
   </div>
-</div>
+</Box>
 <!-- TODO: Pagination, filtering, sorting -->

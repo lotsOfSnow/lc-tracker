@@ -67,11 +67,16 @@ export interface components {
       isRecap?: boolean;
       difficulty?: components["schemas"]["Difficulty"];
     };
+    CreateProblemMethod: {
+      name?: string | null;
+      contents?: string | null;
+    };
     CreateProblemRequest: {
       name?: string | null;
       /** Format: int32 */
       number?: number;
       url?: string | null;
+      methods?: components["schemas"]["CreateProblemMethod"][] | null;
     };
     /**
      * Format: int32
@@ -99,6 +104,7 @@ export interface components {
       url?: string | null;
       /** Format: date-time */
       addedAt?: string;
+      methods?: components["schemas"]["ProblemMethod"][] | null;
     };
     ProblemDetails: {
       type?: string | null;
@@ -108,6 +114,10 @@ export interface components {
       detail?: string | null;
       instance?: string | null;
       [key: string]: unknown;
+    };
+    ProblemMethod: {
+      name?: string | null;
+      contents?: string | null;
     };
     UpdateAttemptRequest: {
       /** Format: uuid */

@@ -16,5 +16,6 @@ public class Problem : IOwned
 
     public required DateTimeOffset AddedAt { get; set; }
 
+    public HashSet<ProblemMethod> Methods { get; set; } = null!;
     // TODO: Hints, solutions, description.
 }

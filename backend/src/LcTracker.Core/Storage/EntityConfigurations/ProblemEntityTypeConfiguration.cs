@@ -16,5 +16,12 @@ public class ProblemEntityTypeConfiguration : IEntityTypeConfiguration<Problem>
             .HasForeignKey(x => x.AppUserId);
 
         builder.HasIndex(x => x.Number).IsUnique();
+
+        builder.OwnsMany(x => x.Methods, cfg =>
+        {
+            cfg.HasKey(x => x.Name);
+            cfg.Property(x => x.Name).HasMaxLength(30);
+            cfg.Property(x => x.Contents).HasMaxLength(5000);
+        });
     }
 }
