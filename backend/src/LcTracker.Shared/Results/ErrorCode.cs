@@ -2,9 +2,13 @@ namespace LcTracker.Shared.Results;
 
 public record ErrorCode(string? Group, string Value)
 {
-    public string? Group { get; init; } = Group?.ToLowerInvariant();
+    public ErrorCode(string value) : this(null, value)
+    {
+    }
 
-    public string Value { get; init; } = Value.ToLowerInvariant();
+    public string Group { get; } = (Group ?? "general").ToLowerInvariant();
 
-    public static implicit operator string(ErrorCode code) => $"{code.Group}/{code.Value}";
+    public string Value { get; } = Value.ToLowerInvariant();
+
+    public override string ToString() => $"{Group}/{Value}";
 }

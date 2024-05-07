@@ -1,3 +1,5 @@
+using System.Net;
+using LcTracker.Core.Common;
 using LcTracker.Core.Features.Problems.Commands;
 using LcTracker.Core.Storage;
 using LcTracker.Shared.Handlers;
@@ -17,9 +19,9 @@ public class ProblemsController(IDispatcher dispatcher, IAppDbContext dbContext)
     {
         var command = new CreateProblemCommand(request.Name, request.Number, request.Url, request.Methods);
 
-        await Dispatcher.DispatchAsync(command, ct);
+        var result = await Dispatcher.DispatchAsync(command, ct);
 
-        return NoContent();
+        return result.ToResponse(HttpStatusCode.NoContent);
     }
 
     [HttpGet("api/problems")]
@@ -53,9 +55,9 @@ public class ProblemsController(IDispatcher dispatcher, IAppDbContext dbContext)
     {
         var command = new UpdateProblemCommand(id, request.Name, request.Number, request.Url, request.Methods);
 
-        await Dispatcher.DispatchAsync(command, ct);
+        var result = await Dispatcher.DispatchAsync(command, ct);
 
-        return NoContent();
+        return result.ToResponse(HttpStatusCode.NoContent);
     }
 
     public record GetAllProblemsResponse(IEnumerable<Problem> Value);

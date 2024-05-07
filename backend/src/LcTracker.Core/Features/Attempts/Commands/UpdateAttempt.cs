@@ -1,6 +1,7 @@
 using LcTracker.Core.Auth;
 using LcTracker.Core.Storage;
 using LcTracker.Shared.Handlers;
+using LcTracker.Shared.Results;
 using Microsoft.EntityFrameworkCore;
 
 namespace LcTracker.Core.Features.Attempts.Commands;
@@ -28,7 +29,7 @@ public record UpdateAttemptCommand(
 
 public class UpdateAttemptCommandHandler(TimeProvider timeProvider, IAppDbContext dbContext, IGetCurrentUserId getCurrentUserId) : ICommandHandler<UpdateAttemptCommand>
 {
-    public async Task Handle(UpdateAttemptCommand command, CancellationToken ct)
+    public async Task<Result> Handle(UpdateAttemptCommand command, CancellationToken ct)
     {
         var attempt = await dbContext
             .UserAttempts(getCurrentUserId)
@@ -36,7 +37,7 @@ public class UpdateAttemptCommandHandler(TimeProvider timeProvider, IAppDbContex
 
         if (attempt is null)
         {
-            throw new("No attempt found");
+            return Errors.NotFound;
         }
 
         attempt.ProblemId = command.ProblemId;
@@ -49,5 +50,7 @@ public class UpdateAttemptCommandHandler(TimeProvider timeProvider, IAppDbContex
         attempt.Difficulty = command.Difficulty;
 
         await dbContext.SaveChangesAsync(ct);
+
+        return Result.Ok;
     }
 }

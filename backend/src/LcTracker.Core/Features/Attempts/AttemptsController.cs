@@ -1,3 +1,5 @@
+using System.Net;
+using LcTracker.Core.Common;
 using LcTracker.Core.Features.Attempts.Commands;
 using LcTracker.Core.Storage;
 using LcTracker.Shared.Handlers;
@@ -26,9 +28,9 @@ public class AttemptsController(IDispatcher dispatcher, IAppDbContext dbContext)
         var command = new CreateAttemptCommand(request.ProblemId, request.MinutesSpent, request.Date, request.Note,
             request.HasUsedHelp, request.HasSolved, request.IsRecap, request.Difficulty);
 
-        await Dispatcher.DispatchAsync(command, ct);
+        var result = await Dispatcher.DispatchAsync(command, ct);
 
-        return Created();
+        return result.ToResponse(HttpStatusCode.Created);
     }
 
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -37,9 +39,9 @@ public class AttemptsController(IDispatcher dispatcher, IAppDbContext dbContext)
     {
         var command = new DeleteAttemptCommand(id);
 
-        await Dispatcher.DispatchAsync(command, ct);
+        var result = await Dispatcher.DispatchAsync(command, ct);
 
-        return NoContent();
+        return result.ToResponse(HttpStatusCode.NoContent);
     }
 
     [ProducesResponseType<NotFoundResult>(StatusCodes.Status404NotFound)]
@@ -51,9 +53,9 @@ public class AttemptsController(IDispatcher dispatcher, IAppDbContext dbContext)
         var command = new UpdateAttemptCommand(id, request.ProblemId, request.MinutesSpent, request.Date, request.Note,
             request.HasUsedHelp, request.HasSolved, request.IsRecap, request.Difficulty);
 
-        await Dispatcher.DispatchAsync(command, ct);
+        var result = await Dispatcher.DispatchAsync(command, ct);
 
-        return NoContent();
+        return result.ToResponse(HttpStatusCode.NoContent);
     }
 
     [ProducesResponseType(StatusCodes.Status200OK)]

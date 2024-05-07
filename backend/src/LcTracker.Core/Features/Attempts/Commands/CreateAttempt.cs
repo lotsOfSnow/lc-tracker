@@ -1,6 +1,7 @@
 using LcTracker.Core.Auth;
 using LcTracker.Core.Storage;
 using LcTracker.Shared.Handlers;
+using LcTracker.Shared.Results;
 
 namespace LcTracker.Core.Features.Attempts.Commands;
 
@@ -28,7 +29,7 @@ public class CreateAttemptCommandHandler(TimeProvider timeProvider,
     IAppDbContext dbContext,
     IGetCurrentUserId getCurrentUserId) : ICommandHandler<CreateAttemptCommand>
 {
-    public async Task Handle(CreateAttemptCommand command, CancellationToken ct)
+    public async Task<Result> Handle(CreateAttemptCommand command, CancellationToken ct)
     {
         var userId = getCurrentUserId.Execute();
 
@@ -47,5 +48,7 @@ public class CreateAttemptCommandHandler(TimeProvider timeProvider,
         await dbContext.Attempts.AddAsync(attempt, ct);
 
         await dbContext.SaveChangesAsync(ct);
+
+        return Result.Ok;
     }
 }
