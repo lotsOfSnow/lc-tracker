@@ -8,28 +8,23 @@ public static class ResultEndpointMapper
 {
     public static ActionResult ToResponse(this Result result, HttpStatusCode statusCode)
     {
-        if (!result.IsSuccess)
-        {
-            return ToErrorResponse(result.Error);
-        }
-
-        return new StatusCodeResult((int)statusCode);
+        return !result.IsSuccess ? result.Error.ToErrorResponse() : new StatusCodeResult((int)statusCode);
     }
 
     public static ActionResult<TValue> ToResponse<T, TValue>(
         this Result<T> result,
-        Func<TValue> or,
+        Func<TValue> getValue,
         HttpStatusCode statusCode)
     {
         return !result.IsSuccess
-            ? ToErrorResponse(result.Error) : new(or()) { StatusCode = (int)statusCode };
+            ? result.Error.ToErrorResponse() : new(getValue()) { StatusCode = (int)statusCode };
     }
 
     public static ActionResult ToResponse<T>(
         this Result<T> result,
         HttpStatusCode statusCode)
     {
-        return !result.IsSuccess ? ToErrorResponse(result.Error) : new StatusCodeResult((int)statusCode);
+        return !result.IsSuccess ? result.Error.ToErrorResponse() : new StatusCodeResult((int)statusCode);
     }
 
     public static ObjectResult ToErrorResponse(this ResultError error)

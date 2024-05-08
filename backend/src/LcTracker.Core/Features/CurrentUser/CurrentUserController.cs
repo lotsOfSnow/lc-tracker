@@ -25,7 +25,6 @@ public class CurrentUserController(IDispatcher dispatcher) : BaseController(disp
         Response.Headers.ContentDisposition = new ContentDisposition
         {
             FileName = "exported.json",
-
         }.ToString();
 
         var ms = new MemoryStream(JsonSerializer.SerializeToUtf8Bytes(result.Value));
