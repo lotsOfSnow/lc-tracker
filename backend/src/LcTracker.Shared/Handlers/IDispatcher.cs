@@ -8,5 +8,5 @@ public interface IDispatcher
 
     Task<Result<TResult>> DispatchAsync<TResult>(ICommand<TResult> command, CancellationToken ct = default);
 
-    Task<TResult> QueryAsync<TResult>(IQuery<TResult> query, CancellationToken ct = default);
+    Task<Result<TResult>> QueryAsync<TResult>(IQuery<TResult> query, CancellationToken ct = default);
 }

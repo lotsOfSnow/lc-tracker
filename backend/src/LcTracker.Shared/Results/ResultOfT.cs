@@ -40,11 +40,11 @@ public class Result<T>
     public static Result<T> Fail(
         ResultError error) => new(error);
 
-    public static Result<T> Success(
+    public static Result<T> Ok(
         T result) => new(result);
 
     public static implicit operator Result<T>(T value)
-        => Success(value);
+        => Ok(value);
 
     public static implicit operator Result<T>(ResultError error)
         => Fail(error);

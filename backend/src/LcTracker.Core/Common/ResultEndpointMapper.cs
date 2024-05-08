@@ -10,7 +10,7 @@ public static class ResultEndpointMapper
     {
         if (!result.IsSuccess)
         {
-            return GetError(result.Error);
+            return ToErrorResponse(result.Error);
         }
 
         return new StatusCodeResult((int)statusCode);
@@ -22,17 +22,17 @@ public static class ResultEndpointMapper
         HttpStatusCode statusCode)
     {
         return !result.IsSuccess
-            ? GetError(result.Error) : new(or()) { StatusCode = (int)statusCode };
+            ? ToErrorResponse(result.Error) : new(or()) { StatusCode = (int)statusCode };
     }
 
     public static ActionResult ToResponse<T>(
         this Result<T> result,
         HttpStatusCode statusCode)
     {
-        return !result.IsSuccess ? GetError(result.Error) : new StatusCodeResult((int)statusCode);
+        return !result.IsSuccess ? ToErrorResponse(result.Error) : new StatusCodeResult((int)statusCode);
     }
 
-    private static ObjectResult GetError(ResultError error)
+    public static ObjectResult ToErrorResponse(this ResultError error)
     {
         var statusCode = StatusCodeMapper.ToStatusCode(error.Code);
 

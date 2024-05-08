@@ -1,5 +1,6 @@
+using LcTracker.Shared.Results;
 using MediatR;
 
 namespace LcTracker.Shared.Handlers;
 
-public interface IQuery<out T> : IRequest<T>;
+public interface IQuery<T> : IRequest<Result<T>>;
