@@ -21,7 +21,7 @@ public class Result
 
     public static Result Fail(ResultError error) => new(false, error);
 
-    public static Result Ok() => new(true);
+    public static readonly Result Ok = new(true);
 
     public static implicit operator Result(ResultError error) => Fail(error);
 }

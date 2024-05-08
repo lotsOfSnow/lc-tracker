@@ -1,12 +1,12 @@
+using LcTracker.Shared.Results;
+
 namespace LcTracker.Shared.Handlers;
 
 public interface IDispatcher
 {
-    Task DispatchAsync<TCommand>(TCommand command, CancellationToken ct = default)
-        where TCommand : ICommand;
+    Task<Result> DispatchAsync(ICommand command, CancellationToken ct = default);
 
-    Task<TResult> DispatchAsync<TCommand, TResult>(TCommand command, CancellationToken ct = default)
-        where TCommand : ICommand<TResult>;
+    Task<Result<TResult>> DispatchAsync<TResult>(ICommand<TResult> command, CancellationToken ct = default);
 
-    Task<TResult> QueryAsync<TResult>(IQuery<TResult> query, CancellationToken ct = default);
+    Task<Result<TResult>> QueryAsync<TResult>(IQuery<TResult> query, CancellationToken ct = default);
 }
