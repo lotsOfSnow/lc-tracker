@@ -44,6 +44,10 @@ public static class DependenciesInstaller
 
     private static void AddCore(this WebApplicationBuilder builder)
     {
+        builder.Services
+            .AddLeetCodeClient()
+            .ConfigureHttpClient(client => client.BaseAddress = new("https://leetcode.com/graphql"));
+
         builder.Services.AddTransient<IGetCurrentUserId, GetCurrentUserId>();
         builder.Services.AddHandlers(typeof(CreateAttemptCommandHandler).Assembly);
     }

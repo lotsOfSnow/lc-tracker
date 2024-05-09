@@ -1,0 +1,9 @@
+type QuestionNode {
+    questionId: String
+    title: String
+    titleSlug: String
+}
+
+type Query {
+    question(titleSlug: String): QuestionNode
+}
