@@ -2,10 +2,13 @@ using LcTracker.Api.Converters;
 using LcTracker.Api.Exceptions;
 using LcTracker.Core.Auth;
 using LcTracker.Core.Features.Attempts.Commands;
+using LcTracker.Core.Features.LeetCode;
 using LcTracker.Core.Storage;
 using LcTracker.Shared.Handlers;
+using LcTracker.Shared.Options;
 using LcTracker.Shared.Time;
 using LcTracker.Shared.Web.Cors;
+using Microsoft.Extensions.Options;
 
 namespace LcTracker.Api.Bootstrap;
 
@@ -44,12 +47,10 @@ public static class DependenciesInstaller
 
     private static void AddCore(this WebApplicationBuilder builder)
     {
-        builder.Services
-            .AddLeetCodeClient()
-            .ConfigureHttpClient(client => client.BaseAddress = new("https://leetcode.com/graphql"));
-
         builder.Services.AddTransient<IGetCurrentUserId, GetCurrentUserId>();
         builder.Services.AddHandlers(typeof(CreateAttemptCommandHandler).Assembly);
+
+        builder.AddGraphQlClients();
     }
 
     private static void AddApi(this WebApplicationBuilder builder)
@@ -59,5 +60,18 @@ public static class DependenciesInstaller
             .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter()));
         builder.AddAppCors();
         builder.Services.AddExceptionHandlers();
+    }
+
+    private static void AddGraphQlClients(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddValidatedOptions<LeetCodeApiOptions>(LeetCodeApiOptions.SectionName);
+
+        builder.Services
+            .AddLeetCodeClient()
+            .ConfigureHttpClient((sp, client) =>
+            {
+                var options = sp.GetRequiredService<IOptions<LeetCodeApiOptions>>().Value;
+                client.BaseAddress = options.GraphQlEndpoint;
+            });
     }
 }
