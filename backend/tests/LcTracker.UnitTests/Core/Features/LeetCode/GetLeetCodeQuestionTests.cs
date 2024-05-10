@@ -1,13 +1,15 @@
+using AutoFixture;
 using FluentAssertions;
 using LcTracker.Core;
 using LcTracker.Core.Features.LeetCode.Queries;
+using LcTracker.UnitTests.Shared;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using StrawberryShake;
 
 namespace LcTracker.UnitTests.Core.Features.LeetCode;
 
-public class GetLeetCodeQuestionTests
+public class GetLeetCodeQuestionTests : BaseUnitTest<GetLeetCodeQuestionQueryHandler>
 {
     [Theory]
     [InlineData("https://example.com/problems/sample-title/", "sample-title")]
@@ -23,12 +25,11 @@ public class GetLeetCodeQuestionTests
     [InlineData("problems/", "problems")]
     public async Task Returns(string input, string validSlug)
     {
-        var client = Substitute.For<ILeetCodeClient>();
+        var client = Fixture.Freeze<ILeetCodeClient>();
         var emptyResult = Substitute.For<IOperationResult<IGetQuestionResult>>();
         emptyResult.Data.ReturnsNull();
         client.GetQuestion.ExecuteAsync(Arg.Is<string>(s => !s.Equals(validSlug, StringComparison.Ordinal))).Returns(emptyResult);
-
-        var sut = new GetLeetCodeQuestionQueryHandler(client);
+        var sut = CreateSut();
 
         var result = await sut.Handle(new(input), default);
 
