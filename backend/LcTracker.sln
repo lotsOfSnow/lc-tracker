@@ -16,6 +16,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LcTracker.Shared", "src\LcT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LcTracker.Api", "src\LcTracker.Api\LcTracker.Api.csproj", "{C61EC02B-6A9E-4AF2-8126-67D027D80614}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7B6B28DC-DEBA-4ABC-B1C5-840443DF76F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LcTracker.UnitTests", "tests\LcTracker.UnitTests\LcTracker.UnitTests.csproj", "{F33A3BF9-A014-482D-B4CF-E670BB35CEC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,5 +41,12 @@ Global
 		{C61EC02B-6A9E-4AF2-8126-67D027D80614}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C61EC02B-6A9E-4AF2-8126-67D027D80614}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C61EC02B-6A9E-4AF2-8126-67D027D80614}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F33A3BF9-A014-482D-B4CF-E670BB35CEC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F33A3BF9-A014-482D-B4CF-E670BB35CEC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F33A3BF9-A014-482D-B4CF-E670BB35CEC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F33A3BF9-A014-482D-B4CF-E670BB35CEC5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F33A3BF9-A014-482D-B4CF-E670BB35CEC5} = {7B6B28DC-DEBA-4ABC-B1C5-840443DF76F1}
 	EndGlobalSection
 EndGlobal

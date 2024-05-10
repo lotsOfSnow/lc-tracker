@@ -21,7 +21,7 @@ public class ProblemsController(IDispatcher dispatcher, IAppDbContext dbContext)
 
         var result = await Dispatcher.DispatchAsync(command, ct);
 
-        return result.ToResponse(HttpStatusCode.NoContent);
+        return result.ToEmptyResponse(HttpStatusCode.NoContent);
     }
 
     [HttpGet("api/problems")]
