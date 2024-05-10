@@ -12,6 +12,7 @@ public class GetLeetCodeQuestionTests
     [Theory]
     [InlineData("https://example.com/problems/sample-title/", "sample-title")]
     [InlineData("problems/sample-title/", "sample-title")]
+    [InlineData("problems/sample-title", "sample-title")]
     [InlineData("problems/sample-title/details", "sample-title")]
     [InlineData("http:///sample-title/", "sample-title")]
     [InlineData("example.com/problems/sample-title/", "sample-title")]

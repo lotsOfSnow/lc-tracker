@@ -26,9 +26,9 @@ public class GetLeetCodeQuestionQueryHandler(ILeetCodeClient client) : IQueryHan
     private static string ExtractSlug(string input)
     {
         const char slash = '/';
-        var lastSlashIndex = input.LastIndexOf(slash);
-        var result = lastSlashIndex == -1 ? input
-                : GetSlugFromSegments(input[..input.LastIndexOf(slash)].Split(slash));
+        var segments = input.Split(slash).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+        var result = segments.Length == 0 ? input
+                : GetSlugFromSegments(segments);
 
         return result.Trim();
 
