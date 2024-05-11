@@ -13,4 +13,6 @@ public class ResultError
     public ErrorCode Code { get; }
 
     public IEnumerable<string> Messages => _messages;
+
+    public ResultError Because(string message) => new(Code, message);
 }

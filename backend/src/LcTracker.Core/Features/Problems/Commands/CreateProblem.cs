@@ -24,7 +24,7 @@ public class CreateProblemCommandHandler(GetLeetCodeQuestion getLeetCodeQuestion
             leetCodeQuestion = await getLeetCodeQuestion.ExecuteAsync(command.Slug, ct);
             if (leetCodeQuestion is null)
             {
-                return Errors.NotFound;
+                return Errors.NotFound.Because("Couldn't find question using this slug");
             }
         }
 
