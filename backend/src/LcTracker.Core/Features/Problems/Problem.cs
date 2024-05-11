@@ -8,9 +8,9 @@ public class Problem : IOwned
 
     public required Guid AppUserId { get; set; }
 
-    public required string Name { get; set; }
+    public required string Title { get; set; }
 
-    public required string Slug { get; set; }
+    public required string? Slug { get; set; }
 
     public required DateTimeOffset AddedAt { get; set; }
 

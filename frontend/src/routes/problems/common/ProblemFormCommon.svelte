@@ -73,11 +73,11 @@
         }
       }}>
   {#if data !== undefined}
-    <Label for="url">Title</Label>
-    <Input required id="title" value={data.name} type="text"
+    <Label for="title">Title</Label>
+    <Input required id="title" value={data.title} type="text"
            disabled />
   {:else}
-    <Label for="url">Slug</Label>
+    <Label for="slug" title="Type with '!' at beginning to force manual">Slug</Label>
     <Input required name="slug" id="slug" type="text"
     />
   {/if}

@@ -11,7 +11,6 @@
   export let type: HTMLInputTypeAttribute;
   export let required: boolean | undefined = undefined;
   export let disabled: boolean | undefined = false;
-
   export let value: string | number | null | undefined = '';
 
 

@@ -31,7 +31,7 @@ export const loadProblems = async (f: typeof fetch) => {
     ? {
         problems: response.data.value.map((x) => ({
           id: x.id,
-          name: x.name,
+          title: x.title,
         })),
       }
     : undefined;
@@ -39,5 +39,5 @@ export const loadProblems = async (f: typeof fetch) => {
 
 export type ProblemFields = {
   id: string | undefined;
-  name: string | null | undefined;
+  title: string | null | undefined;
 };

@@ -15,7 +15,12 @@ public class ProblemEntityTypeConfiguration : IEntityTypeConfiguration<Problem>
             .WithMany()
             .HasForeignKey(x => x.AppUserId);
 
-        builder.HasIndex(x => x.Slug).IsUnique();
+        builder.HasIndex(x => x.Title).IsUnique();
+
+        builder.Property(x => x.Title).IsRequired();
+
+        builder.Property(x => x.Title).HasMaxLength(50);
+        builder.Property(x => x.Slug).HasMaxLength(60);
 
         builder.OwnsMany(x => x.Methods, cfg =>
         {

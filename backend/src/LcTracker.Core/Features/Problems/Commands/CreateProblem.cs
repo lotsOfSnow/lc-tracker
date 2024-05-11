@@ -16,10 +16,16 @@ public class CreateProblemCommandHandler(GetLeetCodeQuestion getLeetCodeQuestion
 {
     public async Task<Result<Guid>> Handle(CreateProblemCommand command, CancellationToken ct = default)
     {
-        var leetCodeQuestion = await getLeetCodeQuestion.ExecuteAsync(command.Slug, ct);
-        if (leetCodeQuestion is null)
+        var slug = command.Slug.Trim();
+        LeetCodeQuestion? leetCodeQuestion = null;
+        var forceManualTitle = slug.StartsWith('!') && slug.Length > 1;
+        if (!forceManualTitle)
         {
-            return Errors.NotFound;
+            leetCodeQuestion = await getLeetCodeQuestion.ExecuteAsync(command.Slug, ct);
+            if (leetCodeQuestion is null)
+            {
+                return Errors.NotFound;
+            }
         }
 
         var now = timeProvider.GetUtcNow();
@@ -27,8 +33,8 @@ public class CreateProblemCommandHandler(GetLeetCodeQuestion getLeetCodeQuestion
 
         var problem = new Problem
         {
-            Name = leetCodeQuestion.Title,
-            Slug = leetCodeQuestion.TitleSlug,
+            Title = leetCodeQuestion?.Title ?? slug[1..],
+            Slug = leetCodeQuestion?.TitleSlug,
             AppUserId = userId,
             AddedAt = now,
             Methods = ProblemMethodDto.Map(command.Methods),

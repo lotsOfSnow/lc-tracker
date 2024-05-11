@@ -14,8 +14,8 @@
 
   const columns: { [key: string]: Column<apiSchemas['Problem']> } = {
     name: {
-      key: 'name',
-      title: 'Name',
+      key: 'title',
+      title: 'Title',
     },
     actions: {
       title: 'Actions',

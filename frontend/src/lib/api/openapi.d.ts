@@ -91,7 +91,7 @@ export interface components {
       id?: string;
       /** Format: uuid */
       appUserId?: string;
-      name?: string | null;
+      title?: string | null;
       slug?: string | null;
       /** Format: date-time */
       addedAt?: string;
