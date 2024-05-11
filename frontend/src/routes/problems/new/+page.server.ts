@@ -1,15 +1,16 @@
-import { type Actions, fail, redirect } from '@sveltejs/kit';
+import { type Actions, redirect } from '@sveltejs/kit';
 import { AppRoute } from '$lib/routes';
 import { apiClient, type apiSchemas } from '$lib/api';
 import { safeParseRequestFormData } from '$lib/utils/zodUtils';
 import { problemSchema } from '../common/problemSchema';
 import { z } from 'zod';
+import { failServer, failValidation } from '$lib/utils/actionsReturnTypes';
 
 export const actions = {
   default: async (event) => {
     const parsingResult = await safeParseRequestFormData(event.request, schema);
     if (!parsingResult.success) {
-      return fail(400, parsingResult.error.flatten());
+      return failValidation(parsingResult);
     }
 
     const request: apiSchemas['CreateProblemRequest'] = {
@@ -25,9 +26,7 @@ export const actions = {
       redirect(302, AppRoute.PROBLEMS);
     }
 
-    const error = result.error;
-
-    return fail(400, { serverErrors: [error.title] });
+    return failServer(result.error);
   },
 } satisfies Actions;
 
