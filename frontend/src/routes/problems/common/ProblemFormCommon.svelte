@@ -72,19 +72,16 @@
           await update({reset: false})
         }
       }}>
+  {#if data !== undefined}
+    <Label for="url">Title</Label>
+    <Input required id="title" value={data.name} type="text"
+           disabled />
+  {:else}
+    <Label for="url">Slug</Label>
+    <Input required name="slug" id="slug" type="text"
+    />
+  {/if}
   <div>
-    <Label for="number">Number</Label>
-    <Input required name="number" id="number" type="number" value={data?.number} />
-  </div>
-
-  <div>
-    <Label for="name">Name</Label>
-    <Input required name="name" id="name" type="text" value={data?.name} />
-  </div>
-
-  <div>
-    <Label for="url">Url</Label>
-    <Input required name="url" id="url" type="url" value={data?.url} />
   </div>
 
   <Label class="text-2xl">Methods</Label>

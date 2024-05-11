@@ -7,16 +7,16 @@ using LcTracker.Shared.Results;
 
 namespace LcTracker.Core.Features.Problems.Commands;
 
-public record CreateProblemRequest(string Url, IEnumerable<ProblemMethodDto> Methods);
+public record CreateProblemRequest(string Slug, IEnumerable<ProblemMethodDto> Methods);
 
-public record CreateProblemCommand(string Url, IEnumerable<ProblemMethodDto> Methods) : ICommand<Guid>;
+public record CreateProblemCommand(string Slug, IEnumerable<ProblemMethodDto> Methods) : ICommand<Guid>;
 
 public class CreateProblemCommandHandler(GetLeetCodeQuestion getLeetCodeQuestion, TimeProvider timeProvider, IGetCurrentUserId getCurrentUserId, AppDbContext appDbContext)
     : ICommandHandler<CreateProblemCommand, Guid>
 {
     public async Task<Result<Guid>> Handle(CreateProblemCommand command, CancellationToken ct = default)
     {
-        var leetCodeQuestion = await getLeetCodeQuestion.ExecuteAsync(command.Url, ct);
+        var leetCodeQuestion = await getLeetCodeQuestion.ExecuteAsync(command.Slug, ct);
         if (leetCodeQuestion is null)
         {
             return Errors.NotFound;

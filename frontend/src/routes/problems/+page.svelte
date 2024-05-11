@@ -13,17 +13,9 @@
   export let data;
 
   const columns: { [key: string]: Column<apiSchemas['Problem']> } = {
-    number: {
-      key: 'number',
-      title: 'Number',
-    },
     name: {
       key: 'name',
       title: 'Name',
-    },
-    url: {
-      key: 'url',
-      title: 'Url',
     },
     actions: {
       title: 'Actions',
