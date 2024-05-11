@@ -69,6 +69,7 @@ export interface components {
     };
     CreateProblemRequest: {
       slug?: string | null;
+      note?: string | null;
       methods?: components["schemas"]["ProblemMethodDto"][] | null;
     };
     /**
@@ -93,6 +94,7 @@ export interface components {
       appUserId?: string;
       title?: string | null;
       slug?: string | null;
+      note?: string | null;
       /** Format: date-time */
       addedAt?: string;
       methods?: components["schemas"]["ProblemMethod"][] | null;
@@ -131,6 +133,7 @@ export interface components {
       difficulty?: components["schemas"]["Difficulty"];
     };
     UpdateProblemRequest: {
+      note?: string | null;
       methods?: components["schemas"]["ProblemMethodDto"][] | null;
     };
   };

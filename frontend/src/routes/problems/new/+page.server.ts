@@ -31,4 +31,9 @@ export const actions = {
   },
 } satisfies Actions;
 
-const schema = z.intersection(problemSchema, z.object({}));
+const schema = z.intersection(
+  problemSchema,
+  z.object({
+    slug: z.string().min(2),
+  }),
+);

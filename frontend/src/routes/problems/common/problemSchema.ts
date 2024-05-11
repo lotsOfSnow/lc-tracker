@@ -6,7 +6,7 @@ const methodSchema = z.object({
 });
 
 export const problemSchema = z.object({
-  slug: z.string().min(2),
+  note: z.string().optional(),
   methods: z.string().transform((json) => {
     const parsed = JSON.parse(json);
     return z.array(methodSchema).parse(parsed);

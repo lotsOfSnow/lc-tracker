@@ -82,6 +82,8 @@
     />
   {/if}
   <div>
+    <Label for="note">Note</Label>
+    <Input name="note" id="note" type="text" value={data?.note} />
   </div>
 
   <Label class="text-2xl">Methods</Label>
