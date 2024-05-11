@@ -21,7 +21,7 @@ public class UpdateProblemCommandHandler(IAppDbContext dbContext, IGetCurrentUse
 
         if (problem is null)
         {
-            return Errors.NotFound;
+            return Errors.NotFound.Create();
         }
 
         problem.Methods = ProblemMethodDto.Map(command.Methods);

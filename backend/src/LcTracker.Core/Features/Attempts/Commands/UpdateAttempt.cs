@@ -37,7 +37,7 @@ public class UpdateAttemptCommandHandler(TimeProvider timeProvider, IAppDbContex
 
         if (attempt is null)
         {
-            return Errors.NotFound;
+            return Errors.NotFound.Create();
         }
 
         attempt.ProblemId = command.ProblemId;

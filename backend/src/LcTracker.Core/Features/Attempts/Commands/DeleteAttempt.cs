@@ -19,7 +19,7 @@ public class DeleteAttemptCommandHandler(IGetCurrentUserId getCurrentUserId, IAp
 
         if (attempt is null)
         {
-            return Errors.NotFound;
+            return Errors.NotFound.Create();
         }
 
         dbContext.Attempts.Remove(attempt);
