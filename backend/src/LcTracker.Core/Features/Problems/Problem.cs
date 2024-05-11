@@ -12,8 +12,9 @@ public class Problem : IOwned
 
     public required string? Slug { get; set; }
 
+    public required string? Note { get; set; }
+
     public required DateTimeOffset AddedAt { get; set; }
 
     public HashSet<ProblemMethod> Methods { get; set; } = null!;
-    // TODO: Hints, solutions, description.
 }

@@ -7,9 +7,9 @@ using LcTracker.Shared.Results;
 
 namespace LcTracker.Core.Features.Problems.Commands;
 
-public record CreateProblemRequest(string Slug, IEnumerable<ProblemMethodDto> Methods);
+public record CreateProblemRequest(string Slug, string? Note, IEnumerable<ProblemMethodDto>? Methods);
 
-public record CreateProblemCommand(string Slug, IEnumerable<ProblemMethodDto> Methods) : ICommand<Guid>;
+public record CreateProblemCommand(string Slug, string? Note, IEnumerable<ProblemMethodDto>? Methods) : ICommand<Guid>;
 
 public class CreateProblemCommandHandler(GetLeetCodeQuestion getLeetCodeQuestion, TimeProvider timeProvider, IGetCurrentUserId getCurrentUserId, AppDbContext appDbContext)
     : ICommandHandler<CreateProblemCommand, Guid>
@@ -35,6 +35,7 @@ public class CreateProblemCommandHandler(GetLeetCodeQuestion getLeetCodeQuestion
         {
             Title = leetCodeQuestion?.Title ?? slug[1..],
             Slug = leetCodeQuestion?.TitleSlug,
+            Note = command.Note?.Trim(),
             AppUserId = userId,
             AddedAt = now,
             Methods = ProblemMethodDto.Map(command.Methods),

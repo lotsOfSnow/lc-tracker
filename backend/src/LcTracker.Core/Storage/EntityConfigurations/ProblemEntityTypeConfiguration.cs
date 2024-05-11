@@ -21,6 +21,7 @@ public class ProblemEntityTypeConfiguration : IEntityTypeConfiguration<Problem>
 
         builder.Property(x => x.Title).HasMaxLength(50);
         builder.Property(x => x.Slug).HasMaxLength(60);
+        builder.Property(x => x.Note).HasMaxLength(1000);
 
         builder.OwnsMany(x => x.Methods, cfg =>
         {
