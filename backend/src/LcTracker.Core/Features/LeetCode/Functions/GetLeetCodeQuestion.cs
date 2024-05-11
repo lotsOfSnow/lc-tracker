@@ -1,26 +1,21 @@
-using LcTracker.Shared.Handlers;
-using LcTracker.Shared.Results;
-
-namespace LcTracker.Core.Features.LeetCode.Queries;
+namespace LcTracker.Core.Features.LeetCode.Functions;
 
 public record LeetCodeQuestion(string Id, string TitleSlug, string Title);
 
-public record GetLeetCodeQuestionQuery(string Url) : IQuery<LeetCodeQuestion>;
-
-public class GetLeetCodeQuestionQueryHandler(ILeetCodeClient client) : IQueryHandler<GetLeetCodeQuestionQuery, LeetCodeQuestion>
+public class GetLeetCodeQuestion(ILeetCodeClient client)
 {
-    public async Task<Result<LeetCodeQuestion>> Handle(GetLeetCodeQuestionQuery request, CancellationToken cancellationToken)
+    public async Task<LeetCodeQuestion?> ExecuteAsync(string url, CancellationToken cancellationToken)
     {
-        var slug = ExtractSlug(request.Url);
+        var slug = ExtractSlug(url);
 
         var result = await client.GetQuestion.ExecuteAsync(slug, cancellationToken);
         if (result.Data?.Question is null)
         {
-            return Errors.NotFound;
+            return null;
         }
         var question = result.Data.Question;
 
-        return new LeetCodeQuestion(question.QuestionId, question.TitleSlug, question.Title);
+        return new(question.QuestionId, question.TitleSlug, question.Title);
     }
 
     private static string ExtractSlug(string input)

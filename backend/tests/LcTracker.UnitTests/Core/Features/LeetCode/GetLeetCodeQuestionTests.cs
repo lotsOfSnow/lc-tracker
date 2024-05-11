@@ -1,7 +1,7 @@
 using AutoFixture;
 using FluentAssertions;
 using LcTracker.Core;
-using LcTracker.Core.Features.LeetCode.Queries;
+using LcTracker.Core.Features.LeetCode.Functions;
 using LcTracker.UnitTests.Shared;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
@@ -9,7 +9,7 @@ using StrawberryShake;
 
 namespace LcTracker.UnitTests.Core.Features.LeetCode;
 
-public class GetLeetCodeQuestionTests : BaseUnitTest<GetLeetCodeQuestionQueryHandler>
+public class GetLeetCodeQuestionTests : BaseUnitTest<GetLeetCodeQuestion>
 {
     [Theory]
     [InlineData("https://example.com/problems/sample-title/", "sample-title")]
@@ -31,8 +31,8 @@ public class GetLeetCodeQuestionTests : BaseUnitTest<GetLeetCodeQuestionQueryHan
         client.GetQuestion.ExecuteAsync(Arg.Is<string>(s => !s.Equals(validSlug, StringComparison.Ordinal))).Returns(emptyResult);
         var sut = CreateSut();
 
-        var result = await sut.Handle(new(input), default);
+        var result = await sut.ExecuteAsync(input, default);
 
-        result.IsSuccess.Should().BeTrue();
+        result.Should().NotBeNull();
     }
 }
