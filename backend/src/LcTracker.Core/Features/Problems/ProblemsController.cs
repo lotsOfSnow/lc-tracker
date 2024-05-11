@@ -17,7 +17,7 @@ public class ProblemsController(IDispatcher dispatcher, IAppDbContext dbContext)
     [HttpPost("api/problems")]
     public async Task<ActionResult> Create(CreateProblemRequest request, CancellationToken ct)
     {
-        var command = new CreateProblemCommand(request.Name, request.Number, request.Url, request.Methods);
+        var command = new CreateProblemCommand(request.Url, request.Methods);
 
         var result = await Dispatcher.DispatchAsync(command, ct);
 
@@ -53,7 +53,7 @@ public class ProblemsController(IDispatcher dispatcher, IAppDbContext dbContext)
     [HttpPut("api/problems/{id:guid}")]
     public async Task<ActionResult> Update(Guid id, UpdateProblemRequest request, CancellationToken ct)
     {
-        var command = new UpdateProblemCommand(id, request.Name, request.Number, request.Url, request.Methods);
+        var command = new UpdateProblemCommand(id, request.Methods);
 
         var result = await Dispatcher.DispatchAsync(command, ct);
 

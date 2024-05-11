@@ -1,11 +1,15 @@
+using LcTracker.Shared.Functions;
+
 namespace LcTracker.Core.Features.LeetCode.Functions;
 
 public record LeetCodeQuestion(string Id, string TitleSlug, string Title);
 
-public class GetLeetCodeQuestion(ILeetCodeClient client)
+public class GetLeetCodeQuestion(ILeetCodeClient client) : IFunction
 {
     public async Task<LeetCodeQuestion?> ExecuteAsync(string url, CancellationToken cancellationToken)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(url);
+        
         var slug = ExtractSlug(url);
 
         var result = await client.GetQuestion.ExecuteAsync(slug, cancellationToken);

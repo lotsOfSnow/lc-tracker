@@ -3,7 +3,9 @@ using LcTracker.Api.Exceptions;
 using LcTracker.Core.Auth;
 using LcTracker.Core.Features.Attempts.Commands;
 using LcTracker.Core.Features.LeetCode;
+using LcTracker.Core.Features.LeetCode.Functions;
 using LcTracker.Core.Storage;
+using LcTracker.Shared.Functions;
 using LcTracker.Shared.Handlers;
 using LcTracker.Shared.Options;
 using LcTracker.Shared.Time;
@@ -47,6 +49,7 @@ public static class DependenciesInstaller
 
     private static void AddCore(this WebApplicationBuilder builder)
     {
+        builder.Services.AddFunctions([typeof(GetLeetCodeQuestion).Assembly]);
         builder.Services.AddTransient<IGetCurrentUserId, GetCurrentUserId>();
         builder.Services.AddHandlers(typeof(CreateAttemptCommandHandler).Assembly);
 
