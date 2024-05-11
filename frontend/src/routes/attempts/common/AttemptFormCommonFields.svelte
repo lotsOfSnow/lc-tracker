@@ -6,9 +6,10 @@
   import { difficulties } from '../difficulty';
   import { commonInputControlClassName } from '$lib/components/styleUtils';
   import Button from '$lib/components/Button.svelte';
+  import type { ProblemFields } from './attemptUtils';
 
   export let src: apiSchemas['Attempt'] | undefined = undefined;
-  export let problems: apiSchemas['Problem'];
+  export let problems: ProblemFields[];
 
   let date = src?.date;
 
