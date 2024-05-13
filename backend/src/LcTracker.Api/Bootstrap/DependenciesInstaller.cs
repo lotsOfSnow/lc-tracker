@@ -11,6 +11,8 @@ using LcTracker.Shared.Options;
 using LcTracker.Shared.Time;
 using LcTracker.Shared.Web.Cors;
 using Microsoft.Extensions.Options;
+using Polly;
+using Polly.Extensions.Http;
 
 namespace LcTracker.Api.Bootstrap;
 
@@ -75,6 +77,13 @@ public static class DependenciesInstaller
             {
                 var options = sp.GetRequiredService<IOptions<LeetCodeApiOptions>>().Value;
                 client.BaseAddress = options.GraphQlEndpoint;
+            }, cfg =>
+            {
+                var retryPolicy = HttpPolicyExtensions
+                    .HandleTransientHttpError()
+                    .WaitAndRetryAsync(3, attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)));
+
+                cfg.AddPolicyHandler(retryPolicy);
             });
     }
 }
