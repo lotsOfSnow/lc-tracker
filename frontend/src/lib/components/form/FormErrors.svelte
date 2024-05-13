@@ -3,26 +3,26 @@
 
   type ErrorType = ServerFailData & ValidationFailData | undefined | null;
 
-  export let errorData: ErrorType;
+  export let data: ErrorType;
 
   let errors: string[] = [];
 
-  $: errors = getErrors(errorData);
+  $: errors = getErrors(data);
 
-  const getErrors = (errorData: ErrorType): string[] => {
-    if (!errorData) {
+  const getErrors = (data: ErrorType): string[] => {
+    if (!data) {
       return [];
     }
 
     const all: string[] = [];
 
-    if (errorData.validationError) {
-      all.push(errorData.validationError);
+    if (data.validationError) {
+      all.push(data.validationError);
     }
 
-    if (errorData.serverError) {
-      const detail = errorData.serverError.detail ? ` (${errorData.serverError.detail})` : '';
-      all.push(errorData.serverError.title + detail);
+    if (data.serverError) {
+      const detail = data.serverError.detail ? ` (${data.serverError.detail})` : '';
+      all.push(data.serverError.title + detail);
     }
 
     return all;

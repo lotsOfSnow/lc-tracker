@@ -15,5 +15,5 @@
     <Button type="submit" class="mt-2">Create</Button>
   </ProblemFormCommon>
 
-  <FormErrors errorData={form} />
+  <FormErrors data={form} />
 </Box>

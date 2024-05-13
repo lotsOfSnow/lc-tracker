@@ -33,5 +33,5 @@
     <Button type="submit" class="mt-2">Update</Button>
   </form>
 
-  <FormErrors errorData={form} />
+  <FormErrors data={form} />
 </Box>
