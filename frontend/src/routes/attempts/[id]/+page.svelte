@@ -17,7 +17,7 @@
   <BoxHeader>{data.attempt.id}</BoxHeader>
 
   <FormCloseButton to={AppRoute.ATTEMPTS} />
-  
+
   <form method="POST" on:submit|preventDefault use:enhance={() => {
     return async ({result,  update}) => {
       if (result.type === 'success') {
@@ -33,5 +33,5 @@
     <Button type="submit" class="mt-2">Update</Button>
   </form>
 
-  <FormErrors data={form} />
+  <FormErrors errorData={form} />
 </Box>

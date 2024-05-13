@@ -6,7 +6,6 @@
   import BoxHeader from '$lib/components/box/BoxHeader.svelte';
 
   export let form;
-
 </script>
 
 <Box>
@@ -16,5 +15,5 @@
     <Button type="submit" class="mt-2">Create</Button>
   </ProblemFormCommon>
 
-  <FormErrors data={form} />
+  <FormErrors errorData={form} />
 </Box>

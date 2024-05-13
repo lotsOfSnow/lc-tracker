@@ -1,15 +1,38 @@
 <script lang="ts">
-  export let data: undefined | null |
-    {
-      formErrors?: (string | null | undefined)[],
-      fieldErrors?: object,
-      serverErrors?: (string | null | undefined)[],
-    };
+  import type { ServerError, ValidationError } from '$lib/utils/actionsReturnTypes';
+
+  export let errorData: {
+    validationError?: ValidationError;
+    serverError?: ServerError
+  } | null | undefined;
+
+  let errors: string[] = [];
+
+  $: errorData, getErrors();
+
+  const getErrors = () => {
+    if (!errorData) {
+      errors = [];
+      return;
+    }
+
+    if (errorData.validationError) {
+      errors = [...errors, ...errorData.validationError.formErrors];
+
+      Object.values(errorData.validationError.fieldErrors).forEach(fieldErrorArray => {
+        errors.push(...fieldErrorArray ?? []);
+      });
+    }
+
+    if (errorData.serverError) {
+      errors = [...errors, ...errorData.serverError.detail ?? []];
+    }
+  };
 </script>
 
 <div>
   <ul>
-    {#each ([...Object.entries(data?.fieldErrors ?? []), ...Object.entries(data?.formErrors ?? []), ...Object.entries(data?.serverErrors ?? [])]).filter(x => x) as error}
+    {#each errors as error}
       <li class="mt-2 text-sm text-red-500">{error}</li>
     {/each}
   </ul>

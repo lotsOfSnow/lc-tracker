@@ -4,7 +4,7 @@ import { type ActionFailure, fail } from '@sveltejs/kit';
 export const failValidation = <T>(
   error: z.SafeParseError<T>,
 ): ActionFailure<ValidationFailData> => {
-  return fail(400, { messages: error.error.flatten() });
+  return fail(400, { validationError: error.error.flatten() });
 };
 
 export const failServer = (
@@ -19,18 +19,24 @@ export const failServer = (
 
   const title = error[titleKey] as string;
 
-  const detailsKey = 'details';
-  const details =
-    detailsKey in error ? (error[detailsKey] as string[]) : undefined;
+  const detailKey = 'detail';
+  const detail =
+    detailKey in error ? (error[detailKey] as string[]) : undefined;
 
-  return fail(400, { title, details });
+  return fail(400, { serverError: { title, detail } });
 };
 
-type ValidationFailData = {
-  messages: z.typeToFlattenedError<unknown>;
+export type ValidationFailData = {
+  validationError: ValidationError;
 };
 
-type ServerFailData = {
+export type ServerFailData = {
+  serverError: ServerError;
+};
+
+export type ServerError = {
   title: string;
-  details?: string[];
+  detail?: string[];
 };
+
+export type ValidationError = z.typeToFlattenedError<any>;

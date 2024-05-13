@@ -24,5 +24,5 @@
     <Button type="submit" class="mt-2">Create</Button>
   </form>
 
-  <FormErrors data={form} />
+  <FormErrors errorData={form} />
 </Box>
