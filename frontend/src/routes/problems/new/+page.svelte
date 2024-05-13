@@ -6,7 +6,6 @@
   import BoxHeader from '$lib/components/box/BoxHeader.svelte';
 
   export let form;
-
 </script>
 
 <Box>

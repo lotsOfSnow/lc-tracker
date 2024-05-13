@@ -13,14 +13,14 @@ public static class ResultEndpointMapper
 
     public static ActionResult<TValue> ToResponse<T, TValue>(
         this Result<T> result,
-        Func<TValue> getValue,
+        Func<T, TValue> getValue,
         HttpStatusCode statusCode)
     {
         return !result.IsSuccess
-            ? result.Error.ToErrorResponse() : new(getValue()) { StatusCode = (int)statusCode };
+            ? result.Error.ToErrorResponse() : new(getValue(result.Value)) { StatusCode = (int)statusCode };
     }
 
-    public static ActionResult ToResponse<T>(
+    public static ActionResult ToEmptyResponse<T>(
         this Result<T> result,
         HttpStatusCode statusCode)
     {

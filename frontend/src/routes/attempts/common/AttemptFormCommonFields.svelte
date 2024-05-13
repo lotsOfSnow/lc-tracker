@@ -4,9 +4,9 @@
   import Checkbox from '$lib/components/Checkbox.svelte';
   import type { apiSchemas } from '$lib/api';
   import { difficulties } from '../difficulty';
-  import type { ProblemFields } from './attemptUtils';
   import { commonInputControlClassName } from '$lib/components/styleUtils';
   import Button from '$lib/components/Button.svelte';
+  import type { ProblemFields } from './attemptUtils';
 
   export let src: apiSchemas['Attempt'] | undefined = undefined;
   export let problems: ProblemFields[];
@@ -25,7 +25,7 @@
     {#each problems as problem}
       <option
         class={commonInputControlClassName} selected={src?.problemId === problem.id}
-        value={problem.id}>{problem.name}</option>
+        value={problem.id}>{problem.title}</option>
     {/each}
   </select>
 </div>

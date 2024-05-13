@@ -15,6 +15,7 @@
     <PackageReference Include="JetBrains.Annotations" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
     <PackageReference Include="Riok.Mapperly" />
+    <PackageReference Include="StrawberryShake.Server" />
   </ItemGroup>
 
   <ItemGroup>

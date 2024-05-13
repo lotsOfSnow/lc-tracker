@@ -11,7 +11,7 @@ public class GlobalExceptionHandler : IExceptionHandler
         {
             Status = StatusCodes.Status500InternalServerError,
             Title = "Server error",
-            Detail = "Something went wrong",
+            Detail = "Server failed to handle the request",
         };
 
         await httpContext.WriteProblemDetailsAsync(problemDetails, cancellationToken);

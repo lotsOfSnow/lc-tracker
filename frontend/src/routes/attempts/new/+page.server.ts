@@ -1,4 +1,4 @@
-import { type Actions, error, fail, redirect } from '@sveltejs/kit';
+import { type Actions, error, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { AppRoute } from '$lib/routes';
 import { apiClient } from '$lib/api';
@@ -9,6 +9,7 @@ import {
   loadProblems,
   type ProblemFields,
 } from '../common/attemptUtils';
+import { failServer, failValidation } from '$lib/utils/actionsReturnTypes';
 
 export const load = async ({
   fetch,
@@ -20,7 +21,7 @@ export const actions = {
   default: async (event) => {
     const parsingResult = await safeParseRequestFormData(event.request, schema);
     if (!parsingResult.success) {
-      return fail(400, parsingResult.error.flatten());
+      return failValidation(parsingResult);
     }
 
     const result = await apiClient.POST('/api/attempts', {
@@ -34,9 +35,7 @@ export const actions = {
       redirect(302, AppRoute.ATTEMPTS);
     }
 
-    const error = result.error;
-
-    return fail(400, { serverErrors: [error.title] });
+    return failServer(result.error);
   },
 } satisfies Actions;
 

@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LcTracker.Core.Features.Problems.Commands;
 
-public record UpdateProblemRequest(string Name, int Number, string Url, IEnumerable<ProblemMethodDto> Methods);
+public record UpdateProblemRequest(string? Note, IEnumerable<ProblemMethodDto>? Methods);
 
-public record UpdateProblemCommand(Guid Id, string Name, int Number, string Url, IEnumerable<ProblemMethodDto> Methods) : ICommand;
+public record UpdateProblemCommand(Guid Id, string? Note, IEnumerable<ProblemMethodDto>? Methods) : ICommand;
 
 public class UpdateProblemCommandHandler(IAppDbContext dbContext, IGetCurrentUserId getCurrentUserId) : ICommandHandler<UpdateProblemCommand>
 {
@@ -21,13 +21,11 @@ public class UpdateProblemCommandHandler(IAppDbContext dbContext, IGetCurrentUse
 
         if (problem is null)
         {
-            return Errors.NotFound;
+            return Errors.NotFound.Create();
         }
 
-        problem.Name = command.Name;
-        problem.Number = command.Number;
-        problem.Url = command.Url;
         problem.Methods = ProblemMethodDto.Map(command.Methods);
+        problem.Note = command.Note?.Trim();
 
         await dbContext.SaveChangesAsync(ct);
 

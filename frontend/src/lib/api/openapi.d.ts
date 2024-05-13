@@ -67,16 +67,10 @@ export interface components {
       isRecap?: boolean;
       difficulty?: components["schemas"]["Difficulty"];
     };
-    CreateProblemMethod: {
-      name?: string | null;
-      contents?: string | null;
-    };
     CreateProblemRequest: {
-      name?: string | null;
-      /** Format: int32 */
-      number?: number;
-      url?: string | null;
-      methods?: components["schemas"]["CreateProblemMethod"][] | null;
+      slug?: string | null;
+      note?: string | null;
+      methods?: components["schemas"]["ProblemMethodDto"][] | null;
     };
     /**
      * Format: int32
@@ -98,10 +92,9 @@ export interface components {
       id?: string;
       /** Format: uuid */
       appUserId?: string;
-      /** Format: int32 */
-      number?: number;
-      name?: string | null;
-      url?: string | null;
+      title?: string | null;
+      slug?: string | null;
+      note?: string | null;
       /** Format: date-time */
       addedAt?: string;
       methods?: components["schemas"]["ProblemMethod"][] | null;
@@ -116,6 +109,10 @@ export interface components {
       [key: string]: unknown;
     };
     ProblemMethod: {
+      name?: string | null;
+      contents?: string | null;
+    };
+    ProblemMethodDto: {
       name?: string | null;
       contents?: string | null;
     };
@@ -136,10 +133,8 @@ export interface components {
       difficulty?: components["schemas"]["Difficulty"];
     };
     UpdateProblemRequest: {
-      name?: string | null;
-      /** Format: int32 */
-      number?: number;
-      url?: string | null;
+      note?: string | null;
+      methods?: components["schemas"]["ProblemMethodDto"][] | null;
     };
   };
   responses: never;

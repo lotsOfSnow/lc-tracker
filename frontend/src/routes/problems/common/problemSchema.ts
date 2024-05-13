@@ -6,9 +6,7 @@ const methodSchema = z.object({
 });
 
 export const problemSchema = z.object({
-  name: z.string().min(3),
-  number: z.coerce.number().min(1),
-  url: z.string().url(),
+  note: z.string().optional(),
   methods: z.string().transform((json) => {
     const parsed = JSON.parse(json);
     return z.array(methodSchema).parse(parsed);

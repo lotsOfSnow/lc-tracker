@@ -8,14 +8,13 @@ public class Problem : IOwned
 
     public required Guid AppUserId { get; set; }
 
-    public required int Number { get; set; }
+    public required string Title { get; set; }
 
-    public required string Name { get; set; }
+    public required string? Slug { get; set; }
 
-    public required string Url { get; set; }
+    public required string? Note { get; set; }
 
     public required DateTimeOffset AddedAt { get; set; }
 
     public HashSet<ProblemMethod> Methods { get; set; } = null!;
-    // TODO: Hints, solutions, description.
 }

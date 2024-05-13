@@ -1,14 +1,15 @@
-import { type Actions, error, fail } from '@sveltejs/kit';
+import { type Actions, error } from '@sveltejs/kit';
 import { z } from 'zod';
 import { apiClient, getApiOperation } from '$lib/api';
 import { safeParseRequestFormData } from '$lib/utils/zodUtils';
 import { baseAttemptSchema, loadProblems } from '../common/attemptUtils';
+import { failServer, failValidation } from '$lib/utils/actionsReturnTypes';
 
 export const actions = {
   default: async (event) => {
     const parsingResult = await safeParseRequestFormData(event.request, schema);
     if (!parsingResult.success) {
-      return fail(400, { ...parsingResult.error.flatten() });
+      return failValidation(parsingResult);
     }
 
     const result = await apiClient.PUT('/api/attempts/{id}', {
@@ -27,12 +28,7 @@ export const actions = {
       return { success: true };
     }
 
-    const error = result.error;
-
-    console.log(error);
-    return 'title' in error
-      ? fail(400, { serverErrors: [error.title] })
-      : fail(500);
+    return failServer(result.error);
   },
 } satisfies Actions;
 

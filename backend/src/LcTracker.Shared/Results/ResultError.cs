@@ -4,7 +4,7 @@ public class ResultError
 {
     private readonly List<string> _messages;
 
-    public ResultError(ErrorCode code, params string[] messages)
+    public ResultError(ErrorCode code, IEnumerable<string> messages)
     {
         Code = code;
         _messages = messages.Distinct().ToList();;
