@@ -10,8 +10,6 @@
   $: errors = getErrors(errorData);
 
   const getErrors = (errorData: ErrorType): string[] => {
-    console.log(errorData);
-    
     if (!errorData) {
       return [];
     }
@@ -19,18 +17,14 @@
     const all: string[] = [];
 
     if (errorData.validationError) {
-      all.push(...errorData.validationError.formErrors);
-
-      Object.values(errorData.validationError.fieldErrors).forEach(fieldErrorArray => {
-        all.push(...fieldErrorArray ?? []);
-      });
+      all.push(errorData.validationError);
     }
 
-    if (errorData.serverError?.detail) {
-      all.push(errorData.serverError.detail);
+    if (errorData.serverError) {
+      const detail = errorData.serverError.detail ? ` (${errorData.serverError.detail})` : '';
+      all.push(errorData.serverError.title + detail);
     }
 
-    console.log(all);
     return all;
 
   };

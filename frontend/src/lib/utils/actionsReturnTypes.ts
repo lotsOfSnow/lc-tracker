@@ -1,10 +1,12 @@
 import { z } from 'zod';
 import { type ActionFailure, fail } from '@sveltejs/kit';
+import { fromZodError } from 'zod-validation-error';
 
 export const failValidation = <T>(
   error: z.SafeParseError<T>,
 ): ActionFailure<ValidationFailData> => {
-  return fail(400, { validationError: error.error.flatten() });
+  const validationError = fromZodError(error.error).message;
+  return fail(400, { validationError: validationError });
 };
 
 export const failServer = (
@@ -26,7 +28,7 @@ export const failServer = (
 };
 
 export type ValidationFailData = {
-  validationError?: ValidationError;
+  validationError?: string;
 };
 
 export type ServerFailData = {
@@ -37,5 +39,3 @@ export type ServerError = {
   title: string;
   detail?: string;
 };
-
-export type ValidationError = z.typeToFlattenedError<any>;
