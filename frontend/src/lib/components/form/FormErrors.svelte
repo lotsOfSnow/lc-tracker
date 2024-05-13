@@ -1,32 +1,38 @@
 <script lang="ts">
-  import type { ServerError, ValidationError } from '$lib/utils/actionsReturnTypes';
+  import type { ServerFailData, ValidationFailData } from '$lib/utils/actionsReturnTypes';
 
-  export let errorData: {
-    validationError?: ValidationError;
-    serverError?: ServerError
-  } | null | undefined;
+  type ErrorType = ServerFailData & ValidationFailData | undefined | null;
+
+  export let errorData: ErrorType;
 
   let errors: string[] = [];
 
-  $: errorData, getErrors();
+  $: errors = getErrors(errorData);
 
-  const getErrors = () => {
+  const getErrors = (errorData: ErrorType): string[] => {
+    console.log(errorData);
+    
     if (!errorData) {
-      errors = [];
-      return;
+      return [];
     }
 
+    const all: string[] = [];
+
     if (errorData.validationError) {
-      errors = [...errors, ...errorData.validationError.formErrors];
+      all.push(...errorData.validationError.formErrors);
 
       Object.values(errorData.validationError.fieldErrors).forEach(fieldErrorArray => {
-        errors.push(...fieldErrorArray ?? []);
+        all.push(...fieldErrorArray ?? []);
       });
     }
 
-    if (errorData.serverError) {
-      errors = [...errors, ...errorData.serverError.detail ?? []];
+    if (errorData.serverError?.detail) {
+      all.push(errorData.serverError.detail);
     }
+
+    console.log(all);
+    return all;
+
   };
 </script>
 

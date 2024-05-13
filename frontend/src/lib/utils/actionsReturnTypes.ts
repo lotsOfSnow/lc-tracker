@@ -20,23 +20,22 @@ export const failServer = (
   const title = error[titleKey] as string;
 
   const detailKey = 'detail';
-  const detail =
-    detailKey in error ? (error[detailKey] as string[]) : undefined;
+  const detail = detailKey in error ? (error[detailKey] as string) : undefined;
 
   return fail(400, { serverError: { title, detail } });
 };
 
 export type ValidationFailData = {
-  validationError: ValidationError;
+  validationError?: ValidationError;
 };
 
 export type ServerFailData = {
-  serverError: ServerError;
+  serverError?: ServerError;
 };
 
 export type ServerError = {
   title: string;
-  detail?: string[];
+  detail?: string;
 };
 
 export type ValidationError = z.typeToFlattenedError<any>;
