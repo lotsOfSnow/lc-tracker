@@ -18,7 +18,8 @@ public class CreateProblemCommandHandler(GetLeetCodeQuestion getLeetCodeQuestion
     {
         var slug = command.Slug.Trim();
         LeetCodeQuestion? leetCodeQuestion = null;
-        var forceManualTitle = slug.StartsWith('!') && slug.Length > 1;
+        const string forcePrefix = "!";
+        var forceManualTitle = slug.StartsWith(forcePrefix) && slug.Length > forcePrefix.Length;
         if (!forceManualTitle)
         {
             leetCodeQuestion = await getLeetCodeQuestion.ExecuteAsync(command.Slug, ct);
@@ -33,7 +34,7 @@ public class CreateProblemCommandHandler(GetLeetCodeQuestion getLeetCodeQuestion
 
         var problem = new Problem
         {
-            Title = leetCodeQuestion?.Title ?? slug[1..],
+            Title = leetCodeQuestion?.Title ?? slug[forcePrefix.Length..],
             Slug = leetCodeQuestion?.TitleSlug,
             Note = command.Note?.Trim(),
             AppUserId = userId,
