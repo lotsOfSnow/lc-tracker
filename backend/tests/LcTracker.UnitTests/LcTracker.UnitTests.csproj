@@ -24,10 +24,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Using Include="Xunit" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\..\src\LcTracker.Core\LcTracker.Core.csproj" />
     </ItemGroup>
 
