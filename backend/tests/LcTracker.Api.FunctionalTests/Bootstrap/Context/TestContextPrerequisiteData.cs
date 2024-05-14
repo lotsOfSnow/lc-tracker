@@ -6,7 +6,7 @@ namespace LcTracker.Api.FunctionalTests.Bootstrap.Context;
 public class TestContextPrerequisiteData(
     TestContextDatabase database)
 {
-    public async Task<T> Need<T>(T data)
+    public async Task<T> Object<T>(T data)
         where T : Entity
     {
         var inserted = await database.AddAsync(data);
@@ -18,6 +18,6 @@ public class TestContextPrerequisiteData(
         return data;
     }
 
-    public async Task<AppUser> NeedUser()
-        => await Need(new AppUser());
+    public async Task<AppUser> User()
+        => await Object(new AppUser());
 }

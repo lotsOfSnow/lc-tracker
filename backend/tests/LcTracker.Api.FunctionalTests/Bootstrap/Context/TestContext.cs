@@ -12,14 +12,14 @@ public class TestContext
         _services = services;
         Time = new(_services);
         Database = new(_services);
-        PrerequisiteData = new(Database);
+        Require = new(Database);
     }
 
     public TestContextTime Time { get; }
 
     public TestContextDatabase Database { get; }
 
-    public TestContextPrerequisiteData PrerequisiteData { get; }
+    public TestContextPrerequisiteData Require { get; }
 
     public TService Get<TService>()
         where TService : notnull => _services.GetRequiredService<TService>();

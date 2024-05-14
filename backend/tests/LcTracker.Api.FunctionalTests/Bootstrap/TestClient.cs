@@ -5,11 +5,11 @@ using LcTracker.Api.FunctionalTests.Bootstrap.Context;
 
 namespace LcTracker.Api.FunctionalTests.Bootstrap;
 
-public class TestClient(HttpClient client, TestContextPrerequisiteData prerequisiteDataContext)
+public class TestClient(HttpClient client, TestContextPrerequisiteData require)
 {
     public async Task<Guid> RunAsNewUserAsync()
     {
-        var user = await prerequisiteDataContext.NeedUser();
+        var user = await require.User();
 
         client.SetFakeBearerToken(new
         {

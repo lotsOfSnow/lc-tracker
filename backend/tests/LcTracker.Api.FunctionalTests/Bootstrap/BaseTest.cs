@@ -9,7 +9,7 @@ public abstract class BaseTest
         var scope = fixture.CreateScopeAsync();
 
         Context = new(scope.ServiceProvider);
-        Client = new(fixture.ApiClient, Context.PrerequisiteData);
+        Client = new(fixture.ApiClient, Context.Require);
     }
 
     protected Fixture Arrange { get; } = new();
