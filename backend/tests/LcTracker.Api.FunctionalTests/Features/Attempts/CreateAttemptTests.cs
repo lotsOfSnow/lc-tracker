@@ -1,21 +1,17 @@
 using LcTracker.Core.Features.Attempts;
 using LcTracker.Core.Features.Attempts.Commands;
-using LcTracker.Core.Features.Problems;
 
 namespace LcTracker.Api.FunctionalTests.Features.Attempts;
 
 [Collection(FeaturesCollection.Name)]
-public class CreateAttemptTests(ApiTestFixture fixture) : BaseTest(fixture)
+public class CreateAttemptTests(ApiTestFixture fixture) : AttemptTest(fixture)
 {
     [Fact]
     public async Task Creates()
     {
         var now = Context.Time.SetUtcNow(1.January(2024));
         var userId = await Client.RunAsNewUserAsync();
-        var problem = await Context.Require.Object(
-            Arrange
-                .BuildWithUserId<Problem>(userId)
-                .Create());
+        var problem = await RequireProblem(userId);
         var request = Arrange
             .Build<CreateAttemptRequest>()
             .With(x => x.ProblemId, problem.Id)
