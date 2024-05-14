@@ -1,0 +1,34 @@
+name: API - Build and test
+env:
+  ENV: "Release"
+  OUTPUT_DIR: "my-app"
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_call:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.201
+      - name: Build
+        run: dotnet build -c ${{env.ENV}}
+      - name: Test
+        run: dotnet test --no-build --verbosity normal -c ${{env.ENV}}
+      - name: Publish
+        run: dotnet publish src/LcTracker.Api -c ${{env.ENV}} -o ${{env.DOTNET_ROOT}}/${{env.OUTPUT_DIR}}
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: LcTracker.Api
+          path: ${{env.DOTNET_ROOT}}/${{env.OUTPUT_DIR}}
+          if-no-files-found: error

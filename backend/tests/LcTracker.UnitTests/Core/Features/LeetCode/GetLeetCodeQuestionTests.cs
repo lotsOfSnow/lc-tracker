@@ -1,10 +1,6 @@
-using AutoFixture;
-using FluentAssertions;
 using LcTracker.Core;
 using LcTracker.Core.Features.LeetCode.Functions;
 using LcTracker.UnitTests.Shared;
-using NSubstitute;
-using NSubstitute.ReturnsExtensions;
 using StrawberryShake;
 
 namespace LcTracker.UnitTests.Core.Features.LeetCode;
