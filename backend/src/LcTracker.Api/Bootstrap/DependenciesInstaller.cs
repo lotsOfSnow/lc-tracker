@@ -65,6 +65,7 @@ public static class DependenciesInstaller
             .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter()));
         builder.AddAppCors();
         builder.Services.AddExceptionHandlers();
+        builder.Services.AddHttpContextAccessor();
     }
 
     private static void AddGraphQlClients(this WebApplicationBuilder builder)

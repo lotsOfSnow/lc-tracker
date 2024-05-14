@@ -9,6 +9,8 @@ namespace LcTracker.Core.Features.Problems.Commands;
 
 public record CreateProblemRequest(string Slug, string? Note, IEnumerable<ProblemMethodDto>? Methods);
 
+public record CreateProblemResponse(Guid Id);
+
 public record CreateProblemCommand(string Slug, string? Note, IEnumerable<ProblemMethodDto>? Methods) : ICommand<Guid>;
 
 public class CreateProblemCommandHandler(GetLeetCodeQuestion getLeetCodeQuestion, TimeProvider timeProvider, IGetCurrentUserId getCurrentUserId, AppDbContext appDbContext)

@@ -9,3 +9,5 @@ var app = builder.Build();
 await app.UseDependenciesAsync();
 
 app.Run();
+
+public partial class Program;

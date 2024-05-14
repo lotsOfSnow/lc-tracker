@@ -23,7 +23,7 @@ public class GetLeetCodeQuestionTests : BaseUnitTest<GetLeetCodeQuestion>
     [InlineData("sample-title", "sample-title")]
     [InlineData("title", "title")]
     [InlineData("problems/", "problems")]
-    public async Task Returns(string input, string validSlug)
+    public async Task Parses_slug(string input, string validSlug)
     {
         var client = Fixture.Freeze<ILeetCodeClient>();
         var emptyResult = Substitute.For<IOperationResult<IGetQuestionResult>>();
