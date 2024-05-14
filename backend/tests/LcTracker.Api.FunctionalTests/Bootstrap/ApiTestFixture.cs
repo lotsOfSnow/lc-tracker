@@ -13,7 +13,7 @@ public class ApiTestFixture : IAsyncLifetime
     {
         await Task.CompletedTask;
 
-        _app = new($"file:{Guid.NewGuid()}?mode=memory?cache=shared");
+        _app = new($"DataSource=file::memory:?cache=shared");
 
         ApiClient = _app.CreateClient();
     }

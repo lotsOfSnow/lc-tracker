@@ -8,14 +8,13 @@ public abstract class BaseTest
     {
         var scope = fixture.CreateScopeAsync();
 
-        Fixture = fixture;
         Context = new(scope.ServiceProvider);
         Client = new(fixture.ApiClient, Context.PrerequisiteData);
     }
 
-    protected TestClient Client { get; }
+    protected Fixture Arrange { get; } = new();
 
-    protected ApiTestFixture Fixture { get; }
+    protected TestClient Client { get; }
 
     protected TestContext Context { get; }
 }

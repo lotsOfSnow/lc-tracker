@@ -19,11 +19,19 @@ public class TestClient(HttpClient client, TestContextPrerequisiteData prerequis
         return user.Id;
     }
 
-    public Task<HttpResponseMessage> PostAsync<TValue>(
+    public async Task<ClientResult<TResult>> PostAsync<TResult>(
         [StringSyntax(StringSyntaxAttribute.Uri)] string? requestUri,
-        TValue value)
+        object body)
     {
-        return client.PostAsJsonAsync(requestUri, value, TestJsonUtils.Options);
+        var response = await client.PostAsJsonAsync(requestUri, body, TestJsonUtils.Options);
+
+        TResult? data = default;
+        if (response.IsSuccessStatusCode)
+        {
+            data = await response.Content.ReadFromJsonAsync<TResult>();
+        }
+
+        return new(response, data);
     }
 
     public Task<HttpResponseMessage> PutAsync<TValue>(

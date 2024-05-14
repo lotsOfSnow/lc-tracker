@@ -15,13 +15,13 @@ public class ProblemsController(IDispatcher dispatcher, IAppDbContext dbContext)
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [HttpPost("api/problems")]
-    public async Task<ActionResult> Create(CreateProblemRequest request, CancellationToken ct)
+    public async Task<ActionResult<CreateProblemResponse>> Create(CreateProblemRequest request, CancellationToken ct)
     {
         var command = new CreateProblemCommand(request.Slug, request.Note, request.Methods);
 
         var result = await Dispatcher.DispatchAsync(command, ct);
 
-        return result.ToEmptyResponse(HttpStatusCode.NoContent);
+        return result.ToResponse(x => new CreateProblemResponse(x), HttpStatusCode.Created);
     }
 
     [HttpGet("api/problems")]

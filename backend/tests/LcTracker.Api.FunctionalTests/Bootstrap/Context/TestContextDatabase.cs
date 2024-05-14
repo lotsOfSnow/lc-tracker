@@ -8,7 +8,7 @@ namespace LcTracker.Api.FunctionalTests.Bootstrap.Context;
 public class TestContextDatabase(
     IServiceProvider services)
 {
-    public async Task<T?> GetAsync<T>(
+    public async Task<T> GetAsync<T>(
         Guid id)
         where T : Entity
     {
@@ -18,7 +18,7 @@ public class TestContextDatabase(
         return await database
             .Set<T>()
             .AsNoTrackingWithIdentityResolution()
-            .FirstOrDefaultAsync(x => x.Id == id);
+            .FirstAsync(x => x.Id == id);
     }
 
     public async Task<bool> ExistsAsync<T>(
