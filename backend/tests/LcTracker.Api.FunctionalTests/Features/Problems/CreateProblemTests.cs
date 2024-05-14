@@ -1,4 +1,3 @@
-using LcTracker.Api.FunctionalTests.Bootstrap;
 using LcTracker.Core.Features.Problems;
 using LcTracker.Core.Features.Problems.Commands;
 
@@ -22,7 +21,7 @@ public class CreateProblemTests(ApiTestFixture fixture) : BaseTest(fixture)
             .PostAsync<CreateProblemResponse>("api/problems", request);
 
         result.Response.Should().BeSuccessful();
-        var data = await Context.Database.GetAsync<Problem>(result.Data.Id);
+        var data = await Context.Database.GetAsync<Problem>(result.Data!.Id);
         data.Note.Should().Be(request.Note);
         data.Methods.Should().BeEquivalentTo(request.Methods);
         data.Slug.Should().BeNull();

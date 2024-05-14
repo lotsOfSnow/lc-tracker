@@ -25,27 +25,45 @@ public class TestClient(HttpClient client, TestContextPrerequisiteData require)
     {
         var response = await client.PostAsJsonAsync(requestUri, body, TestJsonUtils.Options);
 
-        var data = await Parse<TResult>(response);
+        return await GetResult<TResult>(response);
+    }
+
+    public async Task<ClientResult<TResult>> PutAsync<TResult>(
+        [StringSyntax(StringSyntaxAttribute.Uri)] string? requestUri,
+        object body)
+    {
+        var response = await client.PutAsJsonAsync(requestUri, body, TestJsonUtils.Options);
+
+        return await GetResult<TResult>(response);
+    }
+
+    private static async Task<ClientResult<TValue>> GetResult<TValue>(HttpResponseMessage response)
+    {
+        var data = await Parse<TValue>(response);
 
         return new(response, data);
     }
 
-    public Task<HttpResponseMessage> PutAsync<TValue>(
-        [StringSyntax(StringSyntaxAttribute.Uri)] string? requestUri,
-        TValue value)
+    private static async Task<T?> Parse<T>(HttpResponseMessage response)
     {
-        return client.PutAsJsonAsync(requestUri, value, TestJsonUtils.Options);
-    }
+        if (typeof(T) == typeof(EmptyResponse))
+        {
+            var actual = await response.Content.ReadAsStringAsync();
+            if (actual != string.Empty)
+            {
+                throw new($"Expected to get no content in response, but there is data present: '{actual}'");
+            }
 
-    private static Task<T?> Parse<T>(HttpResponseMessage response)
-    {
+            return default;
+        }
+
         try
         {
-            return response.Content.ReadFromJsonAsync<T>();
+            return await response.Content.ReadFromJsonAsync<T>();
         }
         catch
         {
-            return Task.FromResult<T?>(default);
+            return default;
         }
     }
 }

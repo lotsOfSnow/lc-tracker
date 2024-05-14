@@ -1,7 +1,9 @@
+using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LcTracker.Api.FunctionalTests.Bootstrap;
 
+[UsedImplicitly]
 public class ApiTestFixture : IAsyncLifetime
 {
     private TestApiFactory _app = null!;
