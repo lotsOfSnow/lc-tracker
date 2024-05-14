@@ -11,8 +11,8 @@ public class UpdateProblemTests(ApiTestFixture fixture) : BaseTest(fixture)
     {
         var userId = await Client.RunAsNewUserAsync();
         var problem = await Context.Require.Object(
-            Arrange.Build<Problem>()
-                .With(x => x.AppUserId, userId)
+            Arrange
+                .BuildWithUserId<Problem>(userId)
                 .Create());
         var request = Arrange.Create<UpdateProblemRequest>();
 

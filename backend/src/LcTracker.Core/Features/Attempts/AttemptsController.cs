@@ -23,14 +23,14 @@ public class AttemptsController(IDispatcher dispatcher, IAppDbContext dbContext)
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [HttpPost("api/attempts")]
-    public async Task<ActionResult> Create(CreateAttemptRequest request, CancellationToken ct)
+    public async Task<ActionResult<CreateAttemptResponse>> Create(CreateAttemptRequest request, CancellationToken ct)
     {
         var command = new CreateAttemptCommand(request.ProblemId, request.MinutesSpent, request.Date, request.Note,
             request.HasUsedHelp, request.HasSolved, request.IsRecap, request.Difficulty);
 
         var result = await Dispatcher.DispatchAsync(command, ct);
 
-        return result.ToResponse(HttpStatusCode.Created);
+        return result.ToResponse(x => new CreateAttemptResponse(x), HttpStatusCode.Created);
     }
 
     [ProducesResponseType(StatusCodes.Status204NoContent)]
