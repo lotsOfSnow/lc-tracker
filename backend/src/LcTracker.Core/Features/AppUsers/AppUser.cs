@@ -1,6 +1,5 @@
+using LcTracker.Shared.Entities;
+
 namespace LcTracker.Core.Features.AppUsers;
 
-public class AppUser
-{
-    public Guid Id { get; set; }
-}
+public class AppUser : Entity;
