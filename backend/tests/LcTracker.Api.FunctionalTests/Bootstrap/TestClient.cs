@@ -25,11 +25,7 @@ public class TestClient(HttpClient client, TestContextPrerequisiteData require)
     {
         var response = await client.PostAsJsonAsync(requestUri, body, TestJsonUtils.Options);
 
-        TResult? data = default;
-        if (response.IsSuccessStatusCode)
-        {
-            data = await response.Content.ReadFromJsonAsync<TResult>();
-        }
+        var data = await Parse<TResult>(response);
 
         return new(response, data);
     }
@@ -39,5 +35,17 @@ public class TestClient(HttpClient client, TestContextPrerequisiteData require)
         TValue value)
     {
         return client.PutAsJsonAsync(requestUri, value, TestJsonUtils.Options);
+    }
+
+    private static Task<T?> Parse<T>(HttpResponseMessage response)
+    {
+        try
+        {
+            return response.Content.ReadFromJsonAsync<T>();
+        }
+        catch
+        {
+            return Task.FromResult<T?>(default);
+        }
     }
 }
