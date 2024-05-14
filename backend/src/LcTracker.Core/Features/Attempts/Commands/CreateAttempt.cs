@@ -5,7 +5,6 @@ using LcTracker.Shared.Results;
 
 namespace LcTracker.Core.Features.Attempts.Commands;
 
-
 public record CreateAttemptRequest(
     Guid ProblemId,
     int? MinutesSpent,
