@@ -37,6 +37,14 @@ public class TestClient(HttpClient client, TestContextPrerequisiteData require)
         return await GetResult<TResult>(response);
     }
 
+    public async Task<ClientResult<TResult>> DeleteAsync<TResult>(
+        [StringSyntax(StringSyntaxAttribute.Uri)] string? requestUri)
+    {
+        var response = await client.DeleteAsync(requestUri);
+
+        return await GetResult<TResult>(response);
+    }
+
     private static async Task<ClientResult<TValue>> GetResult<TValue>(HttpResponseMessage response)
     {
         var data = await Parse<TValue>(response);

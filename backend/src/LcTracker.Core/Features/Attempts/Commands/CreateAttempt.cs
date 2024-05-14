@@ -23,13 +23,15 @@ public record CreateAttemptCommand(
     bool HasUsedHelp,
     bool HasSolved,
     bool IsRecap,
-    Difficulty Difficulty) : ICommand;
+    Difficulty Difficulty) : ICommand<Guid>;
+
+public record CreateAttemptResponse(Guid Id);
 
 public class CreateAttemptCommandHandler(TimeProvider timeProvider,
     IAppDbContext dbContext,
-    IGetCurrentUserId getCurrentUserId) : ICommandHandler<CreateAttemptCommand>
+    IGetCurrentUserId getCurrentUserId) : ICommandHandler<CreateAttemptCommand, Guid>
 {
-    public async Task<Result> Handle(CreateAttemptCommand command, CancellationToken ct)
+    public async Task<Result<Guid>> Handle(CreateAttemptCommand command, CancellationToken ct)
     {
         var userId = getCurrentUserId.Execute();
 
@@ -49,6 +51,6 @@ public class CreateAttemptCommandHandler(TimeProvider timeProvider,
 
         await dbContext.SaveChangesAsync(ct);
 
-        return Result.Ok;
+        return attempt.Id;
     }
 }

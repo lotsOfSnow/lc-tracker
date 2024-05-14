@@ -3,7 +3,7 @@ using LcTracker.Shared.Entities;
 
 namespace LcTracker.Core.Features.Attempts;
 
-public class Attempt : IOwned
+public class Attempt : Entity, IOwned
 {
     private int? _minutesSpent;
     private string? _note;
@@ -12,8 +12,6 @@ public class Attempt : IOwned
     {
         UpdateDate(now, date);
     }
-
-    public Guid Id { get; set; }
 
     public required Guid AppUserId { get; set; }
 

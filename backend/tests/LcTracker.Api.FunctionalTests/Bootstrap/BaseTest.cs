@@ -10,9 +10,13 @@ public abstract class BaseTest
 
         Context = new(scope.ServiceProvider);
         Client = new(fixture.ApiClient, Context.Require);
+
+        var arrange = new Fixture();
+        arrange.Customize<DateOnly>(composer => composer.FromFactory<DateTime>(DateOnly.FromDateTime));
+        Arrange = arrange;
     }
 
-    protected Fixture Arrange { get; } = new();
+    protected Fixture Arrange { get; }
 
     protected TestClient Client { get; }
 
