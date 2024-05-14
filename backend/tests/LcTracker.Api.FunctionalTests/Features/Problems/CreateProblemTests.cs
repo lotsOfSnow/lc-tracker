@@ -13,7 +13,10 @@ public class CreateProblemTests(ApiTestFixture fixture) : BaseTest(fixture)
         var now = Context.Time.SetUtcNow(1.January(2024));
         var userId = await Client.RunAsNewUserAsync();
         var slug = Arrange.Create<string>();
-        var request = Arrange.Build<CreateProblemRequest>().With(x => x.Slug, "!" + slug).Create();
+        var request = Arrange
+            .Build<CreateProblemRequest>()
+            .With(x => x.Slug, "!" + slug)
+            .Create();
 
         var result = await Client
             .PostAsync<CreateProblemResponse>("api/problems", request);
@@ -24,7 +27,7 @@ public class CreateProblemTests(ApiTestFixture fixture) : BaseTest(fixture)
         data.Methods.Should().BeEquivalentTo(request.Methods);
         data.Slug.Should().BeNull();
         data.Title.Should().Be(slug);
-        // data.AppUserId.Should().Be(userId) TODO;
+        data.AppUserId.Should().Be(userId);
         data.AddedAt.Should().Be(now);
     }
 }

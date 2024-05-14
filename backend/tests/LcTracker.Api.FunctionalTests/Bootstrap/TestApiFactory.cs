@@ -1,3 +1,5 @@
+using LcTracker.Api.FunctionalTests.Bootstrap.Fakes;
+using LcTracker.Core.Auth;
 using LcTracker.Core.Storage;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -42,6 +44,7 @@ public class TestApiFactory(string databaseConnectionString) : WebApplicationFac
                     .AddFakeJwtBearer();
 
                 services.AddSingleton<TimeProvider, FakeTimeProvider>();
+                services.AddTransient<IGetCurrentUserId, FakeGetCurrentUserId>();
             });
     }
 
