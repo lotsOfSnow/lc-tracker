@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using LcTracker.Shared.Entities;
 
 namespace LcTracker.Core.Features.Attempts;
@@ -8,16 +7,11 @@ public class Attempt : Entity, IOwned
     private int? _minutesSpent;
     private string? _note;
 
-    public Attempt(DateTimeOffset now, DateOnly date)
-    {
-        UpdateDate(now, date);
-    }
-
     public required Guid AppUserId { get; set; }
 
     public required Guid ProblemId { get; set; }
 
-    public DateOnly Date { get; private set; }
+    public required DateOnly Date { get; set; }
 
     public string? Note
     {
@@ -47,19 +41,4 @@ public class Attempt : Entity, IOwned
     public required bool HasSolved { get; set; }
 
     public required bool IsRecap { get; set; }
-
-    public void UpdateDate(DateTimeOffset serverTime, DateOnly date)
-    {
-        var gracePeriod = TimeSpan.FromHours(24);
-        var utcNowDate = DateOnly.FromDateTime(serverTime.Add(gracePeriod).UtcDateTime);
-        if (date > utcNowDate)
-        {
-            throw new("Date can't be in future");
-        }
-
-        Date = date;
-    }
-
-    [UsedImplicitly]
-    private Attempt(){}
 }
