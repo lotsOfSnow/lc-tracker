@@ -1,4 +1,5 @@
 using LcTracker.Core.Auth;
+using LcTracker.Core.Features.Attempts.Assertions;
 using LcTracker.Core.Storage;
 using LcTracker.Shared.Handlers;
 using LcTracker.Shared.Results;
@@ -35,7 +36,8 @@ public class CreateAttemptCommandHandler(TimeProvider timeProvider,
     {
         var userId = getCurrentUserId.Execute();
 
-        var attempt = new Attempt(timeProvider.GetUtcNow(), command.Date)
+        AttemptAssertion.DateIsInPast(timeProvider, command.Date);
+        var attempt = new Attempt
         {
             ProblemId = command.ProblemId,
             Difficulty = command.Difficulty,
@@ -45,6 +47,7 @@ public class CreateAttemptCommandHandler(TimeProvider timeProvider,
             HasUsedHelp = command.HasUsedHelp,
             Note = command.Note,
             AppUserId = userId,
+            Date = command.Date,
         };
 
         await dbContext.Attempts.AddAsync(attempt, ct);

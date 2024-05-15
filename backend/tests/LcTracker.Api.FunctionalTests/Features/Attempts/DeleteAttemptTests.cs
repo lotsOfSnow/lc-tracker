@@ -11,7 +11,7 @@ public class DeleteAttemptTests(ApiTestFixture fixture) : AttemptTest(fixture)
         var now = Context.Time.SetUtcNow(1.January(2024));
         var userId = await Client.RunAsNewUserAsync();
         var problem = await RequireProblem(userId);
-        var attempt = await RequireAttempt(problem, userId, now);
+        var attempt = await RequireAttempt(problem, userId);
 
         var result = await Client
             .DeleteAsync<EmptyResponse>($"api/attempts/{attempt.Id}");

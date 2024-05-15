@@ -12,7 +12,7 @@ public class UpdateAttemptTests(ApiTestFixture fixture) : AttemptTest(fixture)
         var now = Context.Time.SetUtcNow(1.January(2024));
         var userId = await Client.RunAsNewUserAsync();
         var problem = await RequireProblem(userId);
-        var attempt = await RequireAttempt(problem, userId, now);
+        var attempt = await RequireAttempt(problem, userId);
         var request = Arrange
             .Build<UpdateAttemptRequest>()
             .With(x => x.ProblemId, problem.Id)

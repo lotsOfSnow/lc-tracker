@@ -11,15 +11,9 @@ public abstract class AttemptTest(ApiTestFixture fixture) : BaseTest(fixture)
                 .BuildWithUserId<Problem>(userId)
                 .Create());
 
-    protected Task<Attempt> RequireAttempt(Problem problem, Guid userId, DateTimeOffset serverTime)
-        => Context.Require.Object(
-            new Attempt(serverTime, DateOnly.FromDateTime(serverTime.AddDays(-1).Date))
-            {
-                AppUserId = userId,
-                ProblemId = problem.Id,
-                Difficulty = Arrange.Create<Difficulty>(),
-                HasSolved = Arrange.Create<bool>(),
-                IsRecap = Arrange.Create<bool>(),
-                HasUsedHelp = Arrange.Create<bool>(),
-            });
+    protected Task<Attempt> RequireAttempt(Problem problem, Guid userId)
+        => Context.Require.Object(Arrange
+            .BuildWithUserId<Attempt>(userId)
+            .With(x => x.ProblemId, problem.Id)
+            .Create());
 }

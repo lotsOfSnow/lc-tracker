@@ -1,4 +1,5 @@
 using LcTracker.Core.Auth;
+using LcTracker.Core.Features.Attempts.Assertions;
 using LcTracker.Core.Storage;
 using LcTracker.Shared.Handlers;
 using LcTracker.Shared.Results;
@@ -40,9 +41,10 @@ public class UpdateAttemptCommandHandler(TimeProvider timeProvider, IAppDbContex
             return Errors.NotFound.Create();
         }
 
+        AttemptAssertion.DateIsInPast(timeProvider, command.Date);
         attempt.ProblemId = command.ProblemId;
         attempt.MinutesSpent = command.MinutesSpent;
-        attempt.UpdateDate(timeProvider.GetUtcNow(), command.Date);
+        attempt.Date = command.Date;
         attempt.Note = command.Note;
         attempt.HasUsedHelp = command.HasUsedHelp;
         attempt.HasSolved = command.HasSolved;
