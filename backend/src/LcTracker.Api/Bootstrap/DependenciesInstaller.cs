@@ -20,6 +20,8 @@ public static class DependenciesInstaller
 {
     public static void AddDependencies(this WebApplicationBuilder builder)
     {
+        builder.AddSerilogLogging();
+
         builder.AddShared();
         builder.AddCore();
         builder.AddStorage();
@@ -28,6 +30,8 @@ public static class DependenciesInstaller
 
     public static async Task UseDependenciesAsync(this WebApplication app)
     {
+        app.UseSerilogConfiguration();
+
         app.UseExceptionHandler();
         await app.UseStorageAsync();
         app.UseAppCors();
