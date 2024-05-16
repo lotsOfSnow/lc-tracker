@@ -8,6 +8,8 @@ services:
     ports:
       - "9400:8080"
       - "9401:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=production
 
   web:
     build:
