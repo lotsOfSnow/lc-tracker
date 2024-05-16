@@ -5,13 +5,15 @@ export const toasts = writable<ToastData[]>([]);
 
 const defaultToastTimeout = 5000;
 
+let n = Date.now();
+
 export const addToast = (
   type: ToastType,
   message: string,
   dismissible: boolean = true,
   timeout: number | undefined = defaultToastTimeout,
 ) => {
-  const id = Math.floor(Math.random() * 1000);
+  const id = (++n).toString(36);
 
   const data: ToastData = {
     id,
@@ -28,12 +30,12 @@ export const addToast = (
   }
 };
 
-export const dismissToast = (id: number) => {
+export const dismissToast = (id: string) => {
   toasts.update((all) => all.filter((value) => value.id !== id));
 };
 
 export type ToastData = {
-  id: number;
+  id: string;
   type: ToastType;
   dismissible: boolean;
   timeout?: number;

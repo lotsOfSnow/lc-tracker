@@ -32,7 +32,7 @@ export const actions = {
     });
 
     if (result.data) {
-      redirect(302, AppRoute.ATTEMPTS);
+      return redirect(302, AppRoute.ATTEMPTS);
     }
 
     return failServer(result.error);

@@ -4,7 +4,7 @@
 </script>
 
 {#if $toasts}
-  <section class="fixed bottom-0 right-0  z-[1000] w-[20vw]">
+  <section class="fixed bottom-10 right-0 z-[1000] w-[20vw]">
     {#each $toasts as toast (toast.id)}
       <Toast
         type={toast.type}

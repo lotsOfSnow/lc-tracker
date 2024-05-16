@@ -11,7 +11,7 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<article class={`${color} text-white p-4 rounded-lg shadow-lg flex w-full max-w-xs`} transition:fade>
+<article class={`${color} text-white p-4 rounded-lg shadow-lg flex w-full max-w-xs mt-0.5`} transition:fade>
   <div class="flex-grow">
     <div class="font-bold">
       {#if type === 'success'}
