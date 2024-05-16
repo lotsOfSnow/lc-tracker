@@ -17,4 +17,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "9500:3000"
+    environment:
+    - ORIGIN=http://localhost:9500
     depends_on: [api]
