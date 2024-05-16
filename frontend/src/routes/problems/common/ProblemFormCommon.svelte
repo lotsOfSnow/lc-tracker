@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { enhance } from '$app/forms';
   import Input from '$lib/components/Input.svelte';
   import Label from '$lib/components/Label.svelte';
   import Button from '$lib/components/Button.svelte';
@@ -8,7 +7,7 @@
   import { afterUpdate } from 'svelte';
   import FormCloseButton from '$lib/components/FormCloseButton.svelte';
   import { AppRoute } from '$lib/routes';
-  import { addToast } from '$lib/components/notifications/toastStore';
+  import Form from '$lib/components/form/Form.svelte';
 
   export let data: apiSchemas['Problem'] | undefined = undefined;
 
@@ -60,18 +59,7 @@
 
 <FormCloseButton to={AppRoute.PROBLEMS} />
 
-<form method="POST" on:submit|preventDefault
-      use:enhance={async ({formData}) => {
-        formData.append(`methods`, JSON.stringify(methods));
-
-        return async ({result,  update}) => {
-          if (result.type === 'success' || result.type === 'redirect') {
-            addToast('success', 'Saved');
-          }
-
-          await update({reset: false})
-        }
-      }}>
+<Form customEnhance={(formData) => formData.append(`methods`, JSON.stringify(methods))}>
   {#if data !== undefined}
     <Label for="title">Title</Label>
     <Input required id="title" value={data.title} type="text"
@@ -113,4 +101,4 @@
   </div>
 
   <slot />
-</form>
+</Form>

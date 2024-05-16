@@ -1,5 +1,4 @@
-import { type Actions, redirect } from '@sveltejs/kit';
-import { AppRoute } from '$lib/routes';
+import { type Actions } from '@sveltejs/kit';
 import { z } from 'zod';
 import { apiClient, getApiOperation } from '$lib/api';
 import { safeParseRequestFormData } from '$lib/utils/zodUtils';
@@ -30,8 +29,7 @@ export const actions = {
     });
 
     if (result.data) {
-      // TODO: show toast instead
-      redirect(302, AppRoute.PROBLEMS);
+      return { success: true };
     }
 
     return failServer(result.error);

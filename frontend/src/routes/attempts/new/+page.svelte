@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { enhance } from '$app/forms';
   import Button from '$lib/components/Button.svelte';
   import FormCloseButton from '$lib/components/FormCloseButton.svelte';
   import { AppRoute } from '$lib/routes';
@@ -7,6 +6,7 @@
   import FormErrors from '$lib/components/form/FormErrors.svelte';
   import Box from '$lib/components/box/Box.svelte';
   import BoxHeader from '$lib/components/box/BoxHeader.svelte';
+  import Form from '$lib/components/form/Form.svelte';
 
   export let form;
   export let data;
@@ -18,11 +18,11 @@
   <BoxHeader>Create</BoxHeader>
 
   <FormCloseButton to={AppRoute.ATTEMPTS} />
-  <form method="POST" on:submit|preventDefault use:enhance>
+  <Form>
     <AttemptFormCommonFields {problems} src={undefined} />
 
     <Button type="submit" class="mt-2">Create</Button>
-  </form>
+  </Form>
 
   <FormErrors data={form} />
 </Box>
