@@ -5,7 +5,6 @@
   export let successMessage: string = 'Saved';
 
   export let beforeSubmit: ((formData: FormData) => unknown) | undefined = undefined;
-
 </script>
 <form method="POST" on:submit|preventDefault use:enhance={({formData}) => {
   if (beforeSubmit){
