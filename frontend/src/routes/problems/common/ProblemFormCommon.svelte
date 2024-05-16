@@ -59,7 +59,7 @@
 
 <FormCloseButton to={AppRoute.PROBLEMS} />
 
-<Form customEnhance={(formData) => formData.append(`methods`, JSON.stringify(methods))}>
+<Form beforeSubmit={(formData) => formData.append(`methods`, JSON.stringify(methods))}>
   {#if data !== undefined}
     <Label for="title">Title</Label>
     <Input required id="title" value={data.title} type="text"
