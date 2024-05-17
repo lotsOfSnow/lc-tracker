@@ -1,24 +1,24 @@
 version: "3.8"
 
 services:
-  api:
+  server:
     build:
       context: ../backend
       dockerfile: Dockerfile
     ports:
-      - ${API_HOST_HTTP_PORT}:${API_CONTAINER_HTTP_PORT}
-      - ${API_HOST_HTTPS_PORT}:${API_CONTAINER_HTTPS_PORT}
+      - ${SERVER_HOST_HTTP_PORT}:${SERVER_CONTAINER_HTTP_PORT}
+      - ${SERVER_HOST_HTTPS_PORT}:${SERVER_CONTAINER_HTTPS_PORT}
     environment:
-      - ASPNETCORE_ENVIRONMENT=production
+      - ASPNETCORE_ENVIRONMENT=${SERVER_ENVIRONMENT}
 
   web:
     build:
       context: ../frontend
       dockerfile: Dockerfile
       args:
-        - VITE_PUBLIC_API_URL=http://api:${API_CONTAINER_HTTP_PORT}
+        - VITE_PUBLIC_API_URL=http://server:${SERVER_CONTAINER_HTTP_PORT}
     ports:
       - ${WEB_HOST_HTTP_PORT}:${WEB_CONTAINER_HTTP_PORT}
     environment:
     - ORIGIN=http://localhost:${WEB_HOST_HTTP_PORT}
-    depends_on: [api]
+    depends_on: [server]
