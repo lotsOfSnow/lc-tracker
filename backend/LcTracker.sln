@@ -29,9 +29,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{9E08672E-43A6-48AC-8253-67B1E338CA0A}"
 	ProjectSection(SolutionItems) = preProject
 		..\.dockerignore = ..\.dockerignore
-		..\compose.dev.yml = ..\compose.dev.yml
-		..\compose.yml = ..\compose.yml
 		Dockerfile = Dockerfile
+		..\docker\.env = ..\docker\.env
+		..\docker\compose.dev.yml = ..\docker\compose.dev.yml
+		..\docker\compose.yml = ..\docker\compose.yml
 	EndProjectSection
 EndProject
 Global
