@@ -10,6 +10,7 @@ services:
       - ${SERVER_HOST_HTTPS_PORT}:${SERVER_CONTAINER_HTTPS_PORT}
     environment:
       - ASPNETCORE_ENVIRONMENT=${SERVER_ENVIRONMENT}
+      - Database__ConnectionString=${SERVER_ENVIRONMENT_DATABASE__CONNECTION_STRING}
     depends_on: [pg]
 
   web:
@@ -28,12 +29,12 @@ services:
     image: postgres:16.3
     restart: always
     environment:
-      POSTGRES_USER: dev
-      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - "9432:5432"
+      - ${PG_HOST_PORT}:${PG_CONTAINER_PORT}
 
   adminer:
     image: adminer:latest
