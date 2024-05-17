@@ -1,5 +1,7 @@
 version: "3.8"
 
+name: lctracker
+
 services:
   server:
     build:
@@ -9,7 +11,10 @@ services:
       - ${SERVER_HOST_HTTP_PORT}:${SERVER_CONTAINER_HTTP_PORT}
       - ${SERVER_HOST_HTTPS_PORT}:${SERVER_CONTAINER_HTTPS_PORT}
     environment:
-      - ASPNETCORE_ENVIRONMENT=${SERVER_ENVIRONMENT}
+      - ASPNETCORE_ENVIRONMENT=${SERVER_ENV}
+      - Database__ConnectionString=${SERVER_ENV_DATABASE__CONNECTION_STRING}
+      - Cors__AllowedOrigin=${SERVER_ENV_CORS__AllowedOrigin}
+    depends_on: [pg]
 
   web:
     build:
@@ -22,3 +27,23 @@ services:
     environment:
       - ORIGIN=${WEB_ORIGIN}
     depends_on: [server]
+
+  pg:
+    image: postgres:16.3
+    restart: always
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - ${PG_HOST_PORT}:${PG_CONTAINER_PORT}
+
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - "9480:8080"
+
+volumes:
+  pgdata:
