@@ -20,5 +20,5 @@ services:
     ports:
       - ${WEB_HOST_HTTP_PORT}:${WEB_CONTAINER_HTTP_PORT}
     environment:
-    - ORIGIN=http://localhost:${WEB_HOST_HTTP_PORT}
+      - ORIGIN=${WEB_ORIGIN}
     depends_on: [server]
