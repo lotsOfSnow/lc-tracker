@@ -11,9 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EntityFrameworkCore.Exceptions.Sqlite" />
+    <PackageReference Include="EntityFrameworkCore.Exceptions.PostgreSQL" />
     <PackageReference Include="JetBrains.Annotations" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
     <PackageReference Include="Riok.Mapperly" />
     <PackageReference Include="StrawberryShake.Server" />
   </ItemGroup>

@@ -20,7 +20,7 @@ public static class StorageInstaller
                 optionsBuilder) =>
             {
                 var databaseOptions = serviceProvider.GetRequiredService<IOptions<DatabaseOptions>>();
-                optionsBuilder.UseSqlite(
+                optionsBuilder.UseNpgsql(
                     databaseOptions.Value.ConnectionString);
             });
 

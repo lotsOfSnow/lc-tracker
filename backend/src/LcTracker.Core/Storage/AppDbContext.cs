@@ -1,4 +1,4 @@
-using EntityFramework.Exceptions.Sqlite;
+using EntityFramework.Exceptions.PostgreSQL;
 using LcTracker.Core.Features.AppUsers;
 using LcTracker.Core.Features.Attempts;
 using LcTracker.Core.Features.Problems;
@@ -7,7 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LcTracker.Core.Storage;
 
-public sealed class AppDbContext(DbContextOptions<AppDbContext> dbContextOptions) : DbContext(dbContextOptions), IAppDbContext
+public sealed class AppDbContext(DbContextOptions<AppDbContext> dbContextOptions)
+    : DbContext(dbContextOptions), IAppDbContext
 {
     public DbSet<AppUser> AppUsers { get; init; } = null!;
 
