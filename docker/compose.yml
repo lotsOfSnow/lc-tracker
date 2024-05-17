@@ -10,6 +10,7 @@ services:
       - ${SERVER_HOST_HTTPS_PORT}:${SERVER_CONTAINER_HTTPS_PORT}
     environment:
       - ASPNETCORE_ENVIRONMENT=${SERVER_ENVIRONMENT}
+    depends_on: [pg]
 
   web:
     build:
@@ -22,3 +23,23 @@ services:
     environment:
       - ORIGIN=${WEB_ORIGIN}
     depends_on: [server]
+
+  pg:
+    image: postgres:16.3
+    restart: always
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: pass
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "9432:5432"
+
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - "9480:8080"
+
+volumes:
+  pgdata:
