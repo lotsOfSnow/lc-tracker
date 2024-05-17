@@ -11,8 +11,9 @@ services:
       - ${SERVER_HOST_HTTP_PORT}:${SERVER_CONTAINER_HTTP_PORT}
       - ${SERVER_HOST_HTTPS_PORT}:${SERVER_CONTAINER_HTTPS_PORT}
     environment:
-      - ASPNETCORE_ENVIRONMENT=${SERVER_ENVIRONMENT}
-      - Database__ConnectionString=${SERVER_ENVIRONMENT_DATABASE__CONNECTION_STRING}
+      - ASPNETCORE_ENVIRONMENT=${SERVER_ENV}
+      - Database__ConnectionString=${SERVER_ENV_DATABASE__CONNECTION_STRING}
+      - Cors__AllowedOrigin=${SERVER_ENV_CORS__AllowedOrigin}
     depends_on: [pg]
 
   web:

@@ -18,7 +18,7 @@ services:
     image: adminer:latest
     restart: always
     ports:
-      - "9480:8080"
+      - "5433:8080"
 
 volumes:
   dev_pgdata:
