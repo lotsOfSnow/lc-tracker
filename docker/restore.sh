@@ -4,7 +4,7 @@ usage() {
     echo "Copy backup to container, drop DB with --force, restore from backup"
     echo "If DB doesn't exist, just copy and restore"
     echo "Usage: $0 -c <container_name> -f <file_path>  -d <db_name> -u <db_user>"
-    echo "  -c <container_name>  Name of the Docker container"
+    echo "  -c <container_name>  Name of the Postgres Docker container to run on"
     echo "  -f <file_path>       Full path to the input file to be copied"
     echo "  -d <db_name>         Name of the PostgreSQL database to drop and restore"
     echo "  -u <db_user>         Username to use for dropping and restoring the database"
