@@ -8,5 +8,5 @@ public class ExportedProblem
 
     public required string? Slug { get; set; }
 
-    public required DateTimeOffset AddedAt { get; set; }
+    public required DateTime AddedAt { get; set; }
 }

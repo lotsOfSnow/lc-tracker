@@ -6,7 +6,7 @@ namespace LcTracker.Api.FunctionalTests.Bootstrap.TestBase.Context;
 public class TestContextTime(
     IServiceProvider services)
 {
-    public DateTimeOffset SetUtcNow(
+    public DateTime SetUtcNow(
         DateTime now)
     {
         var clock = services.GetRequiredService<TimeProvider>();

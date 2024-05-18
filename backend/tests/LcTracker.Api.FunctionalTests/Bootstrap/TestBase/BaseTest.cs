@@ -1,3 +1,4 @@
+using LcTracker.Api.FunctionalTests.Bootstrap.TestBase.Arrange;
 using LcTracker.Api.FunctionalTests.Bootstrap.TestBase.Context;
 using LcTracker.Api.FunctionalTests.Bootstrap.TestFixture;
 
@@ -12,9 +13,7 @@ public abstract class BaseTest
         Context = new(scope.ServiceProvider);
         Client = new(fixture.ApiClient, Context.Require);
 
-        var arrange = new Fixture();
-        arrange.Customize<DateOnly>(composer => composer.FromFactory<DateTime>(DateOnly.FromDateTime));
-        Arrange = arrange;
+        Arrange = CreateFixture.Execute();
     }
 
     protected Fixture Arrange { get; }

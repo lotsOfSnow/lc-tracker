@@ -31,7 +31,7 @@ public class CreateProblemCommandHandler(GetLeetCodeQuestion getLeetCodeQuestion
             }
         }
 
-        var now = timeProvider.GetUtcNow();
+        var now = timeProvider.GetUtcNow().DateTime;
         var userId = getCurrentUserId.Execute();
 
         var problem = new Problem

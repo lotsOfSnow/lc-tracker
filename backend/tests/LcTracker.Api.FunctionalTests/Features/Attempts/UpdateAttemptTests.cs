@@ -18,7 +18,7 @@ public class UpdateAttemptTests(ApiTestFixture fixture) : AttemptTest(fixture)
         var request = Arrange
             .Build<UpdateAttemptRequest>()
             .With(x => x.ProblemId, problem.Id)
-            .With(x => x.Date, DateOnly.FromDateTime(now.AddDays(-1).DateTime))
+            .With(x => x.Date, DateOnly.FromDateTime(now.AddDays(-1)))
             .Create();
 
         var result = await Client
