@@ -1,6 +1,3 @@
-using LcTracker.Core.Features.Problems;
-using LcTracker.Core.Storage.EntityConfigurations;
-
 namespace LcTracker.Api.FunctionalTests.Bootstrap.TestBase.Arrange;
 
 public static class CreateFixture
@@ -15,10 +12,6 @@ public static class CreateFixture
             new UtcConverter(
                 new RandomDateTimeSequenceGenerator()));
 
-        fixture.Customize<ProblemMethod>(c =>
-            c.With(x => x.Name,
-                () => fixture.Create<string>()[..ProblemEntityTypeConfiguration.MaxMethodNameLength])
-        );
         return fixture;
     }
 }

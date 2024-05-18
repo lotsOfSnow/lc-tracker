@@ -7,7 +7,7 @@ namespace LcTracker.Core.Storage.EntityConfigurations;
 
 public class ProblemEntityTypeConfiguration : IEntityTypeConfiguration<Problem>
 {
-    public const int MaxMethodNameLength = 30;
+    private const int MaxMethodNameLength = 40;
 
     public void Configure(EntityTypeBuilder<Problem> builder)
     {
