@@ -7,6 +7,8 @@ namespace LcTracker.Core.Storage.EntityConfigurations;
 
 public class ProblemEntityTypeConfiguration : IEntityTypeConfiguration<Problem>
 {
+    private const int MaxMethodNameLength = 40;
+
     public void Configure(EntityTypeBuilder<Problem> builder)
     {
         builder.HasKey(x => x.Id);
@@ -26,7 +28,7 @@ public class ProblemEntityTypeConfiguration : IEntityTypeConfiguration<Problem>
         builder.OwnsMany(x => x.Methods, cfg =>
         {
             cfg.HasKey(x => x.Name);
-            cfg.Property(x => x.Name).HasMaxLength(30);
+            cfg.Property(x => x.Name).HasMaxLength(MaxMethodNameLength);
             cfg.Property(x => x.Contents).HasMaxLength(5000);
         });
     }

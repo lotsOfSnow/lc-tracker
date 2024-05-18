@@ -1,4 +1,4 @@
-using LcTracker.Api.FunctionalTests.Bootstrap.Fakes;
+using LcTracker.Api.FunctionalTests.Bootstrap.TestFixture.Fakes;
 using LcTracker.Core.Auth;
 using LcTracker.Core.Storage;
 using Microsoft.AspNetCore.Hosting;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Time.Testing;
 using WebMotions.Fake.Authentication.JwtBearer;
 
-namespace LcTracker.Api.FunctionalTests.Bootstrap;
+namespace LcTracker.Api.FunctionalTests.Bootstrap.TestFixture;
 
 public class TestApiFactory(string databaseConnectionString) : WebApplicationFactory<Program>
 {

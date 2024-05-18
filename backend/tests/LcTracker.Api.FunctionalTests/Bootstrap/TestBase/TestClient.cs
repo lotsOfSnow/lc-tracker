@@ -1,9 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http.Json;
-using LcTracker.Api.FunctionalTests.Bootstrap.Context;
+using System.Text.Json;
+using LcTracker.Api.FunctionalTests.Bootstrap.TestBase.Context;
 
-namespace LcTracker.Api.FunctionalTests.Bootstrap;
+namespace LcTracker.Api.FunctionalTests.Bootstrap.TestBase;
 
 public class TestClient(HttpClient client, TestContextPrerequisiteData require)
 {
@@ -52,7 +53,7 @@ public class TestClient(HttpClient client, TestContextPrerequisiteData require)
         return new(response, data);
     }
 
-    private static async Task<T?> Parse<T>(HttpResponseMessage response)
+    private static async Task<ClientResultData<T>> Parse<T>(HttpResponseMessage response)
     {
         if (typeof(T) == typeof(EmptyResponse))
         {
@@ -62,16 +63,20 @@ public class TestClient(HttpClient client, TestContextPrerequisiteData require)
                 throw new($"Expected to get no content in response, but there is data present: '{actual}'");
             }
 
-            return default;
+            return new(default, null);
         }
+
+        var asString = await response.Content.ReadAsStringAsync();
 
         try
         {
-            return await response.Content.ReadFromJsonAsync<T>();
+            var data = JsonSerializer.Deserialize<T>(asString, TestJsonUtils.Options);
+
+            return new(data, asString);
         }
         catch
         {
-            return default;
+            return new(default, asString);
         }
     }
 }

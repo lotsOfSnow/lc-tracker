@@ -1,4 +1,4 @@
-using LcTracker.Api.FunctionalTests.Bootstrap;
+using LcTracker.Api.FunctionalTests.Bootstrap.TestFixture;
 
 namespace LcTracker.Api.FunctionalTests.Features;
 

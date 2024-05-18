@@ -1,3 +1,5 @@
+using LcTracker.Api.FunctionalTests.Bootstrap.TestBase;
+using LcTracker.Api.FunctionalTests.Bootstrap.TestFixture;
 using LcTracker.Core.Features.Attempts;
 using LcTracker.Core.Features.Attempts.Commands;
 
@@ -16,7 +18,7 @@ public class UpdateAttemptTests(ApiTestFixture fixture) : AttemptTest(fixture)
         var request = Arrange
             .Build<UpdateAttemptRequest>()
             .With(x => x.ProblemId, problem.Id)
-            .With(x => x.Date, DateOnly.FromDateTime(now.AddDays(-1).DateTime))
+            .With(x => x.Date, DateOnly.FromDateTime(now.AddDays(-1)))
             .Create();
 
         var result = await Client

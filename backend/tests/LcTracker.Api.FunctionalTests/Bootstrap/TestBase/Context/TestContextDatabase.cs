@@ -3,7 +3,7 @@ using LcTracker.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LcTracker.Api.FunctionalTests.Bootstrap.Context;
+namespace LcTracker.Api.FunctionalTests.Bootstrap.TestBase.Context;
 
 public class TestContextDatabase(
     IServiceProvider services)

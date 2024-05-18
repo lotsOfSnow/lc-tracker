@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LcTracker.Api.FunctionalTests.Bootstrap.Context;
+namespace LcTracker.Api.FunctionalTests.Bootstrap.TestBase.Context;
 
 public class TestContext
 {

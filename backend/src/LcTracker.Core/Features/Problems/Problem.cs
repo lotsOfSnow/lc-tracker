@@ -12,7 +12,7 @@ public class Problem : Entity, IOwned
 
     public required string? Note { get; set; }
 
-    public required DateTimeOffset AddedAt { get; set; }
+    public required DateTime AddedAt { get; set; }
 
     public HashSet<ProblemMethod> Methods { get; set; } = null!;
 }
