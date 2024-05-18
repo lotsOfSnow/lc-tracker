@@ -5,7 +5,7 @@ name: lctracker
 services:
   server:
     build:
-      context: ../backend
+      context: ../server
       dockerfile: Dockerfile
     ports:
       - ${SERVER_HOST_HTTP_PORT}:${SERVER_CONTAINER_HTTP_PORT}
@@ -18,7 +18,7 @@ services:
 
   web:
     build:
-      context: ../frontend
+      context: ../web
       dockerfile: Dockerfile
       args:
         - VITE_PUBLIC_API_URL=http://server:${SERVER_CONTAINER_HTTP_PORT}
