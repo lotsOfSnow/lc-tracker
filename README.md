@@ -1,3 +1,18 @@
+# Run
+
+All files needed to locally host the app are in `./docker` - `compose.yml` holds the runtime service definitions.
+
+Some variables need to be configured depending on your environment, like the target backup directory. You can set them in `.env.secret`.
+
+`start_prod.sh` runs `docker compose up` with env variables from `.env` and `.env.secret`.
+
+`.env.secret` needs to be created manually. Place it next to `compose.yml`.
+
+To override variables from default `.env`, just specify them again, with your own values, like so:
+```
+BACKUP_TARGET_DIR=/c/backup
+```
+
 # Database
 
 ## Backup

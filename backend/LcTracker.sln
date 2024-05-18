@@ -30,7 +30,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{9E0867
 	ProjectSection(SolutionItems) = preProject
 		..\.dockerignore = ..\.dockerignore
 		Dockerfile = Dockerfile
-		..\docker\.env.dev = ..\docker\.env.dev
 		..\docker\compose.dev.yml = ..\docker\compose.dev.yml
 	EndProjectSection
 EndProject
