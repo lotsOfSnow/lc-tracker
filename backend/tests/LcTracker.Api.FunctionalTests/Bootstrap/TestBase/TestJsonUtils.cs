@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace LcTracker.Api.FunctionalTests.Bootstrap;
+namespace LcTracker.Api.FunctionalTests.Bootstrap.TestBase;
 
 public static class TestJsonUtils
 {

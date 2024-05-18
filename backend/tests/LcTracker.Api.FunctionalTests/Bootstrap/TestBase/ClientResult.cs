@@ -1,4 +1,4 @@
-namespace LcTracker.Api.FunctionalTests.Bootstrap;
+namespace LcTracker.Api.FunctionalTests.Bootstrap.TestBase;
 
 public record ClientResult<T>(HttpResponseMessage Response, T? Data);
 

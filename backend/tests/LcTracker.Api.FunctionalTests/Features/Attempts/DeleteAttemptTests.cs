@@ -1,3 +1,5 @@
+using LcTracker.Api.FunctionalTests.Bootstrap.TestBase;
+using LcTracker.Api.FunctionalTests.Bootstrap.TestFixture;
 using LcTracker.Core.Features.Attempts;
 
 namespace LcTracker.Api.FunctionalTests.Features.Attempts;

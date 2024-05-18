@@ -2,7 +2,7 @@ using System.Security.Claims;
 using LcTracker.Core.Auth;
 using Microsoft.AspNetCore.Http;
 
-namespace LcTracker.Api.FunctionalTests.Bootstrap.Fakes;
+namespace LcTracker.Api.FunctionalTests.Bootstrap.TestFixture.Fakes;
 
 public class FakeGetCurrentUserId(IHttpContextAccessor accessor) : IGetCurrentUserId
 {

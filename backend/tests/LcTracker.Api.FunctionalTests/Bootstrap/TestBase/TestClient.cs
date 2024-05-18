@@ -1,9 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http.Json;
-using LcTracker.Api.FunctionalTests.Bootstrap.Context;
+using LcTracker.Api.FunctionalTests.Bootstrap.TestBase.Context;
 
-namespace LcTracker.Api.FunctionalTests.Bootstrap;
+namespace LcTracker.Api.FunctionalTests.Bootstrap.TestBase;
 
 public class TestClient(HttpClient client, TestContextPrerequisiteData require)
 {

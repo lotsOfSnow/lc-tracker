@@ -1,6 +1,7 @@
-using LcTracker.Api.FunctionalTests.Bootstrap.Context;
+using LcTracker.Api.FunctionalTests.Bootstrap.TestBase.Context;
+using LcTracker.Api.FunctionalTests.Bootstrap.TestFixture;
 
-namespace LcTracker.Api.FunctionalTests.Bootstrap;
+namespace LcTracker.Api.FunctionalTests.Bootstrap.TestBase;
 
 public abstract class BaseTest
 {

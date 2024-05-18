@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Time.Testing;
 
-namespace LcTracker.Api.FunctionalTests.Bootstrap.Context;
+namespace LcTracker.Api.FunctionalTests.Bootstrap.TestBase.Context;
 
 public class TestContextTime(
     IServiceProvider services)
