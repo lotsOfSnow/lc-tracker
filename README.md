@@ -1,6 +1,6 @@
 # Run
 
-All files needed to locally host the app are in `./docker` - `compose.yml` holds the runtime service definitions.
+Easiest way to build and locally host the app is to use Docker. `./docker/compose.yml` holds the runtime service definitions.
 
 Some variables need to be configured depending on your environment, like the target backup directory. You can set them in `.env.secret`.
 
