@@ -45,5 +45,23 @@ services:
     ports:
       - "9480:8080"
 
+  backup:
+    image: postgres:16.3
+    depends_on:
+      - pg
+    volumes:
+      - type: bind
+        source: ${BACKUP_TARGET_DIR}
+        target: /backup
+    command: >
+      bash -c "while true; do
+        PGPASSWORD=${PG_PASSWORD} pg_dump -h pg -U ${PG_USER} -Fc ${BACKUP_DB_NAME} > /backup/${BACKUP_DB_NAME}-$$(date +%Y-%m-%d-%H-%M-%S).dump
+        echo ""Backup done at $$(date +%Y-%m-%d_%H:%M:%S)""
+        sleep ${BACKUP_SECONDS_TIMEOUT}
+      done"
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+
 volumes:
   pgdata:

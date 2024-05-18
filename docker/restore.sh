@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# e.g: ./restore.sh -c lctracker-pg-1 -f "C:/backup/2024-05-18-15-32-42.dump" -d lctracker -u prod
 usage() {
     echo "Copy backup to container, drop DB with --force, restore from backup"
     echo "If DB doesn't exist, just copy and restore"
