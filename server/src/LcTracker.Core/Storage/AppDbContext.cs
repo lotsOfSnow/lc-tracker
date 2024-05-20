@@ -26,14 +26,3 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> dbContextOptions
         optionsBuilder.UseExceptionProcessor();
     }
 }
-
-public class AppDbContextFactory : IDbContextFactory<AppDbContext>
-{
-    public AppDbContext CreateDbContext()
-    {
-        var ctx = new DbContextOptionsBuilder<AppDbContext>()
-            .UseNpgsql();
-
-        return new(ctx.Options);
-    }
-}
