@@ -33,27 +33,23 @@ done
 
 output_file_name=$(basename "$file_path")
 
-docker cp "$file_path" "$container_name":/"$output_file_name"
-
-if [ $? -eq 0 ]; then
+if docker cp "$file_path" "$container_name":/"$output_file_name"
+then
     echo "File $file_path successfully copied to container $container_name as $output_file_name."
 else
     echo "Failed to copy the file to the container."
     exit 1
 fi
 
-# Terminate all connections & drop
-docker exec -i "$container_name" dropdb -U "$db_user" "$db_name" -f
-
-if [ $? -eq 0 ]; then
+if docker exec -i "$container_name" dropdb -U "$db_user" "$db_name" -f
+then
     echo "Database $db_name successfully dropped by user $db_user in container $container_name."
 else
     echo "Failed to drop the database $db_name in container $container_name."
 fi
 
-docker exec -i "$container_name" pg_restore -U "$db_user" -C -d postgres "$output_file_name"
-
-if [ $? -eq 0 ]; then
+if docker exec -i "$container_name" pg_restore -U "$db_user" -C -d postgres "$output_file_name"
+then
     echo "Database $db_name successfully restored using $output_file_name by user $db_user in container $container_name."
 else
     echo "Failed to restore the database $db_name using $output_file_name in container $container_name."
