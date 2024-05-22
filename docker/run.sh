@@ -25,7 +25,7 @@ for arg in "$@"; do
         ;;
         --env)
             env="$2"
-            shift # Shift past the argument value
+            shift
         ;;
 
     esac

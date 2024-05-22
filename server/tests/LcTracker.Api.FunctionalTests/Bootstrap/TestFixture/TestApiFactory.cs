@@ -47,5 +47,4 @@ public class TestApiFactory(string databaseConnectionString) : WebApplicationFac
                 services.AddTransient<IGetCurrentUserId, FakeGetCurrentUserId>();
             });
     }
-
 }
