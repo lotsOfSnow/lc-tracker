@@ -15,13 +15,24 @@ BACKUP_TARGET_DIR=/c/backup
 
 # Database
 
+Scripts related to database are in `./db`.
+
 ## Backup
 
 Every N seconds (specified in `.env` file for `compose.yml`), `pg_dump` is executed on the database
 and saved on the host directory specified in `.env` file.
+
+### Backup on demand
+
+Execute `backup-now.sh` with the backup container's name as argument.
 
 ## Restore
 
 `restore.sh` will try to drop the database, and then will restore it from backup using the specified container name.
 
 Sample usage: `./restore.sh -c lctracker-pg-1 -f "C:/backup/2024-05-18-15-32-42.dump" -d lctracker -u prod`.
+
+## Migrations
+
+`migrate.sh` will generate SQL script out of EF Core migrations, present them to the user, and apply them in the container upon confirmation.
+
