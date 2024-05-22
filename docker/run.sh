@@ -1,7 +1,7 @@
 #!/bin/bash
 
 usage() {
-  echo "-c to recreate, -r to rebuild"
+  echo "-c to recreate, -r to rebuild, -d to detach, --env to specify environment"
   exit 0
 }
 
@@ -23,11 +23,21 @@ for arg in "$@"; do
         -d)
             detach_flag=true
         ;;
+        --env)
+            env="$2"
+            shift # Shift past the argument value
+        ;;
+
     esac
 done
 
 DEFAULT_ENV_FILE=".env"
-SECRET_ENV_FILE=".env.secret"
+
+if [ -n "$env" ]; then
+    SECRET_ENV_FILE=".env.${env}.secret"
+else
+    SECRET_ENV_FILE=".env.secret"
+fi
 
 DOCKER_COMPOSE_CMD="docker-compose --env-file $DEFAULT_ENV_FILE --env-file $SECRET_ENV_FILE up"
 

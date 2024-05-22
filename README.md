@@ -4,7 +4,8 @@ Easiest way to build and locally host the app is to use Docker. `./docker/compos
 
 Some variables need to be configured depending on your environment, like the target backup directory. You can set them in `.env.secret`.
 
-`start_prod.sh` runs `docker compose up` with env variables from `.env` and `.env.secret`.
+`run.sh` executes `docker compose up` with env variables from `.env` and `.env.secret` by default. 
+It can be used for different environments via the `--env` flag: `--env stage` will use `.env.stage.secret` instead of `.env.secret`.
 
 `.env.secret` needs to be created manually. Place it next to `compose.yml`.
 
