@@ -31,6 +31,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{9E0867
 		..\.dockerignore = ..\.dockerignore
 		Dockerfile = Dockerfile
 		..\docker\compose.dev.yml = ..\docker\compose.dev.yml
+		..\docker\.env.dev = ..\docker\.env.dev
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{83FEC0C7-DB69-43FD-80BB-C2A7FE0ABB04}"
+	ProjectSection(SolutionItems) = preProject
+		..\db\migrate.sh = ..\db\migrate.sh
+		..\db\restore.sh = ..\db\restore.sh
 	EndProjectSection
 EndProject
 Global
@@ -70,5 +77,6 @@ Global
 		{4B2D15AF-A1C8-4148-878B-CE80BF370971} = {075524D8-1969-4D8B-8F7D-A7285639A45D}
 		{E34D3463-DE2F-4ACF-BAD1-85D60DE2F90A} = {075524D8-1969-4D8B-8F7D-A7285639A45D}
 		{9E08672E-43A6-48AC-8253-67B1E338CA0A} = {045EC3F3-CCF7-4883-96EF-1A2E269CBF4F}
+		{83FEC0C7-DB69-43FD-80BB-C2A7FE0ABB04} = {045EC3F3-CCF7-4883-96EF-1A2E269CBF4F}
 	EndGlobalSection
 EndGlobal

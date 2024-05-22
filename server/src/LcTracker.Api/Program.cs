@@ -25,7 +25,7 @@ try
     return 0;
 
 }
-catch (Exception ex)
+catch (Exception ex) when (ex is not HostAbortedException && ex.Source != "Microsoft.EntityFrameworkCore.Design") // https://github.com/dotnet/efcore/issues/29923
 {
     Log.Fatal(ex, "An unhandled exception occurred during bootstrapping");
 
