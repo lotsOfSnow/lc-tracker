@@ -30,13 +30,13 @@ public static class DependenciesInstaller
 
     public static async Task UseDependenciesAsync(this WebApplication app)
     {
+        await Task.CompletedTask;
+
         app.UseSerilogConfiguration();
 
         app.UseExceptionHandler();
-        await app.UseStorageAsync();
         app.UseAppCors();
 
-        // TODO
         if (!app.Environment.IsDevelopment())
         {
             app.UseHttpsRedirection();

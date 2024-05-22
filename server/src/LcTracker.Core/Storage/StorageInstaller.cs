@@ -28,16 +28,4 @@ public static class StorageInstaller
 
         return builder;
     }
-
-    public static async Task UseStorageAsync(this WebApplication app)
-    {
-        await using var scope = app.Services.CreateAsyncScope();
-
-        var context =
-            scope.ServiceProvider
-                .GetRequiredService<AppDbContext>();
-
-        await context.Database.EnsureDeletedAsync();
-        await context.Database.EnsureCreatedAsync();
-    }
 }
