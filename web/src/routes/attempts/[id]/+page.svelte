@@ -5,12 +5,13 @@
   import Box from '$lib/components/box/Box.svelte';
   import BoxHeader from '$lib/components/box/BoxHeader.svelte';
   import Form from '$lib/components/form/Form.svelte';
+  import { getAttemptBreadcrumbs } from '../common/attemptUtils';
 
   export let form;
   export let data;
 </script>
 
-<Box>
+<Box breadcrumbItems={getAttemptBreadcrumbs(data.attempt.id ?? 'Attempt')}>
   <BoxHeader>{data.attempt.id}</BoxHeader>
 
   <Form>

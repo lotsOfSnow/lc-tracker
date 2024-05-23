@@ -5,6 +5,7 @@
   import Box from '$lib/components/box/Box.svelte';
   import BoxHeader from '$lib/components/box/BoxHeader.svelte';
   import Form from '$lib/components/form/Form.svelte';
+  import { getAttemptBreadcrumbs } from '../common/attemptUtils';
 
   export let form;
   export let data;
@@ -12,7 +13,7 @@
   let problems = data.problems;
 </script>
 
-<Box>
+<Box breadcrumbItems={getAttemptBreadcrumbs('New')}>
   <BoxHeader>Create</BoxHeader>
 
   <Form>

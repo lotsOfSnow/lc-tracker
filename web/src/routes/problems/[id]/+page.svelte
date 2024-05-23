@@ -4,20 +4,14 @@
   import Button from '$lib/components/Button.svelte';
   import Box from '$lib/components/box/Box.svelte';
   import BoxHeader from '$lib/components/box/BoxHeader.svelte';
-  import { type BreadcrumbItem } from '$lib/components/breadcrumbs/Breadcrumbs.svelte';
-  import { AppRoute } from '$lib/routes';
+  import { getProblemBreadcrumbs } from '../common/problemUtils';
 
   export let form;
   export let data;
 
-  const items: BreadcrumbItem[] = [
-    { label: 'Problems', route: AppRoute.PROBLEMS },
-    { label: data.id ?? 'Problem' },
-  ];
-
 </script>
 
-<Box breadcrumbItems={items}>
+<Box breadcrumbItems={getProblemBreadcrumbs(data.id ?? 'Problem')}>
   <BoxHeader>{data.id}</BoxHeader>
 
   <ProblemFormCommon {data}>
