@@ -1,3 +1,3 @@
-<h2 class="text-xl font-semibold text-gray-800">
+<h1 class="text-3xl font-semibold mb-2">
   <slot />
-</h2>
+</h1>

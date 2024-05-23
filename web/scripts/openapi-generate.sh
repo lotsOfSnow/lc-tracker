@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ENV_NAME=OPEN_API_URL;
 API_URL=$(dotenv -p $ENV_NAME)
 

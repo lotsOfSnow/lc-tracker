@@ -5,8 +5,6 @@
   import type { apiSchemas } from '$lib/api';
   import { commonInputControlClassName } from '$lib/components/styleUtils';
   import { afterUpdate } from 'svelte';
-  import FormCloseButton from '$lib/components/FormCloseButton.svelte';
-  import { AppRoute } from '$lib/routes';
   import Form from '$lib/components/form/Form.svelte';
 
   export let data: apiSchemas['Problem'] | undefined = undefined;
@@ -57,8 +55,6 @@
   };
 </script>
 
-<FormCloseButton to={AppRoute.PROBLEMS} />
-
 <Form beforeSubmit={(formData) => formData.append(`methods`, JSON.stringify(methods))}>
   {#if data !== undefined}
     <Label for="title">Title</Label>
@@ -71,12 +67,12 @@
   {/if}
   <div>
     <Label for="note">Note</Label>
-    <Input name="note" id="note" type="text" value={data?.note} />
+    <Input id="note" name="note" type="text" value={data?.note} />
   </div>
 
   <Label class="text-2xl">Methods</Label>
 
-  <div class="h-[500px] overflow-auto" bind:this={container}>
+  <div bind:this={container} class="h-[500px] overflow-auto">
 
     {#each methods as method, i (i)}
       <div class="mb-2 border border-gray-300 rounded-md p-2 relative">
@@ -97,7 +93,7 @@
       </div>
     {/each}
 
-    <Button type="button" on:click={addMethod}>Add</Button>
+    <Button on:click={addMethod} type="button">Add</Button>
   </div>
 
   <slot />

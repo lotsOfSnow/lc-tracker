@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import { difficulties, type Difficulty } from '../difficulty';
 import { apiClient, getApiOperation } from '$lib/api';
+import { AppRoute } from '$lib/routes';
+import type { BreadcrumbItem } from '$lib/components/breadcrumbs/Breadcrumbs.svelte';
 
 export const baseAttemptSchema = z.object({
   problemId: z.string().uuid(),
@@ -41,3 +43,11 @@ export type ProblemFields = {
   id: string | undefined;
   title: string | null | undefined;
 };
+
+export const getAttemptBreadcrumbs = (current: string): BreadcrumbItem[] => [
+  {
+    label: 'Attempts',
+    route: AppRoute.ATTEMPTS,
+  },
+  { label: current },
+];
