@@ -6,6 +6,8 @@
   import Button from '$lib/components/Button.svelte';
   import { addToast } from '$lib/components/notifications/toastStore';
 
+  const mode = import.meta.env.MODE;
+
   interface Item {
     text: string,
     link: string,
@@ -58,8 +60,8 @@
     </nav>
     <div class="fixed left-10 bottom-0">
       <form>
-        <Button type="submit" class="p-6 mb-5"
-                on:click={onExportClick}>
+        <Button class="p-6 mb-5" on:click={onExportClick}
+                type="submit">
           Export
           data
         </Button>
@@ -73,4 +75,9 @@
       <slot />
     </div>
   </div>
+
+  <section class="fixed bottom-0 right-5">
+    web: {mode}
+  </section>
+
 </div>
