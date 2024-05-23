@@ -12,7 +12,7 @@
 </script>
 
 <Box breadcrumbItems={getProblemBreadcrumbs(data.id ?? 'Problem')}>
-  <BoxHeader>{data.id}</BoxHeader>
+  <BoxHeader>Edit</BoxHeader>
 
   <ProblemFormCommon {data}>
     <input hidden name="id" value={data.id}>

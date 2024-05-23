@@ -12,7 +12,7 @@
 </script>
 
 <Box breadcrumbItems={getAttemptBreadcrumbs(data.attempt.id ?? 'Attempt')}>
-  <BoxHeader>{data.attempt.id}</BoxHeader>
+  <BoxHeader>Edit</BoxHeader>
 
   <Form>
     <input hidden name="id" value={data.attempt.id}>
