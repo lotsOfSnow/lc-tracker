@@ -5,8 +5,7 @@
   import { apiClient } from '$lib/api';
   import Button from '$lib/components/Button.svelte';
   import { addToast } from '$lib/components/notifications/toastStore';
-
-  const mode = import.meta.env.MODE;
+  import Stats from './Stats.svelte';
 
   interface Item {
     text: string,
@@ -41,6 +40,8 @@
     a.download = 'exported.json';
     a.click();
   };
+
+  export let data;
 </script>
 
 <ToastArea />
@@ -76,8 +77,5 @@
     </div>
   </div>
 
-  <section class="fixed bottom-0 right-5">
-    web: {mode}
-  </section>
-
+  <Stats serverEnv={data.env} />
 </div>
