@@ -5,6 +5,7 @@
   import { apiClient } from '$lib/api';
   import Button from '$lib/components/Button.svelte';
   import { addToast } from '$lib/components/notifications/toastStore';
+  import Stats from './Stats.svelte';
 
   interface Item {
     text: string,
@@ -39,6 +40,8 @@
     a.download = 'exported.json';
     a.click();
   };
+
+  export let data;
 </script>
 
 <ToastArea />
@@ -58,8 +61,8 @@
     </nav>
     <div class="fixed left-10 bottom-0">
       <form>
-        <Button type="submit" class="p-6 mb-5"
-                on:click={onExportClick}>
+        <Button class="p-6 mb-5" on:click={onExportClick}
+                type="submit">
           Export
           data
         </Button>
@@ -73,4 +76,6 @@
       <slot />
     </div>
   </div>
+
+  <Stats serverEnv={data.env} />
 </div>

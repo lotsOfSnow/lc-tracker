@@ -13,7 +13,7 @@
     "format": "prettier --write .",
     "test:integration": "playwright test",
     "test:unit": "vitest",
-    "api": "scripts\\openapi-generate.sh"
+    "api": "scripts/openapi-generate.sh"
   },
   "devDependencies": {
     "@playwright/test": "^1.28.1",

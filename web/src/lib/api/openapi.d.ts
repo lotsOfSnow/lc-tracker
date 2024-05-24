@@ -5,6 +5,9 @@
 
 
 export interface paths {
+  "/api/api-stats": {
+    get: operations["ApiStats.GetStats"];
+  };
   "/api/attempts": {
     get: operations["Attempts.GetAll"];
     post: operations["Attempts.Create"];
@@ -35,21 +38,21 @@ export interface components {
       /** Format: uuid */
       id?: string;
       /** Format: uuid */
-      appUserId?: string;
+      appUserId: string;
       /** Format: uuid */
-      problemId?: string;
+      problemId: string;
       /**
        * Format: date
        * @example 2024-04-20
        */
-      date?: string;
+      date: string;
       note?: string | null;
       /** Format: int32 */
       minutesSpent?: number | null;
-      difficulty?: components["schemas"]["Difficulty"];
-      hasUsedHelp?: boolean;
-      hasSolved?: boolean;
-      isRecap?: boolean;
+      difficulty: components["schemas"]["Difficulty"];
+      hasUsedHelp: boolean;
+      hasSolved: boolean;
+      isRecap: boolean;
     };
     CreateAttemptRequest: {
       /** Format: uuid */
@@ -91,12 +94,12 @@ export interface components {
       /** Format: uuid */
       id?: string;
       /** Format: uuid */
-      appUserId?: string;
-      title?: string | null;
-      slug?: string | null;
-      note?: string | null;
+      appUserId: string;
+      title: string;
+      slug: string;
+      note: string;
       /** Format: date-time */
-      addedAt?: string;
+      addedAt: string;
       methods?: components["schemas"]["ProblemMethod"][] | null;
     };
     ProblemDetails: {
@@ -115,6 +118,9 @@ export interface components {
     ProblemMethodDto: {
       name?: string | null;
       contents?: string | null;
+    };
+    Stats: {
+      environment?: string | null;
     };
     UpdateAttemptRequest: {
       /** Format: uuid */
@@ -150,9 +156,21 @@ export type external = Record<string, never>;
 
 export interface operations {
 
+  "ApiStats.GetStats": {
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "text/plain": components["schemas"]["Stats"];
+          "application/json": components["schemas"]["Stats"];
+          "text/json": components["schemas"]["Stats"];
+        };
+      };
+    };
+  };
   "Attempts.GetAll": {
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "text/plain": components["schemas"]["GetAllAttemptsResponse"];
@@ -192,7 +210,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "text/plain": components["schemas"]["Attempt"];
@@ -261,7 +279,7 @@ export interface operations {
   };
   "CurrentUser.Export": {
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: never;
       };
@@ -269,7 +287,7 @@ export interface operations {
   };
   "Problems.GetAll": {
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "text/plain": components["schemas"]["GetAllProblemsResponse"];
@@ -309,7 +327,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "text/plain": components["schemas"]["Problem"];
