@@ -1,8 +1,9 @@
+using LcTracker.Core.Common;
 using LcTracker.Shared.Entities;
 
 namespace LcTracker.Core.Features.Attempts;
 
-public class Attempt : Entity, IOwned
+public class Attempt : Entity, IOwned, ILockable
 {
     private int? _minutesSpent;
     private string? _note;
@@ -41,4 +42,6 @@ public class Attempt : Entity, IOwned
     public required bool HasSolved { get; set; }
 
     public required bool IsRecap { get; set; }
+
+    public bool IsLocked { get; set; }
 }

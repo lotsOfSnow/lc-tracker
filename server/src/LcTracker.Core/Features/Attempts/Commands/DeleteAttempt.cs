@@ -22,6 +22,11 @@ public class DeleteAttemptCommandHandler(IGetCurrentUserId getCurrentUserId, IAp
             return Errors.NotFound.Create();
         }
 
+        if (attempt.IsLocked)
+        {
+            throw new Exception(); // TODO
+        }
+
         dbContext.Attempts.Remove(attempt);
 
         await dbContext.SaveChangesAsync(ct);

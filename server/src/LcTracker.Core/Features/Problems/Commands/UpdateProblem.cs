@@ -24,6 +24,11 @@ public class UpdateProblemCommandHandler(IAppDbContext dbContext, IGetCurrentUse
             return Errors.NotFound.Create();
         }
 
+        if (problem.IsLocked)
+        {
+            throw new Exception(); // TODO
+        }
+
         problem.Methods = ProblemMethodDto.Map(command.Methods);
         problem.Note = command.Note?.Trim();
 

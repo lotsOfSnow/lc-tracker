@@ -41,6 +41,11 @@ public class UpdateAttemptCommandHandler(TimeProvider timeProvider, IAppDbContex
             return Errors.NotFound.Create();
         }
 
+        if (attempt.IsLocked)
+        {
+            throw new Exception(); // TODO
+        }
+
         AttemptAssertion.DateIsInPast(timeProvider, command.Date);
         attempt.ProblemId = command.ProblemId;
         attempt.MinutesSpent = command.MinutesSpent;

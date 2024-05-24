@@ -73,6 +73,22 @@ public class AttemptsController(IDispatcher dispatcher, IAppDbContext dbContext)
         return result;
     }
 
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType<NotFoundResult>(StatusCodes.Status404NotFound)]
+    [HttpPut("api/attempts/{id}/lock")]
+    public async Task<ActionResult<Attempt>> Lock(Guid id, CancellationToken ct)
+    {
+        var result = await dbContext.Attempts.FirstOrDefaultAsync(x => x.Id == id, ct);
+
+        if (result is null)
+        {
+            return NotFound();
+        }
+
+        return result;
+    }
+
 
     public record GetAllAttemptsResponse(IEnumerable<Attempt> Value);
 }

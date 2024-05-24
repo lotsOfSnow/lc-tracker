@@ -1,8 +1,9 @@
+using LcTracker.Core.Common;
 using LcTracker.Shared.Entities;
 
 namespace LcTracker.Core.Features.Problems;
 
-public class Problem : Entity, IOwned
+public class Problem : Entity, IOwned, ILockable
 {
     public required Guid AppUserId { get; set; }
 
@@ -15,4 +16,6 @@ public class Problem : Entity, IOwned
     public required DateTime AddedAt { get; set; }
 
     public HashSet<ProblemMethod> Methods { get; set; } = null!;
+
+    public bool IsLocked { get; set; }
 }
