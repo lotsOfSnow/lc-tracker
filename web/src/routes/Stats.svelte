@@ -1,5 +1,4 @@
 <script lang="ts">
-
   export let serverEnv: string;
   const webEnv = import.meta.env.MODE;
 </script>
