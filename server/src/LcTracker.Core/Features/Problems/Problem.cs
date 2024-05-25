@@ -1,4 +1,5 @@
 using LcTracker.Core.Common;
+using LcTracker.Core.Features.Common;
 using LcTracker.Shared.Entities;
 
 namespace LcTracker.Core.Features.Problems;

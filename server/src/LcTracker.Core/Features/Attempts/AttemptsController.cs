@@ -1,6 +1,7 @@
 using System.Net;
 using LcTracker.Core.Common;
 using LcTracker.Core.Features.Attempts.Commands;
+using LcTracker.Core.Features.Common;
 using LcTracker.Core.Storage;
 using LcTracker.Shared.Handlers;
 using LcTracker.Shared.Web;
@@ -73,20 +74,27 @@ public class AttemptsController(IDispatcher dispatcher, IAppDbContext dbContext)
         return result;
     }
 
-    [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType<NotFoundResult>(StatusCodes.Status404NotFound)]
-    [HttpPut("api/attempts/{id}/lock")]
+    [HttpPut("api/attempts/{id:guid}/lock")]
     public async Task<ActionResult<Attempt>> Lock(Guid id, CancellationToken ct)
     {
-        var result = await dbContext.Attempts.FirstOrDefaultAsync(x => x.Id == id, ct);
+        var command = new LockAttempt(id, true);
+        var result = await Dispatcher.DispatchAsync(command, ct);
 
-        if (result is null)
-        {
-            return NotFound();
-        }
+        return result.ToResponse(HttpStatusCode.NoContent);
 
-        return result;
+    }
+
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType<NotFoundResult>(StatusCodes.Status404NotFound)]
+    [HttpDelete("api/attempts/{id:guid}/lock")]
+    public async Task<ActionResult<Attempt>> Unlock(Guid id, CancellationToken ct)
+    {
+        var command = new LockAttempt(id, false);
+        var result = await Dispatcher.DispatchAsync(command, ct);
+
+        return result.ToResponse(HttpStatusCode.NoContent);
     }
 
 
