@@ -43,7 +43,7 @@ public class UpdateAttemptCommandHandler(TimeProvider timeProvider, IAppDbContex
 
         if (attempt.IsLocked)
         {
-            throw new Exception(); // TODO
+            return Errors.Locked.Create();
         }
 
         AttemptAssertion.DateIsInPast(timeProvider, command.Date);

@@ -50,11 +50,35 @@ public class ProblemsController(IDispatcher dispatcher, IAppDbContext dbContext)
     [ProducesResponseType<NotFoundResult>(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     [HttpPut("api/problems/{id:guid}")]
     public async Task<ActionResult> Update(Guid id, UpdateProblemRequest request, CancellationToken ct)
     {
         var command = new UpdateProblemCommand(id, request.Note, request.Methods);
 
+        var result = await Dispatcher.DispatchAsync(command, ct);
+
+        return result.ToResponse(HttpStatusCode.NoContent);
+    }
+
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType<NotFoundResult>(StatusCodes.Status404NotFound)]
+    [HttpPut("api/problems/{id:guid}/lock")]
+    public async Task<ActionResult> Lock(Guid id, CancellationToken ct)
+    {
+        var command = new LockProblem(id, true);
+        var result = await Dispatcher.DispatchAsync(command, ct);
+
+        return result.ToResponse(HttpStatusCode.NoContent);
+
+    }
+
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType<NotFoundResult>(StatusCodes.Status404NotFound)]
+    [HttpDelete("api/problems/{id:guid}/lock")]
+    public async Task<ActionResult> Unlock(Guid id, CancellationToken ct)
+    {
+        var command = new LockProblem(id, false);
         var result = await Dispatcher.DispatchAsync(command, ct);
 
         return result.ToResponse(HttpStatusCode.NoContent);

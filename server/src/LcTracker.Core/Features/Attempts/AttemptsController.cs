@@ -35,6 +35,8 @@ public class AttemptsController(IDispatcher dispatcher, IAppDbContext dbContext)
     }
 
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
+    [ProducesResponseType<NotFoundResult>(StatusCodes.Status404NotFound)]
     [HttpDelete("api/attempts/{id:guid}")]
     public async Task<ActionResult> Delete(Guid id, CancellationToken ct)
     {
@@ -48,6 +50,7 @@ public class AttemptsController(IDispatcher dispatcher, IAppDbContext dbContext)
     [ProducesResponseType<NotFoundResult>(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     [HttpPut("api/attempts/{id:guid}")]
     public async Task<ActionResult> Update(Guid id, UpdateAttemptRequest request, CancellationToken ct)
     {
@@ -77,7 +80,7 @@ public class AttemptsController(IDispatcher dispatcher, IAppDbContext dbContext)
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType<NotFoundResult>(StatusCodes.Status404NotFound)]
     [HttpPut("api/attempts/{id:guid}/lock")]
-    public async Task<ActionResult<Attempt>> Lock(Guid id, CancellationToken ct)
+    public async Task<ActionResult> Lock(Guid id, CancellationToken ct)
     {
         var command = new LockAttempt(id, true);
         var result = await Dispatcher.DispatchAsync(command, ct);
@@ -89,14 +92,13 @@ public class AttemptsController(IDispatcher dispatcher, IAppDbContext dbContext)
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType<NotFoundResult>(StatusCodes.Status404NotFound)]
     [HttpDelete("api/attempts/{id:guid}/lock")]
-    public async Task<ActionResult<Attempt>> Unlock(Guid id, CancellationToken ct)
+    public async Task<ActionResult> Unlock(Guid id, CancellationToken ct)
     {
         var command = new LockAttempt(id, false);
         var result = await Dispatcher.DispatchAsync(command, ct);
 
         return result.ToResponse(HttpStatusCode.NoContent);
     }
-
 
     public record GetAllAttemptsResponse(IEnumerable<Attempt> Value);
 }

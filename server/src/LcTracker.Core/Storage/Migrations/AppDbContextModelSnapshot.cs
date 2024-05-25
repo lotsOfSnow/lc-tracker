@@ -60,6 +60,9 @@ namespace LcTracker.Core.Storage.Migrations
                     b.Property<bool>("HasUsedHelp")
                         .HasColumnType("boolean");
 
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("IsRecap")
                         .HasColumnType("boolean");
 
@@ -93,6 +96,9 @@ namespace LcTracker.Core.Storage.Migrations
 
                     b.Property<Guid>("AppUserId")
                         .HasColumnType("uuid");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Note")
                         .HasMaxLength(1000)

@@ -49,6 +49,7 @@ public static class ResultEndpointMapper
         public static HttpStatusCode ToStatusCode(ErrorCode code) => code.Value switch
         {
            Errors.NotFoundCode => HttpStatusCode.NotFound,
+           Errors.LockedCode => HttpStatusCode.Conflict,
             _ => HttpStatusCode.BadRequest,
         };
     }

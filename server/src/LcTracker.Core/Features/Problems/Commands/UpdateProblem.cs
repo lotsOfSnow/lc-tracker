@@ -26,7 +26,7 @@ public class UpdateProblemCommandHandler(IAppDbContext dbContext, IGetCurrentUse
 
         if (problem.IsLocked)
         {
-            throw new Exception(); // TODO
+            return Errors.Locked.Create();
         }
 
         problem.Methods = ProblemMethodDto.Map(command.Methods);
