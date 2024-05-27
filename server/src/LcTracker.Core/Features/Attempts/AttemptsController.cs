@@ -1,7 +1,6 @@
 using System.Net;
 using LcTracker.Core.Common;
 using LcTracker.Core.Features.Attempts.Commands;
-using LcTracker.Core.Features.Common;
 using LcTracker.Core.Storage;
 using LcTracker.Shared.Handlers;
 using LcTracker.Shared.Web;
@@ -11,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LcTracker.Core.Features.Attempts;
 
+// lock, unlock = codegen
 public class AttemptsController(IDispatcher dispatcher, IAppDbContext dbContext) : BaseController(dispatcher)
 {
     [HttpGet("api/attempts")]

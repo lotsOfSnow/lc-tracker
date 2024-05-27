@@ -13,11 +13,10 @@ public class UpdateAttemptTests(ApiTestFixture fixture) : AttemptTest(fixture)
     {
         var now = Context.Time.SetUtcNow(1.January(2024));
         var userId = await Client.RunAsNewUserAsync();
-        var problem = await RequireProblem(userId);
-        var attempt = await RequireAttempt(problem, userId);
+        var attempt = await RequireAttempt(userId);
         var request = Arrange
             .Build<UpdateAttemptRequest>()
-            .With(x => x.ProblemId, problem.Id)
+            .With(x => x.ProblemId, attempt.ProblemId)
             .With(x => x.Date, DateOnly.FromDateTime(now.AddDays(-1)))
             .Create();
 

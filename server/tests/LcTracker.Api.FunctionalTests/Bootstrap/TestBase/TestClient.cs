@@ -38,6 +38,14 @@ public class TestClient(HttpClient client, TestContextPrerequisiteData require)
         return await GetResult<TResult>(response);
     }
 
+    public async Task<ClientResult<TResult>> PutAsync<TResult>(
+        [StringSyntax(StringSyntaxAttribute.Uri)] string? requestUri)
+    {
+        var response = await client.PutAsync(requestUri, null);
+
+        return await GetResult<TResult>(response);
+    }
+
     public async Task<ClientResult<TResult>> DeleteAsync<TResult>(
         [StringSyntax(StringSyntaxAttribute.Uri)] string? requestUri)
     {
